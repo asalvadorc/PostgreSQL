@@ -1,16 +1,4 @@
----
-title:  "Módulo BD - PostgreSQL"
----
 
----
-hide:
-  - navigation
-  - toc
-  - header
----
-
-
-<h1 style="text-align: left;">Base de Datos PostgreSQL</h1>
 
 
 ![alt text](image.png)
