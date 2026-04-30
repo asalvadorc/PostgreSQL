@@ -1,5 +1,5 @@
 
-site_name: BD - Bases de Datos
+site_name: Módulo BD - PostgreSQL
 theme:
   name: material
   logo: assets/logo.png
