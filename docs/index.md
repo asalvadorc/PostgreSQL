@@ -3,7 +3,7 @@
 
 <!--![alt text](image.png)-->
 
-![alt text](image-2.png)
+![alt text](image-3.png)
 
 
 Bienvenidos al material de apoyo y documentación del curso de **Bases de Datos con PostgreSQL**. Utiliza el menú superior para navegar por los contenidos de DQL, DDL, DML y más.
