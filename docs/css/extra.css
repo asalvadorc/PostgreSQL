@@ -104,6 +104,24 @@
     text-decoration: underline;
 }
 
+/* Headings with clear size hierarchy */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    color: var(--md-default-fg-color);
+    font-weight: 600;
+}
+
+.md-typeset h1 { font-size: 2rem; }
+.md-typeset h2 { font-size: 1.65rem; }
+.md-typeset h3 { font-size: 1.35rem; }
+.md-typeset h4 { font-size: 1.05rem; }
+.md-typeset h5 { font-size: 1rem; }
+.md-typeset h6 { font-size: 0.9rem; }
+
 /* =========================================================
    📝 TIPOGRAFÍA
    ========================================================= */
@@ -126,20 +144,25 @@ p {
 }
 
 /* =========================================================
-   📐 LAYOUT (SEGURO Y RESPONSIVE)
+   🌐 LAYOUT ANCHO (IGUAL QUE MODELOS_BD)
    ========================================================= */
 .md-grid {
-    max-width: 1220px; /* valor estándar Material */
+    max-width: 1700px;
+}
+
+.md-typeset {
+    max-width: 1350px;
     margin: 0 auto;
 }
 
 .md-content__inner {
-    margin: 0;
-    padding: 1.5rem;
-    max-width: none;
+    max-width: 100% !important;
+    padding: 2rem 4rem !important;
 }
 
-
+.md-sidebar--secondary:empty {
+    display: none;
+}
 
 /* =========================================================
    🧾 TABLAS
@@ -156,12 +179,227 @@ p {
     background-color: rgba(1, 62, 55, 0.08);
 }
 
+/* Image pair table without visible header */
+.md-typeset .image-pair-table table thead {
+    display: none;
+}
+
+.md-typeset .image-pair-table table td {
+    border-top: none;
+}
+
+.md-typeset .image-pair-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+    margin: 1rem 0;
+}
+
+.md-typeset .image-pair-grid .image-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.md-typeset .image-pair-grid img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .md-typeset .image-pair-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* =========================================================
    🧠 DETALLES EXTRA
    ========================================================= */
+
+.md-typeset .solution-card {
+    margin: 1rem 0 1.25rem;
+    border: 1px solid rgba(1, 62, 55, 0.18);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .solution-card {
+    background: rgba(15, 31, 29, 0.96);
+    border-color: rgba(79, 209, 197, 0.25);
+}
+
+.md-typeset .solution-card__header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 0.7rem 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(90deg, #013E37 0%, #0b5c52 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .solution-card__header {
+    background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%);
+}
+
+.md-typeset .solution-card__body {
+    padding: 0.75rem 0.9rem 0.9rem;
+}
+
+.md-typeset .solution-card__body img {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
 .md-typeset img {
+    display: block;
+    margin: 1rem auto;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.08);
+    max-width: 100%;
+    height: auto;
+    cursor: zoom-in;
+}
+
+.md-typeset .infografia-ejercicio {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 1rem auto;
+}
+
+.md-typeset img:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.82);
+}
+
+.lightbox-overlay.is-open {
+    display: flex;
+}
+
+.lightbox-dialog {
+    position: relative;
+    max-width: min(96vw, 1200px);
+    max-height: min(96vh, 900px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    background: #fff;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #013E37;
+    font-size: 1.3rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    background: #ffffff;
+}
+
+.md-typeset img.img-left {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.img-text-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.img-text-row > div {
+    flex: 1 1 45%;
+    min-width: 280px;
+}
+
+.img-text-row img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+    .img-text-row {
+        flex-direction: column;
+    }
+}
+
+.tables-side-by-side {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+    margin: 1rem 0 1.5rem;
+}
+
+.tables-side-by-side > div {
+    background: rgba(1, 62, 55, 0.03);
+    border: 1px solid rgba(1, 62, 55, 0.2);
+    border-radius: 8px;
+    padding: 0.9rem;
+    overflow-x: auto;
+}
+
+.tables-side-by-side.equal-height {
+    align-items: stretch;
+}
+
+.tables-side-by-side.equal-height > div {
+    height: 100%;
+}
+
+.case-card {
+    background: rgba(1, 62, 55, 0.03);
+    border: 1px solid rgba(1, 62, 55, 0.2);
+    border-radius: 8px;
+    padding: 0.9rem;
+    margin: 1rem 0 1.5rem;
+    overflow-x: auto;
 }
 
 .md-typeset pre > code {
@@ -172,50 +410,4 @@ p {
 .md-typeset .admonition {
     border-radius: 4px;
     border-left: 4px solid #013E37;
-}
-
-/* Limitar ancho del contenido sin romper layout */
-.md-typeset {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-/* =========================================================
-   🚀 LAYOUT PRO (TIPO NOTION / DOCUMENTACIÓN MODERNA)
-   ========================================================= */
-
-/* Mantener layout base estable */
-.md-grid {
-    max-width: 1220px;
-    margin: 0 auto;
-}
-
-/* Contenido base */
-.md-content__inner {
-    margin: 0;
-    padding: 2rem 2rem;
-}
-
-/* Contenido centrado y agradable */
-.md-typeset {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-/* En pantallas grandes → más aire */
-@media screen and (min-width: 1400px) {
-    .md-typeset {
-        max-width: 1000px;
-    }
-}
-
-/* En pantallas pequeñas → mejor ajuste */
-@media screen and (max-width: 900px) {
-    .md-content__inner {
-        padding: 1.5rem 1rem;
-    }
-
-    .md-typeset {
-        max-width: 100%;
-    }
 }

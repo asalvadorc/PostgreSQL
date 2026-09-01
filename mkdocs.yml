@@ -1,22 +1,42 @@
 
+site_url: https://asalvadorc.github.io/PostgreSQL
 site_name: BD - PostgreSQL
+copyright: >
+  © 2026 Alicia Salvador —
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
+  Licencia CC BY-NC-ND 4.0
+  </a>
+
 theme:
   name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
   logo: assets/logo.png
   favicon: assets/favicon.png
   features:
+    - toc.follow
     - navigation.tabs
     - navigation.tabs.sticky
-    #- navigation.sections
+    - navigation.sections
+    - navigation.expand
     - navigation.top
     - navigation.footer
     - navigation.path
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.indexes
+    - navigation.tracking
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
+    - content.tabs.link
+    - content.tooltips
+    - content.action.edit
+    - content.action.view
+    - header.autohide
     - toc.integrate
-
-  copyright: Licenciado bajo la licencia Creative Commons by-nc-nd
 
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -37,6 +57,9 @@ theme:
 extra_css:
   - css/extra.css
 
+extra_javascript:
+  - javascripts/lightbox.js
+
 markdown_extensions:
   - admonition
   - tables    
@@ -47,7 +70,12 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
-  
+  - md_in_html
+  - pymdownx.details
+  - meta
+  - toc:
+      toc_depth: 2
+
 nav:
   
   - SQL - POSTGRES:
