@@ -411,3 +411,127 @@ body.lightbox-open {
     border-radius: 4px;
     border-left: 4px solid #013E37;
 }
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+html {
+    overflow-x: hidden;
+}
+
+.md-content,
+.md-content__inner,
+.md-typeset {
+    min-width: 0;
+}
+
+.md-typeset img,
+.md-typeset video,
+.md-typeset iframe,
+.md-typeset object,
+.md-typeset embed {
+    max-width: 100%;
+}
+
+.md-typeset video,
+.md-typeset iframe {
+    height: auto;
+    aspect-ratio: 16 / 9;
+}
+
+.md-typeset pre,
+.md-typeset .highlight,
+.md-typeset .highlighttable {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.md-typeset__scrollwrap,
+.md-typeset__table {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 900px) {
+    .tables-side-by-side {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .img-text-row > div {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    body,
+    p,
+    li,
+    ul,
+    ol,
+    blockquote,
+    pre,
+    code,
+    table {
+        font-size: 14px !important;
+    }
+
+    p {
+        text-align: left;
+    }
+
+    .md-content__inner {
+        padding: 1rem 0.8rem !important;
+    }
+
+    .md-typeset h1 {
+        font-size: 1.8rem;
+        overflow-wrap: anywhere;
+    }
+
+    .md-typeset h2 {
+        font-size: 1.45rem;
+        overflow-wrap: anywhere;
+    }
+
+    .md-typeset table:not([class]) {
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .md-typeset table:not([class]) th,
+    .md-typeset table:not([class]) td {
+        padding: 0.55rem 0.7rem;
+    }
+
+    .md-typeset .tabbed-labels {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .md-typeset .tabbed-labels > label {
+        flex: 0 0 auto;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .lightbox-overlay {
+        padding: 0.5rem;
+    }
+
+    .lightbox-close {
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+}
