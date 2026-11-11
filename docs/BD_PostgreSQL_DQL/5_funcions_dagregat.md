@@ -26,60 +26,59 @@ podremos cambiar con la cláusula **GROUP BY**.
 
   * **MIN ( <expressió> )**: calcula el mínimo.
 
-Por ejemplo, si queremos saber el número de juegos en la plataforma:
+Por ejemplo, si queremos saber el número de móviles en la plataforma:
 
     SELECT COUNT(*) AS "Número de Juegos"  
-      FROM juegos;
+      FROM moviles;
 
 
 !!! note "Nota"
       Es interesante la utilización de alias, para que no aparezcan cabeceras como _**count**_
   
 
-  1) Contar el número total de juegos registrados.
+  1) Contar el número total de móviles registrados.
 
     SELECT Count(*)  
-      FROM juegos;
+      FROM moviles;
 
-  2) Contar el número de juegos del estudio con ID **1** (Valve).
+  2) Contar el número de móviles de la empresa con ID **1** (Apple).
 
     SELECT Count(*)  
-      FROM juegos  
-      WHERE id_estudio = 1;
+      FROM moviles  
+      WHERE id_empresa = 1;
 
-  3) Calcular el precio medio de los juegos de los estudios **2** y **3**.
+  3) Calcular el precio medio de los móviles de las empresas **2** y **3**.
 
     SELECT AVG(precio)  
-      FROM juegos  
-      WHERE id_estudio = 2 OR id_estudio = 3;
+      FROM moviles  
+      WHERE id_empresa = 2 OR id_empresa = 3;
 
-  4) Calcular el precio medio de todos los juegos aplicando un descuento teórico del 10%.
+  4) Calcular el precio medio de todos los móviles aplicando un descuento teórico del 10%.
 
     SELECT AVG(precio * 0.9)  
-      FROM juegos;
+      FROM moviles;
 
-  5) Calcular el precio máximo y mínimo de todos los juegos.
+  5) Calcular el precio máximo y mínimo de todos los móviles.
 
     SELECT MAX(precio), MIN(precio)  
-      FROM juegos;
+      FROM moviles;
 
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
+En la BD **GameHub**, conectando como usuario **gamehub_alu**:
 
-**Ex_15** Contar el número de **clientes** que tienen la **dirección nula** (o el código postal).
+**Ex_15** Contar los **jugadores** con la dirección o el código postal nulos.
 
-**Ex_16** Contar el número de veces que el producto **10** (id_producto) aparece en las **líneas de pedido**, y el número total de unidades vendidas de este producto. Solo le hace falta la tabla **lineas_pedido**.
+**Ex_16** Contar cuántas veces aparece el producto **10** en **lineas_compra** y sumar sus unidades vendidas.
 
-**Ex_17** Sacar la **media** del **stock** de los productos.
+**Ex_17** Calcular la media del **stock** de los productos.
 
-**Ex_18** Modificar lo anterior para **tener en cuenta los valores nulos, como si fueran 0**. Utilice la función **COALESCE** de esta manera: `COALESCE(stock, 0)`.
+**Ex_18** Repetir lo anterior tratando los valores nulos como 0 mediante `COALESCE(stock, 0)`.
 
-**Ex_19** Contar **cuántos pedidos** tiene el cliente con ID **5**.
+**Ex_19** Contar cuántas **compras** tiene el jugador con ID **5**.
 
-**Ex_20** Calcular el **descuento máximo**, el **mínimo** y el descuento **medio** de los **pedidos**.
-
+**Ex_20** Calcular el **descuento máximo**, **mínimo** y **medio** de las **compras**.
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)

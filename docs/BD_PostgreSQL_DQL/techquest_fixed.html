@@ -23,52 +23,69 @@
     </style>
 </head>
 <body>
-    <h1>Modelo Entidad-Relación: TecnoTienda</h1>
+    <h1>Modelo Entidad-Relación: GameHub</h1>
     <div class="mermaid">
 erDiagram
-    CLIENTES ||--o{ PEDIDOS : "realiza"
-    EMPLEADOS ||--o{ PEDIDOS : "gestiona"
-    EMPLEADOS ||--o{ EMPLEADOS : "jefe_de"
-    CATEGORIAS ||--o{ PRODUCTOS : "agrupa"
-    PEDIDOS ||--o{ LINEAS_PEDIDO : "contiene"
-    PRODUCTOS ||--o{ LINEAS_PEDIDO : "se_vende_en"
-
-    CLIENTES {
-        int id_cliente PK
-        string nombre
-        string apellidos
-        string direccion
-        string poblacion
-    }
-    EMPLEADOS {
-        int id_empleado PK
-        string nombre
-        string puesto
-        int id_jefe FK
-    }
+    CATEGORIAS |o--o{ PRODUCTOS : clasifica
+    JUGADORES ||--o{ COMPRAS : realiza
+    VENDEDORES ||--o{ COMPRAS : atiende
+    COMPRAS ||--o{ LINEAS_COMPRA : contiene
+    PRODUCTOS ||--o{ LINEAS_COMPRA : incluye
+    CIUDADES |o--o{ JUGADORES : reside_en
+    CIUDADES |o--o{ VENDEDORES : trabaja_en
+    PROVINCIAS |o--o{ CIUDADES : agrupa
+    VENDEDORES |o--o{ VENDEDORES : supervisa
     CATEGORIAS {
         int id_categoria PK
-        string nombre_categoria
+        string descripcion
     }
     PRODUCTOS {
         int id_producto PK
         string nombre
-        string marca
         decimal precio
+        int stock
+        int stock_minimo
         int id_categoria FK
     }
-    PEDIDOS {
-        int id_pedido PK
-        date fecha
-        int id_cliente FK
-        int id_empleado FK
-    }
-    LINEAS_PEDIDO {
-        int id_pedido PK, FK
+    LINEAS_COMPRA {
+        int id_compra PK, FK
         int num_linea PK
         int id_producto FK
         int cantidad
         decimal precio_unitario
+        decimal descuento_linea
+    }
+    COMPRAS {
+        int id_compra PK
+        date fecha
+        int id_jugador FK
+        int id_vendedor FK
+        decimal iva
+        decimal descuento
+    }
+    JUGADORES {
+        int id_jugador PK
+        string nombre
+        string direccion
+        string codigo_postal
+        int id_ciudad FK
+    }
+    VENDEDORES {
+        int id_vendedor PK
+        string nombre
+        string direccion
+        string codigo_postal
+        int id_ciudad FK
+        int id_jefe FK
+    }
+    CIUDADES {
+        int id_ciudad PK
+        string nombre
+        int id_provincia FK
+    }
+    PROVINCIAS {
+        int id_provincia PK
+        string nombre
     }
     </div>
 </body>

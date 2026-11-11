@@ -50,11 +50,11 @@ LTRIM(c1[,siete]) |  Recorta por la izquierda mientras encuentra la cadena set (
 LOWER(c1) |  Vuelve la cadena en minúsculas  
 UPPER(c1) |  Vuelve la cadena en mayúsculas  
   
-Por ejemplo, vamos a extraer la primera palabra del título de los juegos. 
+Por ejemplo, vamos a extraer la primera palabra del modelo de los móviles. 
 Para ello, cogeremos los caracteres desde el inicio hasta el primer espacio.
 ```sql
-SELECT titulo, SUBSTR(titulo, 1, STRPOS(titulo, ' ') - 1)  
-FROM juegos;
+SELECT modelo, SUBSTR(modelo, 1, STRPOS(modelo, ' ') - 1)  
+FROM moviles;
 ```
 Esto podríamos mejorarlo para que sea más genérico. Imaginemos que tenemos productos con un formato de nombre "Marca: Modelo" y queremos extraer solo la marca (lo que va antes de los dos puntos).
 ```sql

@@ -23,51 +23,53 @@ Esta condición contendrá alguna función de agregado o contendrá columnas
 incluidas en el GROUP BY. Fíjese que es lógico, ya que sirve para elegir
 grupos una vez hechos, y entonces ya no se podrá ir a un elemento del grupo.
 
-Por ejemplo, esta sentencia servirá para sacar los estudios que tienen más de 2 juegos registrados en la plataforma:
+Por ejemplo, esta sentencia servirá para sacar las empresas que tienen más de 2 móviles registrados en la plataforma:
 
-    SELECT id_estudio, COUNT(*)  
-      FROM juegos  
-      GROUP BY id_estudio  
+    SELECT id_empresa, COUNT(*)  
+      FROM moviles  
+      GROUP BY id_empresa  
       HAVING COUNT(*) > 2;
 
 **<u>Ejemplos</u>**
 
-  1) Sacar aquellos estudios que tienen más de un juego que comienza por la palabra 'Half-Life'. De momento solo sacaremos el ID del estudio.
+  1) Sacar aquellas empresas que tienen más de un móvil que comienza por la palabra 'iPhone'. De momento solo sacaremos el ID de la empresa.
 
-    SELECT id_estudio, COUNT(*)  
-      FROM juegos  
-      WHERE titulo LIKE 'Half-Life%'  
-      GROUP BY id_estudio  
+    SELECT id_empresa, COUNT(*)  
+      FROM moviles  
+      WHERE modelo LIKE 'iPhone%'  
+      GROUP BY id_empresa  
       HAVING COUNT(*) > 1;
 
-  2) Calcular el precio máximo, el mínimo y el precio medio de los juegos de aquellos estudios que tienen más de 2 juegos en el catálogo.
+  2) Calcular el precio máximo, el mínimo y el precio medio de los móviles de aquellas empresas que tienen más de 2 móviles en el catálogo.
 
-    SELECT id_estudio, COUNT(*) AS "Número de juegos", MAX(precio) AS Máximo, MIN(precio) AS Mínimo, AVG(precio) AS Media  
-      FROM juegos  
-      GROUP BY id_estudio  
+    SELECT id_empresa, COUNT(*) AS "Número de móviles", MAX(precio) AS Máximo, MIN(precio) AS Mínimo, AVG(precio) AS Media  
+      FROM moviles  
+      GROUP BY id_empresa  
       HAVING COUNT(*) > 2;
 
-  3) Sacar el precio medio de aquellos estudios cuya media de precios de juegos es superior a 50 €.
+  3) Sacar el precio medio de aquellas empresas cuya media de precios de móviles es superior a 50 €.
 
-    SELECT id_estudio, AVG(precio) AS "Precio Medio"  
-      FROM juegos  
-      GROUP BY id_estudio  
+    SELECT id_empresa, AVG(precio) AS "Precio Medio"  
+      FROM moviles  
+      GROUP BY id_empresa  
       HAVING AVG(precio) > 50;
 
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-**Ex_28** Calcular la media de cantidades pedidas de aquellos **productos** que se han pedido más de dos veces (contando cuántas veces aparece en las líneas de pedido).
+En la BD **GameHub**, conectando como usuario **gamehub_alu**:
 
-**Ex_29** Sacar las **poblaciones** que tienen entre 3 y 7 **clientes**. Mostrar solo el nombre de la población y el número de clientes.
+**Ex_28** Calcular la media de cantidades vendidas de los **productos** que aparecen en más de dos líneas de compra.
 
-**Ex_30** Sacar las **categorías** que tienen más de un producto "caro" (de más de 500 €).
+**Ex_29** Sacar las **ciudades** con entre 3 y 7 **jugadores**, mostrando el nombre de la ciudad y el número de jugadores.
 
-**Ex_31** Sacar a los **clientes** que tienen más de un **pedido**, mostrando el número de pedidos.
+**Ex_30** Sacar las **categorías** con más de un producto de precio superior a **500 €**.
 
-**Ex_32** Modificar lo anterior para sacar a los clientes que tienen más de un pedido en el primer trimestre.
+**Ex_31** Sacar los **jugadores** con más de una **compra**, mostrando su número de compras.
 
-**Ex_33** Calcular el total de cada **pedido** de aquellos que tienen 10 o más líneas de pedido, sin aplicar descuentos ni IVA, y también aplicando el descuento que consta en la línea de pedido. Utilice la función `COALESCE(descuento_linea, 0)` para tratar los nulos.
+**Ex_32** Repetir lo anterior considerando solo las compras del primer trimestre de 2024.
+
+**Ex_33** Para las **compras** con 10 o más líneas, calcular su base sin descuentos y su base aplicando el descuento de cada línea. Usar `precio_unitario * cantidad * (1 - COALESCE(descuento_linea, 0) / 100.0)`. No aplicar todavía el descuento general ni el IVA.
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)

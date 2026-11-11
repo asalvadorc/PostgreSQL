@@ -38,10 +38,10 @@ cancelar.
 
 **<u>Ejemplos</u>**
 
-  1) Crear una copia de la tabla **estudios** llamada **estudios_copia**.
+  1) Crear una copia de la tabla **empresas** llamada **empresas_copia**.
 
-    SELECT * INTO estudios_copia  
-      FROM estudios;
+    SELECT * INTO empresas_copia  
+      FROM empresas;
 
 Para no "ensuciar" la Base de Datos, podemos borrarla después de haber visto
 su creación con la sentencia
@@ -62,11 +62,11 @@ podemos borrarla con la sentencia
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
+En la BD **GameHub**, conectando como usuario **gamehub_alu**:
 
-**Ex_49** Crear una tabla llamada **PRODUCTO_999x**, donde 999 deben ser las 3 últimas cifras de tu DNI, y x la letra, que sea una copia de la tabla **productos**, pero sustituyendo los valores nulos de **stock** y **stock_min** por ceros utilizando `COALESCE`.
+**Ex_49** Crear **PRODUCTO_999x**, sustituyendo 999 por las tres últimas cifras de tu DNI y x por su letra, como copia de **productos**, con los nulos de `stock` y `stock_minimo` sustituidos por 0 mediante `COALESCE`.
 
-**Ex_50** Utilizar la tabla anterior para sacar el stock máximo, el mínimo y la media de stocks. Observa que si utilizas la tabla **productos** original, los resultados no serían los mismos (especialmente la media), ya que los valores nulos no entrarían en los cálculos.
+**Ex_50** Usar la tabla anterior para calcular el máximo, mínimo y media de **stock**. Comparar con **productos**, donde los valores nulos no entran en los cálculos.
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)

@@ -42,23 +42,23 @@ Recordemos por otro lado cómo se escriben las constantes:
 
 **<u>Ejemplos</u>**
 
-1) Sacar los estudios cuya sede está en **Japón**.
+1) Sacar las empresas cuya sede está en **Japón**.
 
     SELECT *  
-      FROM estudios  
+      FROM empresas  
       WHERE sede LIKE '%Japón%';
 
-2) Sacar todos los juegos que son del género **RPG** (id_genero = 2).
+2) Sacar todas las empresas de **Corea del Sur** (id_pais = 2).
 
     SELECT *  
-      FROM juegos  
-      WHERE id_genero = 2;
+      FROM empresas  
+      WHERE id_pais = 2;
 
-3) Sacar los juegos del estudio **CD Projekt Red** con un precio superior a **40 €**.
+3) Sacar los móviles de la empresa **Xiaomi** con un precio superior a **40 €**.
 
     SELECT *  
-      FROM juegos  
-      WHERE id_estudio = 3 AND precio > 40;
+      FROM moviles  
+      WHERE id_empresa = 3 AND precio > 40;
 
 4) Sacar los productos de las categorías **1, 2 o 3**.
 
@@ -78,58 +78,56 @@ Recordemos por otro lado cómo se escriben las constantes:
       FROM productos  
       WHERE id_categoria IN (1, 2, 3);
 
-5) Sacar los juegos del estudio **O'Reilly Games** (Ejemplo de cómo manejar la comilla simple doblándola).
+5) Sacar los móviles de la empresa **O'Reilly Mobile** (Ejemplo de cómo manejar la comilla simple doblándola).
 
     SELECT *  
-      FROM estudios  
-      WHERE nombre = 'O''Reilly Games';
+      FROM empresas  
+      WHERE nombre = 'O''Reilly Mobile';
 
-6) Sacar el título de los juegos que comienzan por **E**.
+6) Sacar el modelo de los móviles que comienzan por **i**.
 
-    SELECT titulo  
-      FROM juegos  
-      WHERE titulo LIKE 'E%';
+    SELECT modelo  
+      FROM moviles  
+      WHERE modelo LIKE 'i%';
 
-7) Sacar los juegos que tienen exactamente **5** caracteres en su título (usando `_`).
-
-    SELECT *  
-      FROM juegos  
-      WHERE titulo LIKE '_____';
-
-8) Sacar todos los juegos cuyo título solo consta de una palabra (no tienen espacios en blanco).
+7) Sacar los móviles que tienen exactamente **5** caracteres en su modelo (usando `_`).
 
     SELECT *  
-      FROM juegos  
-      WHERE titulo NOT LIKE '% %';
+      FROM moviles  
+      WHERE modelo LIKE '_____';
 
-9) Sacar a los empleados que no tienen asignado un jefe (id_jefe es nulo).
+8) Sacar todos los móviles cuyo modelo solo consta de una palabra (no tienen espacios en blanco).
 
     SELECT *  
-      FROM empleados  
+      FROM moviles  
+      WHERE modelo NOT LIKE '% %';
+
+9) Sacar a los vendedores que no tienen asignado un jefe (id_jefe es nulo).
+
+    SELECT *  
+      FROM vendedores  
       WHERE id_jefe IS NULL;
 
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
+En la BD **GameHub**, conectando como usuario **gamehub_alu**:
 
-**Ex_7** Sacar los **clientes** de la **población** 'Madrid'.
+**Ex_7** Sacar los **jugadores** que viven en la ciudad **Madrid**. Consultar `ciudades` para localizar su código.
 
-**Ex_8** Sacar todos los **pedidos** del mes de **marzo** de **2024**.
+**Ex_8** Sacar todas las **compras** de marzo de 2024.
 
-**Ex_9** Sacar todos los **productos** de la **categoría** 'Gaming' con un **stock** entre **2** y **7** unidades.
+**Ex_9** Sacar los **productos** de la categoría **Consolas** con un **stock** entre **2 y 7** unidades. Localizar el código en `categorias`.
 
-**Ex_10** Sacar todos los **clientes** que **no** tienen introducida la **dirección**.
+**Ex_10** Sacar los **jugadores** que no tienen introducida la **dirección**.
 
-**Ex_11** Sacar todos los **productos** con el **stock** introducido pero que **no** tienen introducido el **stock mínimo**.
+**Ex_11** Sacar los **productos** con `stock` informado y `stock_minimo` nulo.
 
-**Ex_12** Sacar todos los **clientes** cuyo **apellido** es **VILLALONGA**.
+**Ex_12** Sacar los **jugadores** cuyo nombre completo contiene el apellido **Villalonga**.
 
-**Ex_13.a** Modificar lo anterior para sacar todos los que son **VILLALONGA** de **primer** o de **segundo** apellido.  
-**Ex_13.b** Modificar lo anterior para sacar todos los que **no** son **VILLALONGA** ni de primer ni de segundo apellido.
+**Ex_13** Sacar los jugadores cuyo nombre completo **no** contiene el apellido **Villalonga**.
 
-**Ex_14** Sacar los **productos** de la marca "**Razer**" (o cuyo nombre contiene esta palabra), cuyo **precio** oscila entre **20 y 100 €** y de los que tenemos un **stock** estrictamente **mayor** que el **stock mínimo**.
-
+**Ex_14** Sacar los **productos** cuyo nombre comienza por **RZ**, cuyo **precio** está entre **20 y 100 €** y cuyo **stock** supera el **stock mínimo**.
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)

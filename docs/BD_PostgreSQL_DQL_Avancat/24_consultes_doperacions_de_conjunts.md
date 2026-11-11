@@ -1,129 +1,49 @@
-# 4. Consultas de operaciones de conjuntos
+# 4. Operaciones de conjuntos
 
-Agruparemos en este apartado las consultas que traten conjuntos de filas para
-realizar operaciones de algebra de conjuntos: **unión** , **intersección** y
-**diferencia** de conjuntos
+`UNION`, `INTERSECT` y `EXCEPT` combinan filas completas de dos consultas. Ambas deben devolver el mismo número de columnas, con tipos compatibles en cada posición. Trabaja en **gamehub**.
 
-Todas estas consultas juntan los resultados de dos o más consultas.
+## 4.1 UNION
 
-## 4.1 Unión
+Une las filas de ambos resultados y elimina duplicados. `UNION ALL` conserva todas las repeticiones y evita ese paso de deduplicación.
 
-**<u>Sintaxi</u>**
+```sql
+SELECT j.nombre FROM jugadores j JOIN compras c ON c.id_jugador=j.id_jugador UNION SELECT v.nombre FROM vendedores v JOIN compras c ON c.id_vendedor=v.id_vendedor ORDER BY nombre;
+```
 
+El resultado representa nombres distintos, no personas identificadas de manera única: dos personas con el mismo nombre se fusionan. Si necesitas distinguirlas, añade columnas de código y origen compatibles en ambas consultas.
 
-    [TABLE] consulta1  
-    UNION [ALL]  
-    [TABLE] consulta2 ...
+## 4.2 INTERSECT
 
-Cada una de las consultas puede ser una tabla (poniendo la palabra **TABLE**)
-delante) o el nombre de una consulta ya guardada, aunque lo más habitual será
-poner directamente la **sentencia SQL**.
+Devuelve las filas que aparecen en ambas consultas:
 
-Los requisitos son que las dos (o más) consultas devuelven el mismo número de
-campos, y que sean sino del mismo tipo, sí de tipos compatibles
+```sql
+SELECT c.id_ciudad,c.nombre FROM ciudades c JOIN jugadores j ON j.id_ciudad=c.id_ciudad INTERSECT SELECT c.id_ciudad,c.nombre FROM ciudades c JOIN vendedores v ON v.id_ciudad=c.id_ciudad ORDER BY id_ciudad;
+```
 
-Al igual que en la unión de conjuntos, el resultado serán todas las filas de las
-dos (o más) consultas individuales, pero sin repetir filas, es decir, si de
-ambas consultas se obtienen filas iguales, éstas sólo saldrán una vez.
-Lo anterior se puede evitar si ponemos el predicado ALL, y entonces sí saldrán
-las filas repetidas.
+Compara las dos columnas de cada fila, no solo el nombre de la ciudad. Las ciudades con jugadores y vendedores aparecen una sola vez.
 
-Los nombres de los campos vendrán dados por la primera consulta.
+## 4.3 EXCEPT
 
-Si queremos ordenar por algún campo, deberemos ponerlo al final de la última
-consulta, pero refiriéndose en todo caso a los campos de la primera consulta (lo
-podemos evitar poniendo el número de orden en el ORDER BY)
+Devuelve las filas de la primera consulta que no aparecen en la segunda:
 
-**<u>Ejemplos</u>**
+```sql
+SELECT c.id_ciudad,c.nombre FROM ciudades c JOIN vendedores v ON v.id_ciudad=c.id_ciudad EXCEPT SELECT c.id_ciudad,c.nombre FROM ciudades c JOIN jugadores j ON j.id_ciudad=c.id_ciudad ORDER BY id_ciudad;
+```
 
-  1) Queremos ver en un único resultado tanto el nombre de las comarcas como el nombre de las poblaciones, siempre con el nombre de la provincia al lado
+Cambiar el orden de las consultas cambia el significado. Con los datos iniciales, este resultado es vacío: las ciudades con vendedores también tienen jugadores.
 
-    SELECT nombre_c, provincia  
-      FROM COMARCAS  
-    UNION  
-    SELECT nombre, provincia  
-      FROM COMARCAS INNER JOIN POBLACIONES USING (nombre_c)  
-    ORDER BY nombre_c;
+## 4.4 Ordenación y paréntesis
 
-**Ex_55** Sacar el número de factura, fecha, código de cliente, total de la
-factura (con el alias IMPORTE) y total de la factura aplicando descuentos
-de artículo (con alias DESCUENTO_1), como en la consulta**Ex_33** , pero sin el
-límite de las 10 líneas de factura. Ordena por número de factura.
+Sitúa `ORDER BY` al final para ordenar el resultado conjunto. Si necesitas un `ORDER BY ... LIMIT` dentro de una de las consultas, enciérrala entre paréntesis. Usa también paréntesis para hacer explícito el orden al mezclar varios operadores de conjuntos.
 
-## 4.2 Intersección
+## Ejercicios de GameHub
 
-Es idéntica a la unión, pero poniendo la palabra **INTERSECT** , y servirá para
-sacar únicamente las filas que están en ambas consultas.
+Conexión `gamehub`, usuario `alumno`. Usa la carga inicial del tema DML.
 
+**Ex_75** Sacar sin repeticiones los nombres de jugadores y vendedores que participan en alguna compra.
 
+**Ex_76a** Sacar mediante UNION las ciudades donde hay jugadores o vendedores.
 
-**<u>Sintaxi</u>**
+**Ex_76b** Sacar mediante INTERSECT las ciudades donde hay jugadores y también vendedores.
 
-    [TABLE] consulta1  
-    INTERSECT [ALL]  
-    [TABLE] consulta2 ...
-
-Al igual que antes, cada una de las consultas puede ser una mesa (poniendo la
-palabra **TABLE** delante), y tenemos el requisito de que las dos (o más) consultas
-devuelven el mismo número de campos, y de tipos compatibles.
-
-En principio no saldrán filas repetidas, a menos que ponemos **ALL**
-
-**Ejemplo**
-
-  1) Dado que en el ejemplo de la unión habíamos visto que la fila Valencia Valencia salía en las 2 consultas, vamos a comprobar que aparece en la intersección:
-
-    SELECT nombre_c, provincia  
-      FROM COMARCAS  
-    INTERSECT  
-    SELECT nombre, provincia  
-      FROM COMARCAS INNER JOIN POBLACIONES USING (nombre_c)  
-    ORDER BY nombre_c;
-
-## 4.3 Diferencia
-
-Es idéntica a las anteriores, pero poniendo la palabra **EXCEPT** , y servirá para
-a sacar las filas que están en la primera consulta pero que no están en la
-segunda.
-
-**<u>Sintaxi</u>**
-
-    [TABLE] consulta1  
-    EXCEPTO [ALL]  
-    [TABLE] consulta2 ...
-
-Al igual que antes, cada una de las consultas puede ser una mesa (poniendo la
-palabra **TABLE** delante), y tenemos el requisito de que las dos (o más) consultas
-devuelven el mismo número de campos, y de tipos compatibles.
-
-En principio no saldrán filas repetidas, a menos que ponemos **ALL**
-
-**<u>Ejemplo</u>**
-
-  1) Aprovechamos el mismo ejemplo de antes para comprobar que con EXCEPT no saldrá la comarca Valencia, ya que existe una fila idéntica en la segunda consulta:
-
-    SELECT nombre_c, provincia  
-      FROM COMARCAS  
-    EXCEPTO  
-    SELECT nombre, provincia  
-      FROM COMARCAS INNER JOIN POBLACIONES USING (nombre_c)  
-    ORDER BY nombre_c;
-
-## :pencil2: Ejercicios {: .ejercicios-header}
-
-**Ex_75** Sacar el nombre de todos los clientes y vendedores implicados en alguna
-venta del primer trimestre de 2015
-
-**Ex_76a** Sacar mediante sentencias de operaciones de conjuntos los pueblos donde
-tenemos algún vendedor o algún cliente. No queremos resultados repetidos, y lo queremos
-ordenado por el nombre del pueblo.
-
-**Ex_76b** Modificar lo anterior para sacar los pueblos donde tenemos al mismo
-tiempo vendedores y clientes
-
-**Ex_76c** Modificar lo anterior para sacar los pueblos donde tenemos vendedores pero
-no tenemos clientes
-
-Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
-SinObraDerivada 2.5](http://creativecommons.org/licenses/by-nc-nd/2.5/)
-
+**Ex_76c** Sacar mediante EXCEPT las ciudades donde hay vendedores pero no jugadores.

@@ -80,15 +80,27 @@ nav:
     - RA y CE: RA_CE.md
     - 1. Introducción: BD_PostgreSQL_DQL/1_introducci.md
     - 2. Bases de datos de ejemplo:
-      - MundoJuegos: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
-      - TecnoTienda: BD_PostgreSQL_DQL/tecnotienda.md
-    - 3. DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
-    - 4. Operadores y Funciones de Postgres:
-      - 4.1. Operadores: BD_PostgreSQL_DQL/6_operadors.md
-      - 4.2. Funciones: BD_PostgreSQL_DQL/7_funcions.md
+      - MundoMoviles: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
+      - GameHub: BD_PostgreSQL_DQL/gamehub.md
+    - 3. PostgreSQL con Docker Compose: entorno_postgresql.md
+    - 4. DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
+  - DDL - Creación de Tablas:
+      - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md
+      - 2. DDL: BD_PostgreSQL_DDL/2_ddl.md
+      - 3. Crear MundoMoviles: BD_PostgreSQL_DDL/3_crear_mundomoviles.md
+      - 4. Crear GameHub: BD_PostgreSQL_DDL/4_crear_gamehub.md
+      - Ejercicios de todo el tema: BD_PostgreSQL_DDL/exercicis_de_tot_el_tema.md    
+  - DML - Manipulación de Datos:
+      - 1. Introducción y carga de datos: BD_PostgreSQL_DML/1_introducci.md
+      - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md
+      - Ejercicios de todo el tema: BD_PostgreSQL_DML/exercicis_de_tot_el_tema.md
+
   - DQL - Consultas (parte I):  
       - 1. La consulta SELECT: BD_PostgreSQL_DQL/1_la_consulta_select.md
       - 2. Consulta básica: BD_PostgreSQL_DQL/2_consulta_bsica.md
+      - Operadores y funciones de PostgreSQL:
+          - Operadores: BD_PostgreSQL_DQL/6_operadors.md
+          - Funciones: BD_PostgreSQL_DQL/7_funcions.md
       - 3. Alias en las columnas: BD_PostgreSQL_DQL/3_lies_en_les_columnes.md
       - 4. La cláusula WHERE: BD_PostgreSQL_DQL/4_la_clusula_where.md       
       - 5. Funciones de agregado: BD_PostgreSQL_DQL/5_funcions_dagregat.md     
@@ -107,11 +119,6 @@ nav:
       - 3. Subconsultas: BD_PostgreSQL_DQL_Avancat/23_subconsultes.md
       - 4. Consultas de operaciones de conjuntos: BD_PostgreSQL_DQL_Avancat/24_consultes_doperacions_de_conjunts.md  
       - Ejercicios con los resultados (parte II): BD_PostgreSQL_DQL_Avancat/exercicis_de_tot_el_tema_amb_els_resultats.md
-  - DDL - Creación de Tablas:
-      - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md
-      - 2. DDL: BD_PostgreSQL_DDL/2_ddl.md
-      - Ejercicios de todo el tema: BD_PostgreSQL_DDL/exercicis_de_tot_el_tema.md
-  - DML - Manipulación de Datos:
-      - 1. Introducción: BD_PostgreSQL_DML/1_introducci.md
-      - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md
-      - Ejercicios de todo el tema: BD_PostgreSQL_DML/exercicis_de_tot_el_tema.md
+
+  - Soluciones:
+      - Referencias y scripts: soluciones/index.md

@@ -1,329 +1,1128 @@
-# Ejercicios con los resultados (parte I) {: .ejercicios-header}
+# Soluciones y resultados: DQL básico
 
-En la BD **factura**, conectando como usuario **factura_alu**:
+Estas soluciones utilizan **GameHub** con su carga inicial: 8 jugadores, 12 compras y 28 líneas. Los resultados se han calculado ejecutando las consultas en un motor PostgreSQL. Los decimales largos se muestran con un máximo de cuatro cifras decimales; los cálculos usan su precisión completa.
 
-**Ex_1** Sacar toda la información de los pueblos.
+Si has modificado los datos, [restaura la carga inicial](../BD_PostgreSQL_DML/1_introducci.md) antes de comparar. Un resultado vacío también puede ser correcto. No se utilizan capturas de otra base de datos.
+
+El ejercicio 50 utiliza la tabla temporal creada en el 49: ejecútalos en la misma conexión. Si repites el 49, elimina antes la copia temporal. Los ejercicios con varias tablas anticipan contenidos que se desarrollan en DQL avanzado.
+
+## Ejercicio 1
+
+Sacar toda la información de los **productos**.
 
-![](Ex_6_1.png)
+??? success "Consulta y resultado"
 
-Un total de **1663 filas**
+    ```sql
+    SELECT *
+    FROM productos
+    ORDER BY id_producto;
+    ```
 
-**Ex_2** Sacar el código postal, el nombre y la dirección, por este orden, de todos
-los vendedores..
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 1 | Elden Ring | 59.99 | 20 | 5 | 1 |
+    | 2 | Minecraft | 29.99 | 30 | 5 | 1 |
+    | 3 | PlayStation 5 | 499.99 | 6 | 2 | 2 |
+    | 4 | Nintendo Switch | 299.99 | 5 | 2 | 2 |
+    | 5 | RZ Mouse: DeathAdder | 45.00 | 8 | 2 | 3 |
+    | 6 | RZ Teclado: BlackWidow | 89.99 | 5 | 2 | 3 |
+    | 7 | Auriculares: HyperX Cloud | 69.99 | NULL | 2 | 3 |
+    | 8 | Mando: Xbox Wireless | 59.99 | 7 | NULL | 3 |
+    | 9 | Camiseta: Creeper | 19.99 | 15 | 3 | 4 |
+    | 10 | Figura: Hollow Knight | 24.99 | 10 | 2 | 4 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 3 | 1 | 2 |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 2 | 1 | 2 |
+
+    *12 filas.*
+
+## Ejercicio 2
+
+Sacar el código, el nombre y la ciudad de todos los **vendedores**, por ese orden.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_vendedor, nombre, id_ciudad
+    FROM vendedores
+    ORDER BY id_vendedor;
+    ```
 
-![](Ex_6_2.png)
+    | id_vendedor | nombre | id_ciudad |
+    | --- | --- | --- |
+    | 1 | Alicia Damborenea | 1 |
+    | 2 | Marcos Vidal | 3 |
+    | 3 | Elena García | 5 |
+
+    *3 filas.*
+
+## Ejercicio 3
+
+Sacar el código, el nombre, el precio y el precio incrementado en un 5 % de todos los **productos**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_producto, nombre, precio, precio * 1.05 AS precio_incrementado
+    FROM productos
+    ORDER BY id_producto;
+    ```
+
+    | id_producto | nombre | precio | precio_incrementado |
+    | --- | --- | --- | --- |
+    | 1 | Elden Ring | 59.99 | 62.9895 |
+    | 2 | Minecraft | 29.99 | 31.4895 |
+    | 3 | PlayStation 5 | 499.99 | 524.9895 |
+    | 4 | Nintendo Switch | 299.99 | 314.9895 |
+    | 5 | RZ Mouse: DeathAdder | 45.00 | 47.2500 |
+    | 6 | RZ Teclado: BlackWidow | 89.99 | 94.4895 |
+    | 7 | Auriculares: HyperX Cloud | 69.99 | 73.4895 |
+    | 8 | Mando: Xbox Wireless | 59.99 | 62.9895 |
+    | 9 | Camiseta: Creeper | 19.99 | 20.9895 |
+    | 10 | Figura: Hollow Knight | 24.99 | 26.2395 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 1363.9500 |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 1993.9500 |
+
+    *12 filas.*
+
+## Ejercicio 4
+
+Mostrar los datos de los **jugadores** en una sola columna con el formato **Juan Pérez López. Calle Mayor 10 (28001)**, concatenando nombre, dirección y código postal.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT nombre || '. ' || COALESCE(direccion, '(sin dirección)') || ' (' || COALESCE(codigo_postal, 'sin CP') || ')' AS jugador
+    FROM jugadores
+    ORDER BY id_jugador;
+    ```
+
+    | jugador |
+    | --- |
+    | Juan Pérez López. Calle Mayor 10 (28001) |
+    | Marta Sánchez Vidal. Avinguda Diagonal 50 (08001) |
+    | Luis Villalonga García. Calle del Mar 5 (12001) |
+    | Sara Vidal Villalonga. (sin dirección) (28002) |
+    | Álex García Torres. Calle Sol 8 (sin CP) |
+    | Noa López Serra. (sin dirección) (12002) |
+    | Hugo Martín Ruiz. Calle Luna 4 (08002) |
+    | Paula Serra Gil. Calle Estación 2 (28801) |
+
+    *8 filas.*
+
+## Ejercicio 5
+
+Sacar `id_compra`, `fecha` e `id_vendedor` de **compras** con las cabeceras **Número Compra**, **Fecha** y **Código Vendedor**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_compra AS "Número Compra", fecha AS "Fecha", id_vendedor AS "Código Vendedor"
+    FROM compras
+    ORDER BY id_compra;
+    ```
+
+    | Número Compra | Fecha | Código Vendedor |
+    | --- | --- | --- |
+    | 1 | 2024-01-10 | 2 |
+    | 2 | 2024-01-15 | 3 |
+    | 3 | 2024-02-05 | 2 |
+    | 4 | 2024-03-04 | 3 |
+    | 5 | 2024-03-12 | 2 |
+    | 6 | 2024-03-20 | 3 |
+    | 7 | 2024-07-02 | 2 |
+    | 8 | 2024-09-10 | 3 |
+    | 9 | 2024-10-01 | 2 |
+    | 10 | 2024-10-15 | 3 |
+    | 11 | 2024-11-05 | 2 |
+    | 12 | 2024-12-02 | 3 |
+
+    *12 filas.*
+
+## Ejercicio 6
+
+Dar alias legibles a los campos de la tabla **productos**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_producto AS "Código", nombre AS "Producto", precio AS "Precio", stock AS "Stock", stock_minimo AS "Stock mínimo", id_categoria AS "Categoría"
+    FROM productos
+    ORDER BY id_producto;
+    ```
+
+    | Código | Producto | Precio | Stock | Stock mínimo | Categoría |
+    | --- | --- | --- | --- | --- | --- |
+    | 1 | Elden Ring | 59.99 | 20 | 5 | 1 |
+    | 2 | Minecraft | 29.99 | 30 | 5 | 1 |
+    | 3 | PlayStation 5 | 499.99 | 6 | 2 | 2 |
+    | 4 | Nintendo Switch | 299.99 | 5 | 2 | 2 |
+    | 5 | RZ Mouse: DeathAdder | 45.00 | 8 | 2 | 3 |
+    | 6 | RZ Teclado: BlackWidow | 89.99 | 5 | 2 | 3 |
+    | 7 | Auriculares: HyperX Cloud | 69.99 | NULL | 2 | 3 |
+    | 8 | Mando: Xbox Wireless | 59.99 | 7 | NULL | 3 |
+    | 9 | Camiseta: Creeper | 19.99 | 15 | 3 | 4 |
+    | 10 | Figura: Hollow Knight | 24.99 | 10 | 2 | 4 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 3 | 1 | 2 |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 2 | 1 | 2 |
+
+    *12 filas.*
 
-**Ex_3** Sacar el código de artículo, la descripción, precio y precio incrementado en un
-5% de todos los artículos.
+## Ejercicio 7
+
+Sacar los **jugadores** que viven en la ciudad **Madrid**. Consultar `ciudades` para localizar su código.
 
-![](Ex_6_3.png)
+??? success "Consulta y resultado"
 
-Un total de **812 filas**
+    ```sql
+    SELECT j.*
+    FROM jugadores j
+    JOIN ciudades c ON c.id_ciudad=j.id_ciudad
+    WHERE c.nombre='Madrid'
+    ORDER BY j.id_jugador;
+    ```
 
-**Ex_4** Sacar la información de los clientes con el siguiente formato (debe ir todo
-en una columna):
+    | id_jugador | nombre | direccion | codigo_postal | id_ciudad |
+    | --- | --- | --- | --- | --- |
+    | 1 | Juan Pérez López | Calle Mayor 10 | 28001 | 1 |
+    | 4 | Sara Vidal Villalonga | NULL | 28002 | 1 |
+    | 5 | Álex García Torres | Calle Sol 8 | NULL | 1 |
 
-**Damborenea Corbato, Alicia. CALLE MADRID, 83 (12425)**
+    *3 filas.*
 
-Fíjese que está todo en una columna, y por tanto tendrá que concatenar de la
-forma adecuada. Fíjese también que en en el nombre sólo las iniciales están en
-mayúsculas
+## Ejercicio 8
 
-![](Ex_6_4.png)
+Sacar todas las **compras** de marzo de 2024.
 
-Un total de **49 filas**
+??? success "Consulta y resultado"
 
-**Ex_5** Sacar el num_f, fecha y cod_ven de las facturas con las siguientes
-cabeceras respectivamente: **Número Factura** , **fecha** y **Código Vendedor**.
+    ```sql
+    SELECT *
+    FROM compras
+    WHERE fecha >= DATE '2024-03-01' AND fecha < DATE '2024-04-01'
+    ORDER BY id_compra;
+    ```
 
+    | id_compra | fecha | id_jugador | id_vendedor | iva | descuento |
+    | --- | --- | --- | --- | --- | --- |
+    | 4 | 2024-03-04 | 5 | 3 | 21.00 | 5.00 |
+    | 5 | 2024-03-12 | 3 | 2 | 21.00 | NULL |
+    | 6 | 2024-03-20 | 4 | 3 | 21.00 | 0.00 |
 
-![](Ex_6_5.png)
+    *3 filas.*
 
-Un total de **105 filas**
+## Ejercicio 9
 
-**Ex_6** Dar alias a los campos que lo necesitan de la tabla ARTÍCULO.
+Sacar los **productos** de la categoría **Consolas** con un **stock** entre **2 y 7** unidades. Localizar el código en `categorias`.
 
-![](Ex_6_6.png)
+??? success "Consulta y resultado"
 
-Un total de **812 filas**
+    ```sql
+    SELECT p.*
+    FROM productos p
+    JOIN categorias c ON c.id_categoria=p.id_categoria
+    WHERE c.descripcion='Consolas' AND p.stock BETWEEN 2 AND 7
+    ORDER BY p.id_producto;
+    ```
 
-**Ex_7** Sacar los **clientes** de la **ciudad** con código **12309**.
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 3 | PlayStation 5 | 499.99 | 6 | 2 | 2 |
+    | 4 | Nintendo Switch | 299.99 | 5 | 2 | 2 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 3 | 1 | 2 |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 2 | 1 | 2 |
 
-![](Ex_6_7.png)
+    *4 filas.*
 
-**Ex_8** Sacar todas las **facturas** del mes de **marzo** de **2015**.
+## Ejercicio 10
 
-![](Ex_6_8.png)
+Sacar los **jugadores** que no tienen introducida la **dirección**.
 
-**Ex_9** Sacar todos los artículos de la **categoría** **BjcOlimpia** con un
-**stock** entre**2** y **7** unidades.
+??? success "Consulta y resultado"
 
-![](Ex_6_9.png)
+    ```sql
+    SELECT *
+    FROM jugadores
+    WHERE direccion IS NULL
+    ORDER BY id_jugador;
+    ```
 
-**Ex_10** Sacar todos los **clientes** que **no** tienen introducido el **código
-postal**.**  
-**
+    | id_jugador | nombre | direccion | codigo_postal | id_ciudad |
+    | --- | --- | --- | --- | --- |
+    | 4 | Sara Vidal Villalonga | NULL | 28002 | 1 |
+    | 6 | Noa López Serra | NULL | 12002 | 5 |
 
-![](Ex_6_10.png)
+    *2 filas.*
 
-**Ex_11** Sacar todos los **artículos** con el **stock** introducido pero que
-**no** tienen introducido el **stock mínimo**.
+## Ejercicio 11
 
-![](Ex_6_11.png)
+Sacar los **productos** con `stock` informado y `stock_minimo` nulo.
 
-**Ex_12** Sacar todos los **clientes** , cuyo**primer apellido** es
-**VILLALONGA**.
+??? success "Consulta y resultado"
 
-![](Ex_6_12.png)
+    ```sql
+    SELECT *
+    FROM productos
+    WHERE stock IS NOT NULL AND stock_minimo IS NULL
+    ORDER BY id_producto;
+    ```
 
-**Ex_13.a** Modificar lo anterior para sacar todos los que son **VILLALONGA**
-de **primer** o de **segundo** apellido.
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 8 | Mando: Xbox Wireless | 59.99 | 7 | NULL | 3 |
 
-**![](Ex_6_13_a.png)**
+    *1 filas.*
 
-**Ex_13.b** Modificar lo anterior para sacar todos los que **no** son
-**VILLALONGA** ni de primer ni de segundo apellido.
+## Ejercicio 12
 
-![](Ex_6_13_b.png)
+Sacar los **jugadores** cuyo nombre completo contiene el apellido **Villalonga**.
 
-Un total de **46 filas**
+??? success "Consulta y resultado"
 
-**Ex_14** Sacar los **artículos** "**Pulsador** " (la descripción contiene esta
-palabra), cuyo **precio** oscila entre**2 y 4 €** y de los que tenemos un
-**stock** estrictamente **mayor** que el **stock mínimo**.**  
-**
+    ```sql
+    SELECT *
+    FROM jugadores
+    WHERE nombre ILIKE '%Villalonga%'
+    ORDER BY id_jugador;
+    ```
 
-![](Ex_6_14.png)
+    | id_jugador | nombre | direccion | codigo_postal | id_ciudad |
+    | --- | --- | --- | --- | --- |
+    | 3 | Luis Villalonga García | Calle del Mar 5 | 12001 | 5 |
+    | 4 | Sara Vidal Villalonga | NULL | 28002 | 1 |
 
-**Ex_15** Contar el número de **clientes** que tienen el **código postal nulo**.
+    *2 filas.*
 
-![](Ex_6_15.png)
+## Ejercicio 13
 
-**Ex_16** Contar el número de veces que el artículo **L76104** entra en las
-líneas de factura, y el número total de unidades vendidas de este artículo. Sólo
-le hace falta la tabla LINIA_FAC.
+Sacar los jugadores cuyo nombre completo **no** contiene el apellido **Villalonga**.
 
-![](Ex_6_16.png)
+??? success "Consulta y resultado"
 
-**Ex_17** Sacar la **media** del **stock** de los artículos.
+    ```sql
+    SELECT *
+    FROM jugadores
+    WHERE nombre NOT ILIKE '%Villalonga%'
+    ORDER BY id_jugador;
+    ```
 
-![](Ex_6_17.png)
+    | id_jugador | nombre | direccion | codigo_postal | id_ciudad |
+    | --- | --- | --- | --- | --- |
+    | 1 | Juan Pérez López | Calle Mayor 10 | 28001 | 1 |
+    | 2 | Marta Sánchez Vidal | Avinguda Diagonal 50 | 08001 | 3 |
+    | 5 | Álex García Torres | Calle Sol 8 | NULL | 1 |
+    | 6 | Noa López Serra | NULL | 12002 | 5 |
+    | 7 | Hugo Martín Ruiz | Calle Luna 4 | 08002 | 3 |
+    | 8 | Paula Serra Gil | Calle Estación 2 | 28801 | 2 |
 
-**Ex_18** Modificar lo anterior para**tener en cuenta los valores nulos, como si
-fueron 0**. Le vendrá bien la función **COALESCE** que convierte los nulos del
-primer parámetro al valor dado como segundo parámetro (si es distinto de nulo,
-deja igual el valor). Por tanto debe utilizarlo de esta manera:
-**COALESCE(stock,0)**
+    *6 filas.*
 
-![](Ex_6_18.png)
+## Ejercicio 14
 
-**Ex_19** Contar **cuántas facturas** tiene el cliente **375**
+Sacar los **productos** cuyo nombre comienza por **RZ**, cuyo **precio** está entre **20 y 100 €** y cuyo **stock** supera el **stock mínimo**.
 
-**![](Ex_6_19.png)**
+??? success "Consulta y resultado"
 
-**Ex_20** Calcular el **descuento máximo** , el **mínimo** y el descuento
-**medio** de las **facturas**.
+    ```sql
+    SELECT *
+    FROM productos
+    WHERE nombre LIKE 'RZ%' AND precio BETWEEN 20 AND 100 AND stock>stock_minimo
+    ORDER BY id_producto;
+    ```
 
-SELECT nombre_c, provincia  
-      FROM COMARCAS  
-    INTERSECT  
-    SELECT nombre, provincia  
-      FROM COMARCAS INNER JOIN POBLACIONES USING (nombre_c)  
-    ORDER BY nombre_c;
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 5 | RZ Mouse: DeathAdder | 45.00 | 8 | 2 | 3 |
+    | 6 | RZ Teclado: BlackWidow | 89.99 | 5 | 2 | 3 |
 
-**Ex_21** Contar el número de pueblos de cada provincia (es suficiente con sacar el
-código de la provincia y el número de pueblos).
+    *2 filas.*
 
-![](Ex_6_21.png)
+## Ejercicio 15
 
-**Ex_22** Contar el número de clientes en cada pueblo y código postal.
+Contar los **jugadores** con la dirección o el código postal nulos.
 
-![](Ex_6_22.png)
+??? success "Consulta y resultado"
 
-Un total de **45 filas**
+    ```sql
+    SELECT COUNT(*) AS jugadores_sin_datos
+    FROM jugadores
+    WHERE direccion IS NULL OR codigo_postal IS NULL;
+    ```
 
-**Ex_23** Contar el número de facturas de cada vendedor a cada cliente.
+    | jugadores_sin_datos |
+    | --- |
+    | 3 |
 
-![](Ex_6_23.png)
+    *1 filas.*
 
-Un total de **96 filas**
+## Ejercicio 16
 
-De estas 96 filas, relativamente poco tienen un valor diferente de 1 en el
-número de facturas: la fila 29 (455, 30, 2) o la fila 34 (5, 342, 3)
+Contar cuántas veces aparece el producto **10** en **lineas_compra** y sumar sus unidades vendidas.
 
-**Ex_24** Contar el número de facturas de cada trimestre. Para poder sacar
-el trimestre y agrupar por él (vale el número de trimestre, que va del 1
-al 4), podemos utilizar la función **TO_CHAR(fecha,'Q')**.
+??? success "Consulta y resultado"
 
-![](Ex_6_24.png)
+    ```sql
+    SELECT COUNT(*) AS apariciones, SUM(cantidad) AS unidades
+    FROM lineas_compra
+    WHERE id_producto=10;
+    ```
 
-No aparece ordenado, y significa que en el trimestre 2 hay 25 facturas, en el
-trimestre 4 hay 25, en el trimestre 3 hay 33 y en el trimestre 1 hay 22
+    | apariciones | unidades |
+    | --- | --- |
+    | 3 | 4 |
 
-**Ex_25** Calcular cuántas veces se ha vendido un artículo, la suma de unidades
-vendidas, la cantidad máxima y la cantidad mínima.
+    *1 filas.*
 
-![](Ex_6_25.png)
+## Ejercicio 17
 
-Un total de **399 filas**
+Calcular la media del **stock** de los productos.
 
-**Ex_26** Contar el número de artículos de cada categoría y el precio medio.
+??? success "Consulta y resultado"
 
-![](Ex_6_26.png)
+    ```sql
+    SELECT AVG(stock) AS stock_medio
+    FROM productos;
+    ```
 
-**Ex_27** Calcular el total de cada factura, sin aplicar descuentos ni IVA.
-Sólo nos hará falta la mesa **LINIES_FAC** , y consistirá en agrupar por
-cada **num_f** para calcular la suma del **precio** multiplicado por la
-**cantidad**.
+    | stock_medio |
+    | --- |
+    | 10.0909 |
 
-![](Ex_6_27.png)
+    *1 filas.*
 
-Un total de **105 filas**
+## Ejercicio 18
 
-**Ex_28** Calcular la media de cantidades pedidas de aquellos artículos que
-se han pedido más de dos veces. Observe que la mesa que nos hace falta es
-LÍNEA_FAC, y que la condición (en el HAVING) es sobre el número de veces que
-entra el artículo en una línea de factura, pero el resultado que debe mostrarse
-es la media de la cantidad.
+Repetir lo anterior tratando los valores nulos como 0 mediante `COALESCE(stock, 0)`.
 
-![](Ex_6_28.png)
+??? success "Consulta y resultado"
 
-**Ex_29** Sacar a los pueblos que tienen entre 3 y 7 clientes. Quitar sólo el código
-del pueblo y ese número
+    ```sql
+    SELECT AVG(COALESCE(stock,0)) AS stock_medio
+    FROM productos;
+    ```
 
-![](Ex_6_29.png)
+    | stock_medio |
+    | --- |
+    | 9.2500 |
 
-**Ex_30** Sacar las categorías que tienen más de un artículo "caro" (de más de
-100 €). Observe que también nos saldrá la categoría NULL, es decir, aparecerá
-como categoría aquellos artículos que no están catalogados.
+    *1 filas.*
 
-![](Ex_6_30.png)
+## Ejercicio 19
 
-**Ex_31** Sacar a los clientes que tienen más de una factura, con el número de
-facturas.
+Contar cuántas **compras** tiene el jugador con ID **5**.
 
-![](Ex_6_31.png)
+??? success "Consulta y resultado"
 
-Un total de **33 filas**
+    ```sql
+    SELECT COUNT(*) AS compras
+    FROM compras
+    WHERE id_jugador=5;
+    ```
 
-**Ex_32** Modificar lo anterior para sacar a los clientes que tienen más
-de una factura en el primer trimestre.
+    | compras |
+    | --- |
+    | 4 |
 
-![](Ex_6_32.png)
+    *1 filas.*
 
-**Ex_33** Calcular el total de cada factura de aquellas facturas que
-tienen 10 o más líneas de factura, sin aplicar descuentos ni IVA (como la
-consulta **Ex_26**), y también aplicando el descuento que consta en la línea de
-factura (no el descuento de toda la factura). Tendremos el problema de que el valor
-NULL es especial, y al operar con cualquier otro valor dará NULL. En este
-caso claramente debemos considerarlo como un descuento 0. Puede utilizar una
-función que sustituye a los valores nulos encontrados en el primer parámetro, por
-segundo parámetro de esta forma: **COALESCE(dto,0)**
+## Ejercicio 20
 
-![](Ex_6_33.png)
+Calcular el **descuento máximo**, **mínimo** y **medio** de las **compras**.
 
-**Ex_34** Sacar a todos los clientes ordenados por código de población, y dentro
-de éstos por código postal.
+??? success "Consulta y resultado"
 
-![](Ex_6_34.png)
+    ```sql
+    SELECT MAX(descuento) AS maximo, MIN(descuento) AS minimo, AVG(descuento) AS media
+    FROM compras;
+    ```
 
-Un total de **49 filas**
+    | maximo | minimo | media |
+    | --- | --- | --- |
+    | 15.00 | 0.00 | 4.0909 |
 
-**Ex_35** Sacar todos los artículos ordenados por la categoría, dentro de éste por
-stock, y dentro de éste por precio (de forma descendente)
+    *1 filas.*
 
-![](Ex_6_35.png)
+## Ejercicio 21
 
-Un total de **812 filas**
+Contar los **jugadores** de cada **provincia**, relacionando jugadores, ciudades y provincias.
 
-**Ex_36** Sacar los resultados de la consulta **6.33** ordenados por el total de la
-factura cuando ya se ha aplicado el descuento, de forma descendente.
+??? success "Consulta y resultado"
 
-![](Ex_6_36.png)
+    ```sql
+    SELECT p.nombre AS provincia, COUNT(*) AS jugadores
+    FROM jugadores j
+    JOIN ciudades c ON c.id_ciudad=j.id_ciudad
+    JOIN provincias p ON p.id_provincia=c.id_provincia
+    GROUP BY p.id_provincia
+    ORDER BY p.id_provincia;
+    ```
 
-**Ex_37** Sacar todos los artículos ordenados por la diferencia entre el stock y
-el stock mínimo de forma descendente. Debido a que en muchas ocasiones el stock o el
-stock mínimo es nulo, debemos considerar en estos casos como 0. Por tanto debemos
-volver a utilizar la función **COALESCE(stock,0)** (y también para el stock
-mínimo).
+    | provincia | jugadores |
+    | --- | --- |
+    | Madrid | 4 |
+    | Barcelona | 2 |
+    | Castellón | 2 |
 
-![](Ex_6_37.png)
+    *3 filas.*
 
-Un total de **812 filas**
+## Ejercicio 22
 
-**Ex_38** Sacar los códigos de vendedor con el número de facturas vendidas en el
-segundo semestre de 2015, ordenadas por este número de forma descendente
+Contar los **jugadores** por **ciudad** y **código postal**.
 
-![](Ex_6_38.png)
+??? success "Consulta y resultado"
 
-**Ex_39** Sacar a los vendedores que han vendido algo en el mes de enero de
-2015.
+    ```sql
+    SELECT c.nombre AS ciudad, j.codigo_postal, COUNT(*) AS jugadores
+    FROM jugadores j
+    JOIN ciudades c ON c.id_ciudad=j.id_ciudad
+    GROUP BY c.id_ciudad,j.codigo_postal
+    ORDER BY c.id_ciudad,j.codigo_postal;
+    ```
 
-![](Ex_6_39.png)
+    | ciudad | codigo_postal | jugadores |
+    | --- | --- | --- |
+    | Madrid | 28001 | 1 |
+    | Madrid | 28002 | 1 |
+    | Madrid | NULL | 1 |
+    | Alcalá de Henares | 28801 | 1 |
+    | Barcelona | 08001 | 1 |
+    | Barcelona | 08002 | 1 |
+    | Castellón de la Plana | 12001 | 1 |
+    | Castellón de la Plana | 12002 | 1 |
 
-**Ex_40** Sacar los diferentes tipos de IVA que se han aplicado a las facturas de
-cada vendedor, también durante el mes de enero de 2015
+    *8 filas.*
 
-![](Ex_6_40.png)
+## Ejercicio 23
 
-**Ex_41** Sacar los diferentes jefes de vendedores (evite que aparezca el valor
-nulo)
+Contar las **compras** atendidas por cada **vendedor** a cada **jugador**.
 
-![](Ex_6_41.png)
+??? success "Consulta y resultado"
 
-**Ex_42** Sacar los diferentes descuentos que se han aplicado en los artículos, el
-código de los que comienza por **SAT**. Sacar tanto el código de artículo como el
-descuento.
+    ```sql
+    SELECT id_vendedor,id_jugador,COUNT(*) AS compras
+    FROM compras
+    GROUP BY id_vendedor,id_jugador
+    ORDER BY id_vendedor,id_jugador;
+    ```
 
-![](Ex_6_42.png)
+    | id_vendedor | id_jugador | compras |
+    | --- | --- | --- |
+    | 2 | 1 | 1 |
+    | 2 | 2 | 2 |
+    | 2 | 3 | 1 |
+    | 2 | 5 | 1 |
+    | 2 | 7 | 1 |
+    | 3 | 1 | 1 |
+    | 3 | 4 | 1 |
+    | 3 | 5 | 3 |
+    | 3 | 6 | 1 |
 
-**Ex_43** Contar en cuántas poblaciones tenemos clientes
+    *9 filas.*
 
-![](Ex_6_43.png)
+## Ejercicio 24
 
-**Ex_44** Sacar toda la información de los dos artículos más caros.
+Contar las **compras** de cada trimestre usando `TO_CHAR(fecha, 'Q')`.
 
-![](Ex_6_44.png)
+??? success "Consulta y resultado"
 
-**Ex_45** Sacar el código de las tres ciudades con más clientes
+    ```sql
+    SELECT TO_CHAR(fecha,'Q') AS trimestre,COUNT(*) AS compras
+    FROM compras
+    GROUP BY TO_CHAR(fecha,'Q')
+    ORDER BY trimestre;
+    ```
 
-![](Ex_6_45.png)
+    | trimestre | compras |
+    | --- | --- |
+    | 1 | 6 |
+    | 3 | 2 |
+    | 4 | 4 |
 
-**Ex_46** Sacar al vendedor que ha vendido menos facturas
+    *3 filas.*
 
-![](Ex_6_46.png)
+## Ejercicio 25
 
-**Ex_47** Sacar las tres facturas más caras (sin contar los descuentos)
+Para cada **producto**, contar sus líneas de compra, sumar las unidades vendidas y calcular las cantidades máxima y mínima en una línea.
 
-![](Ex_6_47.png)
+??? success "Consulta y resultado"
 
-**Ex_48** Modificar lo anterior para sacar todas las facturas, excepto las 3
-más caras.
+    ```sql
+    SELECT id_producto, COUNT(*) AS lineas, SUM(cantidad) AS unidades, MAX(cantidad) AS maxima, MIN(cantidad) AS minima
+    FROM lineas_compra
+    GROUP BY id_producto
+    ORDER BY id_producto;
+    ```
 
-![](Ex_6_48.png)
+    | id_producto | lineas | unidades | maxima | minima |
+    | --- | --- | --- | --- | --- |
+    | 1 | 3 | 3 | 1 | 1 |
+    | 2 | 3 | 4 | 2 | 1 |
+    | 3 | 4 | 4 | 1 | 1 |
+    | 4 | 3 | 3 | 1 | 1 |
+    | 5 | 4 | 5 | 2 | 1 |
+    | 6 | 2 | 2 | 1 | 1 |
+    | 7 | 1 | 1 | 1 | 1 |
+    | 8 | 2 | 2 | 1 | 1 |
+    | 9 | 1 | 2 | 2 | 2 |
+    | 10 | 3 | 4 | 2 | 1 |
+    | 11 | 1 | 1 | 1 | 1 |
+    | 12 | 1 | 1 | 1 | 1 |
 
-Un total de **102 filas**
+    *12 filas.*
 
-**Ex_49** Crear una tabla llamada **ARTÍCULO_999x** , donde 999 deben ser las 3
-últimas cifras del DNI, y x la letra de tu NIF, que sea una copia de la
-tabla ARTÍCULO, pero sustituyendo los valores nulos de **stock** y **stock_min**
-por ceros.
+## Ejercicio 26
 
-El resultado debe ser la creación de la mesa. Si consulta su contenido debe
-de ser el siguiente:
+Contar los **productos** de cada **categoría** y calcular su precio medio.
 
-![](Ex_6_49.png)
+??? success "Consulta y resultado"
 
-Un total de **812 filas**
+    ```sql
+    SELECT c.id_categoria,c.descripcion,COUNT(p.id_producto) AS productos,AVG(p.precio) AS precio_medio
+    FROM categorias c
+    LEFT
+    JOIN productos p ON p.id_categoria=c.id_categoria
+    GROUP BY c.id_categoria
+    ORDER BY c.id_categoria;
+    ```
 
-**Ex_50** Utilizar la tabla anterior para sacar el stock máximo, el mínimo y
-la media de stocks. Observa que si utilizamos la tabla ARTÍCULO, los
-resultados no serían los mismos (excepto el máximo), sobre todo la media, ya
-que los valores nulos no entrarían en los cálculos de esa media.
+    | id_categoria | descripcion | productos | precio_medio |
+    | --- | --- | --- | --- |
+    | 1 | Videojuegos | 2 | 44.9900 |
+    | 2 | Consolas | 4 | 999.4950 |
+    | 3 | Periféricos | 4 | 66.2425 |
+    | 4 | Merchandising | 2 | 22.4900 |
 
-![](Ex_6_50.png)
+    *4 filas.*
 
+## Ejercicio 27
 
-Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
-CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+Calcular la base de cada **compra**, sin descuentos ni IVA, sumando `precio_unitario * cantidad` en **lineas_compra** y agrupando por `id_compra`.
 
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_compra,SUM(precio_unitario*cantidad) AS base
+    FROM lineas_compra
+    GROUP BY id_compra
+    ORDER BY id_compra;
+    ```
+
+    | id_compra | base |
+    | --- | --- |
+    | 1 | 104.99 |
+    | 2 | 524.98 |
+    | 3 | 119.97 |
+    | 4 | 149.98 |
+    | 5 | 799.98 |
+    | 6 | 79.97 |
+    | 7 | 1344.00 |
+    | 8 | 90.00 |
+    | 9 | 299.99 |
+    | 10 | 1899.00 |
+    | 11 | 499.99 |
+    | 12 | 1219.90 |
+
+    *12 filas.*
+
+## Ejercicio 28
+
+Calcular la media de cantidades vendidas de los **productos** que aparecen en más de dos líneas de compra.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_producto,AVG(cantidad) AS media
+    FROM lineas_compra
+    GROUP BY id_producto
+    HAVING COUNT(*)>2
+    ORDER BY id_producto;
+    ```
+
+    | id_producto | media |
+    | --- | --- |
+    | 1 | 1.0000 |
+    | 2 | 1.3333 |
+    | 3 | 1.0000 |
+    | 4 | 1.0000 |
+    | 5 | 1.2500 |
+    | 10 | 1.3333 |
+
+    *6 filas.*
+
+## Ejercicio 29
+
+Sacar las **ciudades** con entre 3 y 7 **jugadores**, mostrando el nombre de la ciudad y el número de jugadores.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT c.nombre, COUNT(*) AS jugadores
+    FROM ciudades c
+    JOIN jugadores j ON j.id_ciudad=c.id_ciudad
+    GROUP BY c.id_ciudad
+    HAVING COUNT(*) BETWEEN 3 AND 7
+    ORDER BY c.id_ciudad;
+    ```
+
+    | nombre | jugadores |
+    | --- | --- |
+    | Madrid | 3 |
+
+    *1 filas.*
+
+## Ejercicio 30
+
+Sacar las **categorías** con más de un producto de precio superior a **500 €**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT c.id_categoria,c.descripcion,COUNT(*) AS productos_caros
+    FROM categorias c
+    JOIN productos p ON p.id_categoria=c.id_categoria
+    WHERE p.precio>500
+    GROUP BY c.id_categoria
+    HAVING COUNT(*)>1
+    ORDER BY c.id_categoria;
+    ```
+
+    | id_categoria | descripcion | productos_caros |
+    | --- | --- | --- |
+    | 2 | Consolas | 2 |
+
+    *1 filas.*
+
+## Ejercicio 31
+
+Sacar los **jugadores** con más de una **compra**, mostrando su número de compras.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_jugador,COUNT(*) AS compras
+    FROM compras
+    GROUP BY id_jugador
+    HAVING COUNT(*)>1
+    ORDER BY id_jugador;
+    ```
+
+    | id_jugador | compras |
+    | --- | --- |
+    | 1 | 2 |
+    | 2 | 2 |
+    | 5 | 4 |
+
+    *3 filas.*
+
+## Ejercicio 32
+
+Repetir lo anterior considerando solo las compras del primer trimestre de 2024.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_jugador,COUNT(*) AS compras
+    FROM compras
+    WHERE fecha>=DATE '2024-01-01' AND fecha<DATE '2024-04-01'
+    GROUP BY id_jugador
+    HAVING COUNT(*)>1
+    ORDER BY id_jugador;
+    ```
+
+    | id_jugador | compras |
+    | --- | --- |
+    | 5 | 2 |
+
+    *1 filas.*
+
+## Ejercicio 33
+
+Para las **compras** con 10 o más líneas, calcular su base sin descuentos y su base aplicando el descuento de cada línea. Usar `precio_unitario * cantidad * (1 - COALESCE(descuento_linea, 0) / 100.0)`. No aplicar todavía el descuento general ni el IVA.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_compra,SUM(precio_unitario*cantidad) AS base, SUM(precio_unitario*cantidad*(1-COALESCE(descuento_linea,0)/100.0)) AS base_con_descuentos
+    FROM lineas_compra
+    GROUP BY id_compra
+    HAVING COUNT(*)>=10
+    ORDER BY id_compra;
+    ```
+
+    | id_compra | base | base_con_descuentos |
+    | --- | --- | --- |
+    | 12 | 1219.90 | 1212.1515 |
+
+    *1 filas.*
+
+## Ejercicio 34
+
+Sacar los **jugadores** ordenados por **ciudad** y, dentro de esta, por **código postal**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT *
+    FROM jugadores
+    ORDER BY id_ciudad,codigo_postal,id_jugador;
+    ```
+
+    | id_jugador | nombre | direccion | codigo_postal | id_ciudad |
+    | --- | --- | --- | --- | --- |
+    | 1 | Juan Pérez López | Calle Mayor 10 | 28001 | 1 |
+    | 4 | Sara Vidal Villalonga | NULL | 28002 | 1 |
+    | 5 | Álex García Torres | Calle Sol 8 | NULL | 1 |
+    | 8 | Paula Serra Gil | Calle Estación 2 | 28801 | 2 |
+    | 2 | Marta Sánchez Vidal | Avinguda Diagonal 50 | 08001 | 3 |
+    | 7 | Hugo Martín Ruiz | Calle Luna 4 | 08002 | 3 |
+    | 3 | Luis Villalonga García | Calle del Mar 5 | 12001 | 5 |
+    | 6 | Noa López Serra | NULL | 12002 | 5 |
+
+    *8 filas.*
+
+## Ejercicio 35
+
+Sacar los **productos** ordenados por **categoría**, después por **stock** y finalmente por **precio descendente**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT *
+    FROM productos
+    ORDER BY id_categoria,stock,precio DESC,id_producto;
+    ```
+
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 1 | Elden Ring | 59.99 | 20 | 5 | 1 |
+    | 2 | Minecraft | 29.99 | 30 | 5 | 1 |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 2 | 1 | 2 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 3 | 1 | 2 |
+    | 4 | Nintendo Switch | 299.99 | 5 | 2 | 2 |
+    | 3 | PlayStation 5 | 499.99 | 6 | 2 | 2 |
+    | 6 | RZ Teclado: BlackWidow | 89.99 | 5 | 2 | 3 |
+    | 8 | Mando: Xbox Wireless | 59.99 | 7 | NULL | 3 |
+    | 5 | RZ Mouse: DeathAdder | 45.00 | 8 | 2 | 3 |
+    | 7 | Auriculares: HyperX Cloud | 69.99 | NULL | 2 | 3 |
+    | 10 | Figura: Hollow Knight | 24.99 | 10 | 2 | 4 |
+    | 9 | Camiseta: Creeper | 19.99 | 15 | 3 | 4 |
+
+    *12 filas.*
+
+## Ejercicio 36
+
+Ordenar los resultados de **Ex_33** por la base con descuentos de línea, de mayor a menor.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_compra,SUM(precio_unitario*cantidad) AS base,SUM(precio_unitario*cantidad*(1-COALESCE(descuento_linea,0)/100.0)) AS base_con_descuentos
+    FROM lineas_compra
+    GROUP BY id_compra
+    HAVING COUNT(*)>=10
+    ORDER BY base_con_descuentos DESC,id_compra;
+    ```
+
+    | id_compra | base | base_con_descuentos |
+    | --- | --- | --- |
+    | 12 | 1219.90 | 1212.1515 |
+
+    *1 filas.*
+
+## Ejercicio 37
+
+Sacar los **productos** ordenados por la diferencia entre **stock** y **stock mínimo**, de mayor a menor, tratando los nulos como 0 con `COALESCE`.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT *
+    FROM productos
+    ORDER BY COALESCE(stock,0)-COALESCE(stock_minimo,0) DESC,id_producto;
+    ```
+
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 2 | Minecraft | 29.99 | 30 | 5 | 1 |
+    | 1 | Elden Ring | 59.99 | 20 | 5 | 1 |
+    | 9 | Camiseta: Creeper | 19.99 | 15 | 3 | 4 |
+    | 10 | Figura: Hollow Knight | 24.99 | 10 | 2 | 4 |
+    | 8 | Mando: Xbox Wireless | 59.99 | 7 | NULL | 3 |
+    | 5 | RZ Mouse: DeathAdder | 45.00 | 8 | 2 | 3 |
+    | 3 | PlayStation 5 | 499.99 | 6 | 2 | 2 |
+    | 4 | Nintendo Switch | 299.99 | 5 | 2 | 2 |
+    | 6 | RZ Teclado: BlackWidow | 89.99 | 5 | 2 | 3 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 3 | 1 | 2 |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 2 | 1 | 2 |
+    | 7 | Auriculares: HyperX Cloud | 69.99 | NULL | 2 | 3 |
+
+    *12 filas.*
+
+## Ejercicio 38
+
+Sacar los códigos de **vendedor** y su número de **compras** atendidas en el segundo semestre de 2024, ordenados por ese número de mayor a menor.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_vendedor,COUNT(*) AS compras
+    FROM compras
+    WHERE fecha>=DATE '2024-07-01' AND fecha<DATE '2025-01-01'
+    GROUP BY id_vendedor
+    ORDER BY compras DESC,id_vendedor;
+    ```
+
+    | id_vendedor | compras |
+    | --- | --- |
+    | 2 | 3 |
+    | 3 | 3 |
+
+    *2 filas.*
+
+## Ejercicio 39
+
+Sacar los **vendedores** que atendieron alguna compra en enero de 2024, sin repetirlos.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT DISTINCT v.id_vendedor,v.nombre
+    FROM vendedores v
+    JOIN compras c ON c.id_vendedor=v.id_vendedor
+    WHERE c.fecha>=DATE '2024-01-01' AND c.fecha<DATE '2024-02-01'
+    ORDER BY v.id_vendedor;
+    ```
+
+    | id_vendedor | nombre |
+    | --- | --- |
+    | 2 | Marcos Vidal |
+    | 3 | Elena García |
+
+    *2 filas.*
+
+## Ejercicio 40
+
+Sacar los distintos **descuentos de línea** aplicados por cada vendedor en enero de 2024.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT DISTINCT c.id_vendedor,l.descuento_linea
+    FROM compras c
+    JOIN lineas_compra l ON l.id_compra=c.id_compra
+    WHERE c.fecha>=DATE '2024-01-01' AND c.fecha<DATE '2024-02-01'
+    ORDER BY c.id_vendedor,l.descuento_linea;
+    ```
+
+    | id_vendedor | descuento_linea |
+    | --- | --- |
+    | 2 | 0.00 |
+    | 2 | 5.00 |
+    | 3 | 0.00 |
+    | 3 | 10.00 |
+
+    *4 filas.*
+
+## Ejercicio 41
+
+Sacar los diferentes **jefes de vendedores**, evitando el valor nulo.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT DISTINCT id_jefe
+    FROM vendedores
+    WHERE id_jefe IS NOT NULL
+    ORDER BY id_jefe;
+    ```
+
+    | id_jefe |
+    | --- |
+    | 1 |
+
+    *1 filas.*
+
+## Ejercicio 42
+
+Sacar los distintos descuentos de línea aplicados a productos cuyo nombre comienza por **RZ**, mostrando `id_producto` y `descuento_linea`.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT DISTINCT p.id_producto,l.descuento_linea
+    FROM productos p
+    JOIN lineas_compra l ON l.id_producto=p.id_producto
+    WHERE p.nombre LIKE 'RZ%'
+    ORDER BY p.id_producto,l.descuento_linea;
+    ```
+
+    | id_producto | descuento_linea |
+    | --- | --- |
+    | 5 | 0.00 |
+    | 5 | 5.00 |
+    | 6 | NULL |
+
+    *3 filas.*
+
+## Ejercicio 43
+
+Contar en cuántas **ciudades** diferentes viven los jugadores.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT COUNT(DISTINCT id_ciudad) AS ciudades
+    FROM jugadores;
+    ```
+
+    | ciudades |
+    | --- |
+    | 4 |
+
+    *1 filas.*
+
+## Ejercicio 44
+
+Sacar toda la información de los dos **productos** más caros.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT *
+    FROM productos
+    ORDER BY precio DESC,id_producto LIMIT 2;
+    ```
+
+    | id_producto | nombre | precio | stock | stock_minimo | id_categoria |
+    | --- | --- | --- | --- | --- | --- |
+    | 12 | PC Gaming: RTX 4080 | 1899.00 | 2 | 1 | 2 |
+    | 11 | PC Gaming: RTX 4070 | 1299.00 | 3 | 1 | 2 |
+
+    *2 filas.*
+
+## Ejercicio 45
+
+Sacar las tres **ciudades** con más **jugadores**.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT c.id_ciudad,c.nombre,COUNT(*) AS jugadores
+    FROM ciudades c
+    JOIN jugadores j ON j.id_ciudad=c.id_ciudad
+    GROUP BY c.id_ciudad
+    ORDER BY jugadores DESC,c.id_ciudad LIMIT 3;
+    ```
+
+    | id_ciudad | nombre | jugadores |
+    | --- | --- | --- |
+    | 1 | Madrid | 3 |
+    | 3 | Barcelona | 2 |
+    | 5 | Castellón de la Plana | 2 |
+
+    *3 filas.*
+
+## Ejercicio 46
+
+Sacar el **vendedor** que ha atendido menos **compras**, incluyendo a quienes no han atendido ninguna.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT v.id_vendedor,v.nombre,COUNT(c.id_compra) AS compras
+    FROM vendedores v
+    LEFT
+    JOIN compras c ON c.id_vendedor=v.id_vendedor
+    GROUP BY v.id_vendedor
+    ORDER BY compras,v.id_vendedor LIMIT 1;
+    ```
+
+    | id_vendedor | nombre | compras |
+    | --- | --- | --- |
+    | 1 | Alicia Damborenea | 0 |
+
+    *1 filas.*
+
+## Ejercicio 47
+
+Sacar las tres **compras** con mayor base sin descuentos ni IVA, sumando `precio_unitario * cantidad` en sus líneas.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_compra,SUM(precio_unitario*cantidad) AS base
+    FROM lineas_compra
+    GROUP BY id_compra
+    ORDER BY base DESC,id_compra LIMIT 3;
+    ```
+
+    | id_compra | base |
+    | --- | --- |
+    | 10 | 1899.00 |
+    | 7 | 1344.00 |
+    | 12 | 1219.90 |
+
+    *3 filas.*
+
+## Ejercicio 48
+
+Repetir lo anterior para sacar todas las compras excepto las tres de mayor base.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT id_compra,SUM(precio_unitario*cantidad) AS base
+    FROM lineas_compra
+    GROUP BY id_compra
+    ORDER BY base DESC,id_compra OFFSET 3;
+    ```
+
+    | id_compra | base |
+    | --- | --- |
+    | 5 | 799.98 |
+    | 2 | 524.98 |
+    | 11 | 499.99 |
+    | 9 | 299.99 |
+    | 4 | 149.98 |
+    | 3 | 119.97 |
+    | 1 | 104.99 |
+    | 8 | 90.00 |
+    | 6 | 79.97 |
+
+    *9 filas.*
+
+## Ejercicio 49
+
+Crear **PRODUCTO_999x**, sustituyendo 999 por las tres últimas cifras de tu DNI y x por su letra, como copia de **productos**, con los nulos de `stock` y `stock_minimo` sustituidos por 0 mediante `COALESCE`.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    CREATE TEMP TABLE producto_999x AS SELECT id_producto,nombre,precio,COALESCE(stock,0) AS stock,COALESCE(stock_minimo,0) AS stock_minimo,id_categoria
+    FROM productos; SELECT COUNT(*) AS filas_copiadas
+    FROM producto_999x;
+    ```
+
+    | filas_copiadas |
+    | --- |
+    | 12 |
+
+    *1 filas.*
+
+## Ejercicio 50
+
+Usar la tabla anterior para calcular el máximo, mínimo y media de **stock**. Comparar con **productos**, donde los valores nulos no entran en los cálculos.
+
+??? success "Consulta y resultado"
+
+    ```sql
+    SELECT MAX(stock) AS maximo,MIN(stock) AS minimo,AVG(stock) AS media
+    FROM producto_999x;
+    ```
+
+    | maximo | minimo | media |
+    | --- | --- | --- |
+    | 30 | 0 | 9.2500 |
+
+    *1 filas.*
+
+Descarga las [consultas de solución](../soluciones/sql/gamehub-dql-basico.sql).

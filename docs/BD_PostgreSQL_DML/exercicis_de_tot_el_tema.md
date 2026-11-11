@@ -1,74 +1,31 @@
-# 2. Consultas de actualización (DML)
+# Ejercicios DML: GameHub
 
-Como ya se ha comentado en la introducción, y por no interferir entre nosotros, cada uno se conectará a su Base de Datos **factura_local**.
+Trabaja sobre tu **gamehub local**, con sus datos iniciales cargados. Para cada bloque utiliza `BEGIN` y termina con `ROLLBACK`, de modo que DQL utilice el mismo conjunto de datos. Si quieres conservar un cambio, sustituye `ROLLBACK` por `COMMIT` solo cuando el profesor lo indique.
 
-Ejercicios de todo el tema
+Consulta el [modelo de GameHub](../BD_PostgreSQL_DQL/gamehub.md) y la [carga inicial](1_introducci.md).
 
-Como ya se ha comentado en la introducción, y por no interferir entre nosotros, cada uno se conectará a su Base de Datos **factura_local**.
+**Ex_1.** Inserta las categorías `Realidad virtual` y `Streaming`. Omite sus códigos y recupéralos con `RETURNING`. No adivines los valores de la secuencia.
 
+**Ex_2.** En la categoría Streaming que acabas de crear, inserta `Micrófono: Stream USB`, precio 79.90, stock 8 y stock mínimo 2. Utiliza el código devuelto en el ejercicio anterior.
 
-El esquema Entidad-Relación y el esquema relacional es el siguiente:
+**Ex_3.** Inserta un jugador llamado `Alex Torres`, dirección `Calle Sol 10`, código postal `28001` y ciudad Madrid. Localiza primero el código de la ciudad.
 
-![](factura.png)
+**Ex_4.** Crea una compra para ese jugador, atendida por el vendedor 2, con fecha actual, IVA 21 y descuento 0. Añade una línea del producto 1 y otra del 5, cada una con cantidad 1 y su precio actual. Recupera el código generado de la compra.
 
-En la Base de Datos llamada **factura_local**:
+**Ex_5.** Añade una tercera línea con cantidad 2 del producto 10 y descuento de línea 10 %. Comprueba que no repites `(id_compra, num_linea)`.
 
-**Ex_1** - Insertar en la tabla **CATEGORÍA** las siguientes filas:
+**Ex_6.** Borra la compra recién creada. Comprueba que desaparecen sus tres líneas por la cascada y que permanecen jugador, vendedor y productos. Revierte todo el bloque con `ROLLBACK`.
 
-**cod_cas** | **descripcion**  
----|---  
-BjcOlimpia | Componentes Bjc Seria Olimpia  
-Legrand | Componentes marca Legrand  
-IntMagn | Interruptor Magnetotérmico  
-Niessen | Componentes Niesen Serie Lisa  
-  
-**Ex_2** - Insertar los siguientes artículos.
+**Ex_7.** Dentro de una transacción nueva, intenta borrar el producto 8, cuyo stock mínimo es nulo. Explica por qué falla si tiene líneas que lo referencian. Ejecuta `ROLLBACK` tras el error. Propón marcar un producto como inactivo en lugar de borrar su historial.
 
-**cod_art** | **descrip** | **precio** | **stock** | **stock_min** | **cod_cas**  
----|---|---|---|---|---  
-B10028B | Cruzamiento Bjc Serie Olimpia | 4.38 | 2 | 1 | BjcOlimpia  
-B10200B | Cruzamiento Bjc Olimpia Cono Visor | 0.88 | 29 |  | BjcOlimpia  
-L16550 | Cartucho Fusible Legrand T2 250 A | 5.89 | 1 | 1 | Legrand  
-L16555 | Cartucho Fusible Legrand T2 315 A | 5.89 | 3 | 3 | Legrand  
-IM2P10L | Interruptor Magnetotermico 2p, 4 | 14.84 | 2 | 1 | IntMagn  
-N8008BA | Base Tt Lateral Niessen Trazo Bla | 4.38 | 6 | 6 | Niessen  
-  
-**Ex_3** - Insertar en la tabla **CLIENTE** tres filas con los siguientes datos
+**Ex_8.** Quita los códigos postales de todos los jugadores, comprueba el resultado y revierte el cambio.
 
-- **pruebas**: servirá para realizar pruebas, como su propio nombre indica. Todos los ejemplos del tema los realizaremos en esta BD.
-- **factura_local**: tendrá una Base de Datos para cada uno en local. Es donde tendrá que trabajar los ejercicios.
+**Ex_9.** Sube un 5 % los precios de los productos de Periféricos, redondeando a dos decimales. Muestra los valores antes y después y revierte.
 
-**num_f** | **fecha** | **cod_cli** | **cod_ven** | **iva** | **dto**  
----|---|---|---|---|---  
-6535 | 2015-01-01 | 306 |  | 21 | 10  
+**Ex_10.** Cambia el jefe del vendedor 3 al vendedor 2. Comprueba la jerarquía y revierte. Explica por qué una FK reflexiva no impide por sí sola formar ciclos.
 
-**num_f** | **num_l** | **cod_art** | **cuánto** | **precio** | **dto**  
----|---|---|---|---|---  
-6535 | 1 | L16555 | 2 | 5.89 | 25  
-  
-**Ex_5** - Insertar la siguiente factura (esta tiene más de una línea de factura).
+**Ex_11.** Modifica a 0 los descuentos nulos de las líneas. Comprueba cuántas filas cambian y revierte.
 
-**num_f** | **fecha** | **cod_cli** | **cod_ven** | **iva** | **dto**  
----|---|---|---|---|---  
-6559 | 2015-02-16 | 387 |  | 10 | 10  
+**Ex_12.** Inserta una compra y sus líneas dentro de una única transacción. Provoca un error usando un producto inexistente y realiza `ROLLBACK`. Comprueba que no quedan filas incompletas.
 
-**num_f** | **num_l** | **cod_art** | **cuánto** | **precio** | **dto**  
----|---|---|---|---|---  
-6559 | 1 | IM2P10L | 3 | 14.84 |   
-6559 | 2 | N8008BA | 6 | 4.38 | 20  
-  
-**Ex_6** - Borrar la factura **6559**. Comprobar que también se han borrado las
-sus líneas de factura
-
-**Ex_7** - Borrar los artículos de los que **no** tenemos**stock mínimo**.
-
-**Ex_8** - Quitar todos los códigos postales de los clientes.
-
-**Ex_9** - Subir el precio de los artículos de la categoría **BjcOlimpia** un **5%**
-(el resultado será que el único artículo de esta categoría habrá pasado de un
-precio de 4.38 a **4.60€**)
-
-
-Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
-CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
-
+Al terminar deben seguir existiendo las **12 compras y 28 líneas iniciales**. Guarda las sentencias y las comprobaciones en `03_gamehub_dml.sql`.

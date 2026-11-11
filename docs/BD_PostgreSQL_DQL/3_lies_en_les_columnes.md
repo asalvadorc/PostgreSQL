@@ -13,15 +13,15 @@ con comillas dobles ( **"** ).
 
 Por ejemplo:
 
-    SELECT id_juego AS "Código Juego" , titulo  
-      FROM juegos;
+    SELECT id_movil AS "Código Móvil" , modelo  
+      FROM moviles;
    
 Es especialmente útil la utilización de sobrenombre cuando ponemos una expresión, en
 cuenta de una única columna. Si no ponemos sobrenombre, aparece en la cabecera una
 algo parecido a **?column?**.
 
-    SELECT titulo || ' (' || fecha_lanzamiento || ')' AS "Juego (Lanzamiento)"  
-      FROM juegos;
+    SELECT modelo || ' (' || fecha_lanzamiento || ')' AS "Móvil (Lanzamiento)"  
+      FROM moviles;
 
 Y aparte de su valor estético, más adelante veremos sentencias SQL en las que
 obligatoriamente deberemos poner alias en las columnas que sean el resultado
@@ -29,23 +29,24 @@ de una expresión.
 
 **<u>Ejemplos</u>**
 
-  1) Sacar de los juegos, el título y el precio, éste último con el nombre **Costo**.
+  1) Sacar de los móviles, el modelo y el precio, éste último con el nombre **Costo**.
 
-    SELECT titulo, precio AS Costo  
-      FROM juegos;
+    SELECT modelo, precio AS Costo  
+      FROM moviles;
 
   2) Sacar todos los campos de la tabla **categorias** de forma elegante.
 
-    SELECT id_categoria AS "Código Categoría", nombre_categoria AS "Categoría", descripcion AS "Descripción"  
+    SELECT id_categoria AS "Código Categoría", descripcion AS "Categoría"  
       FROM categorias;
 
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-**Ex_5** Sacar el `id_pedido`, `fecha` e `id_empleado` de los **pedidos** con las siguientes cabeceras respectivamente: **Número Pedido**, **Fecha Realización** y **Código Vendedor**.
+En la BD **GameHub**, conectando como usuario **gamehub_alu**:
 
-**Ex_6** Dar alias a los campos que lo necesitan de la tabla **productos**.
+**Ex_5** Sacar `id_compra`, `fecha` e `id_vendedor` de **compras** con las cabeceras **Número Compra**, **Fecha** y **Código Vendedor**.
 
+**Ex_6** Dar alias legibles a los campos de la tabla **productos**.
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)

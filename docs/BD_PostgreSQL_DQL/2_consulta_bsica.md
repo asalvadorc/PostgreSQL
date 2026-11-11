@@ -41,61 +41,57 @@ En **&lt;columnas&gt;** podremos poner (separadas por **comas**):
 En la **&lt;clausula&gt;** del **FROM** pondremos la mesa o las tablas (separadas
 por comas) de dónde vienen los datos.
 
-Así el siguiente ejemplo saca toda la información de la tabla **estudios**, es decir todas las filas y todas las columnas:
+Así el siguiente ejemplo saca toda la información de la tabla **empresas**, es decir todas las filas y todas las columnas:
 
-    SELECT * FROM estudios;
+    SELECT * FROM empresas;
 
 Mientras que la siguiente sólo saca el nombre:
 
-    SELECT nombre FROM estudios;
+    SELECT nombre FROM empresas;
 
-En el siguiente ejemplo se saca el título de cada juego y su precio:
+En el siguiente ejemplo se saca el modelo de cada móvil y su precio:
 
-    SELECT titulo, precio FROM juegos;
+    SELECT modelo, precio FROM moviles;
 
-Y en éste sacamos el título de cada juego, su precio y el precio con un descuento del 50% (multiplicado por 0.5):
+Y en éste sacamos el modelo de cada móvil, su precio y el precio con un descuento del 50% (multiplicado por 0.5):
 
-    SELECT titulo, precio, precio * 0.5 FROM juegos;
+    SELECT modelo, precio, precio * 0.5 FROM moviles;
 
 Ejemplos adicionales:
 
-  1) Sacar toda la información de la tabla **juegos**.
+  1) Sacar toda la información de la tabla **moviles**.
 
-    SELECT * FROM juegos;
+    SELECT * FROM moviles;
 
-  2) Sacar el título y el precio de todos los juegos.
+  2) Sacar el modelo y el precio de todos los móviles.
 
-    SELECT titulo, precio 
-      FROM juegos;
+    SELECT modelo, precio 
+      FROM moviles;
 
-  3) Sacar el título de los juegos, su precio, y ese precio incrementado en un 5% por impuestos.
+  3) Sacar el modelo de los móviles, su precio, y ese precio incrementado en un 5% por impuestos.
 
-    SELECT titulo, precio, precio * 1.05 
-      FROM juegos;
+    SELECT modelo, precio, precio * 1.05 
+      FROM moviles;
 
 Observa cómo debemos utilizar el punto decimal y no la coma decimal, ya que la
 coma sirve para separar los campos de la consulta SQL.
 
-  4) Sacar el título y la primera palabra del título de todos los juegos. Para sacar la primera palabra buscaremos la posición del primer espacio en blanco.
+  4) Sacar el modelo y la primera palabra del modelo de todos los móviles. Para sacar la primera palabra buscaremos la posición del primer espacio en blanco.
 
-    SELECT titulo, SUBSTR(titulo, 1, STRPOS(titulo, ' ') - 1) 
-      FROM juegos;
+    SELECT modelo, SUBSTR(modelo, 1, STRPOS(modelo, ' ') - 1) 
+      FROM moviles;
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
+En la BD **GameHub**, conectando como usuario **gamehub_alu**:
 
-> **Ex_1** Sacar toda la información de los **productos**.
->
-> **Ex_2** Sacar el código de empleado, el nombre y el puesto, por este orden, de todos los **empleados**.
+**Ex_1** Sacar toda la información de los **productos**.
 
-> **Ex_3** Sacar el código de producto, el nombre, la marca, el precio y el precio incrementado en un 5% de todos los **productos**.
+**Ex_2** Sacar el código, el nombre y la ciudad de todos los **vendedores**, por ese orden.
 
-> **Ex_4** Sacar la información de los **clientes** con el siguiente formato (debe ir todo en una columna):
->
-> > **Pérez, Juan. Calle Mayor 10 (28001)**
->
-> Fíjese que está todo en una columna y, por tanto, tendrá que concatenar de la forma adecuada. Fíjese también que en el nombre solo las iniciales están en mayúsculas.
+**Ex_3** Sacar el código, el nombre, el precio y el precio incrementado en un 5 % de todos los **productos**.
+
+**Ex_4** Mostrar los datos de los **jugadores** en una sola columna con el formato **Juan Pérez López. Calle Mayor 10 (28001)**, concatenando nombre, dirección y código postal.
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)

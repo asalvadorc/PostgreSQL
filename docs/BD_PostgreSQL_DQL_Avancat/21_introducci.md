@@ -1,20 +1,7 @@
-# 1. Introducción
+# 1. Consultas avanzadas
 
-En la primera parte del tema se repasó toda la sintaxis de la sentencia
-SELECT. Una vez conocidas todas las cláusulas, es momento de sacar toda la cláusula
-potencia de SQL accediendo a Bases de Datos Relacionales, haciendo unas sentencias
-"avanzadas", de un nivel de complejidad mayor que hasta ahora.
+Después de DDL, DML y DQL básico, trabajarás con varias tablas de **GameHub**. Mantén la carga inicial: ocho tablas, doce compras y veintiocho líneas. Todos los ejemplos de este tema se ejecutan en la conexión `gamehub` del servidor local.
 
-Los tipos de sentencias avanzadas que veremos serán:
+Estudiaremos combinaciones internas y externas, consultas anidadas y operaciones de conjuntos. El [modelo relacional](../BD_PostgreSQL_DQL/gamehub.md) indica qué columnas debes relacionar: una PK con la FK que la referencia.
 
-  * Combinaciones de tablas, en las que entrará en juego más de una mesa. Veremos las distintas posibilidades que tendremos.
-
-  * Subconsultas, donde tendremos una sentencia SQL dentro de otra.
-
-  * Consultas de unión, donde uniremos más de una sentencia SQL.
-
-
-
-Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
-SinObraDerivada 2.5](http://creativecommons.org/licenses/by-nc-nd/2.5/)
-
+Los ejercicios continúan la numeración de la parte I, desde el 51. Los resultados se calculan sobre los datos iniciales; si modificaste datos en DML, restáuralos siguiendo la [guía de carga](../BD_PostgreSQL_DML/1_introducci.md).
