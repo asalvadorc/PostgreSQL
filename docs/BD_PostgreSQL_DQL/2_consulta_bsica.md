@@ -76,14 +76,14 @@ Ejemplos adicionales:
 Observa cómo debemos utilizar el punto decimal y no la coma decimal, ya que la
 coma sirve para separar los campos de la consulta SQL.
 
-  4) Sacar el modelo y la primera palabra del modelo de todos los móviles. Para sacar la primera palabra buscaremos la posición del primer espacio en blanco.
+  4) Sacar el modelo y la primera palabra del modelo de todos los móviles. Para sacar la primera palabra utilizaremos SPLIT_PART, que también funciona si el modelo no contiene espacios.
 
-    SELECT modelo, SUBSTR(modelo, 1, STRPOS(modelo, ' ') - 1) 
+    SELECT modelo, SPLIT_PART(modelo, ' ', 1) 
       FROM moviles;
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **gamehub_alu**:
+En la BD **GameHub**, conectando como usuario **alumno**:
 
 **Ex_1** Sacar toda la información de los **productos**.
 

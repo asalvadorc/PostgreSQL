@@ -111,14 +111,14 @@ nav:
       - 10. La cláusula LIMIT .. OFFSET: BD_PostgreSQL_DQL/10_la_clusula_limit__offset.md  
       - 11. Consulta de creación de tablas: BD_PostgreSQL_DQL/11_consulta_de_creaci_de_taules.md
       - 12. Orden en el que se ejecuta una sentencia SQL: BD_PostgreSQL_DQL/12_ordre_amb_qu_sexecuta_una_sentncia_sql.md
-      - Ejercicios con los resultados (parte I): BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats.md 
       - Ejemplos de BDs: BD_PostgreSQL_DQL/ejemplos_bd.md   
   - DQL - Consultas avanzadas (parte II):
       - 1. Introducción: BD_PostgreSQL_DQL_Avancat/21_introducci.md
       - 2. Combinaciones de tablas: BD_PostgreSQL_DQL_Avancat/22_combinacions_de_taules.md
       - 3. Subconsultas: BD_PostgreSQL_DQL_Avancat/23_subconsultes.md
       - 4. Consultas de operaciones de conjuntos: BD_PostgreSQL_DQL_Avancat/24_consultes_doperacions_de_conjunts.md  
-      - Ejercicios con los resultados (parte II): BD_PostgreSQL_DQL_Avancat/exercicis_de_tot_el_tema_amb_els_resultats.md
 
   - Soluciones:
       - Referencias y scripts: soluciones/index.md
+      - DQL básico: BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats.md
+      - DQL avanzado: BD_PostgreSQL_DQL_Avancat/exercicis_de_tot_el_tema_amb_els_resultats.md

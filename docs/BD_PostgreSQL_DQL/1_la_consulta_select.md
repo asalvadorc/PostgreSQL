@@ -23,7 +23,7 @@ cada una de las cláusulas:
     [ GROUP BY <clàusula> ]  
     [ HAVING <clàusula> ]  
     [ ORDER BY <clàusula> ]  
-    [ LIMITE num1 OFFSET num2 ]
+    [ LIMIT num1 OFFSET num2 ]
 
 Como veis, las únicas cláusulas obligatorias son la del **SELECT** (donde se llama las columnas que queremos que salgan como resultado) y la del **FROM** (donde se dice de dónde vienen los datos).
 

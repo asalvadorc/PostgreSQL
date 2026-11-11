@@ -57,7 +57,7 @@ Por ejemplo, esta sentencia servirá para sacar las empresas que tienen más de 
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **gamehub_alu**:
+En la BD **GameHub**, conectando como usuario **alumno**:
 
 **Ex_28** Calcular la media de cantidades vendidas de los **productos** que aparecen en más de dos líneas de compra.
 

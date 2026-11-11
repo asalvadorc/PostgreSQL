@@ -79,7 +79,7 @@ no respetar esto sería lo mismo que lo visto en aquel apartado.
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **gamehub_alu**:
+En la BD **GameHub**, conectando como usuario **alumno**:
 
 **Ex_34** Sacar los **jugadores** ordenados por **ciudad** y, dentro de esta, por **código postal**.
 

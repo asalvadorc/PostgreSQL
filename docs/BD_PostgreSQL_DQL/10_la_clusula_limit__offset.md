@@ -93,7 +93,7 @@ Si quisiéramos sacar todos los móviles excepto los 3 más caros, podemos poner
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **gamehub_alu**:
+En la BD **GameHub**, conectando como usuario **alumno**:
 
 **Ex_44** Sacar toda la información de los dos **productos** más caros.
 

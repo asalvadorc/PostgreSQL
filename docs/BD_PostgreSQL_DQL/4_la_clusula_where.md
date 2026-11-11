@@ -111,7 +111,7 @@ Recordemos por otro lado cómo se escriben las constantes:
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **gamehub_alu**:
+En la BD **GameHub**, conectando como usuario **alumno**:
 
 **Ex_7** Sacar los **jugadores** que viven en la ciudad **Madrid**. Consultar `ciudades` para localizar su código.
 
