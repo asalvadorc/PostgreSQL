@@ -1,5 +1,19 @@
 # Resultados de Aprendizaje y Criterios de Evalucación
 
+**RA 2:** Crea bases de datos definiendo su estructura y las características de sus elementos según el modelo relacional.
+
+👉 Se corresponde con el tema: DDL - Creación de tablas
+
+* CE2 a) Se ha analizado el formato de almacenamiento de la información.
+* CE2 b) Se han creado las tablas y las relaciones entre ellas.
+* CE2 c) Se han seleccionado los tipos de datos adecuados.
+* CE2 d) Se han definido los campos clave en las tablas.
+* CE2 e) Se han implantado las restricciones reflejadas en el diseño lógico.
+* CE2 f) Se han creado vistas.
+* CE2 g) Se han creado los usuarios y se les han asignado privilegios.
+* CE2 h) Se han utilizado asistentes, herramientas gráficas y los lenguajes de definición y control de datos.
+
+
 **RA 3:** Consulta la información almacenada en una base de datos empleando asistentes, herramientas gráficas y el lenguaje de manipulación de datos.
 
 👉 Se corresponde con el tema: DQL - Consultas (Parte I) y el tema DQL - Consultas Avanzadas (Parte II)
@@ -13,18 +27,6 @@
 * CE3 g) Se han realizado consultas que implican múltiples selecciones.
 * CE3 h) Se han aplicado criterios de optimización de consultas.
 
-**RA 2:** Crea bases de datos definiendo su estructura y las características de sus elementos según el modelo relacional.
-
-👉 Se corresponde con el tema: DDL - Creación de tablas
-
-* CE2 a) Se ha analizado el formato de almacenamiento de la información.
-* CE2 b) Se han creado las tablas y las relaciones entre ellas.
-* CE2 c) Se han seleccionado los tipos de datos adecuados.
-* CE2 d) Se han definido los campos clave en las tablas.
-* CE2 e) Se han implantado las restricciones reflejadas en el diseño lógico.
-* CE2 f) Se han creado vistas.
-* CE2 g) Se han creado los usuarios y se les han asignado privilegios.
-* CE2 h) Se han utilizado asistentes, herramientas gráficas y los lenguajes de definición y control de datos.
 
 **RA 4:** Modifica la información almacenada en la base de datos utilizando asistentes, herramientas gráficas y el lenguaje de manipulación de datos.
 

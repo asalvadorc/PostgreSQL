@@ -93,7 +93,7 @@ Si quisiéramos sacar todos los juegos excepto los 3 más caros, podemos poner O
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 **Ex_44** Sacar toda la información de los dos **productos** más caros.
 

@@ -1,5 +1,5 @@
 -- ==========================================
--- BASE DE DATOS: STEAMIFY (Ejemplos)
+-- BASE DE DATOS: MUNDOJUEGOS (Ejemplos)
 -- ==========================================
 
 CREATE TABLE estudios (
@@ -22,7 +22,7 @@ CREATE TABLE juegos (
     id_genero INTEGER REFERENCES generos(id_genero)
 );
 
--- Datos de ejemplo para Steamify
+-- Datos de ejemplo para MundoJuegos
 INSERT INTO estudios (nombre, sede) VALUES 
 ('Valve', 'Bellevue, USA'),
 ('FromSoftware', 'Tokio, Japón'),
@@ -40,7 +40,7 @@ INSERT INTO juegos (titulo, fecha_lanzamiento, precio, id_estudio, id_genero) VA
 ('Red Dead Redemption 2', '2018-10-26', 59.99, 4, 4);
 
 -- ==========================================
--- BASE DE DATOS: TECHQUEST (Ejercicios)
+-- BASE DE DATOS: TECNOTIENDA (Ejercicios)
 -- ==========================================
 
 CREATE TABLE categorias (
@@ -97,7 +97,7 @@ CREATE TABLE lineas_pedido (
     PRIMARY KEY (id_pedido, num_linea)
 );
 
--- Algunos datos iniciales para TechQuest
+-- Algunos datos iniciales para TecnoTienda
 INSERT INTO categorias (nombre_categoria) VALUES ('Portátiles'), ('Periféricos'), ('Componentes'), ('Gaming');
 
 INSERT INTO productos (nombre, marca, precio, stock, stock_minimo, id_categoria) VALUES

@@ -51,7 +51,7 @@ Así, por ejemplo, si queremos contar cuántos estudios diferentes tienen juegos
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 **Ex_39** Sacar a los **empleados** que han realizado algún pedido en el mes de enero de 2024.
 

@@ -1,4 +1,4 @@
-# 11. Consulta de creación de tablas
+# DBeaver
 
 ## 2.1 Instalación y configuración
 

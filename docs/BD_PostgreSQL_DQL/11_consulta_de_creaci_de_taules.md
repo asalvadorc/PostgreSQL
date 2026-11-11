@@ -62,7 +62,7 @@ podemos borrarla con la sentencia
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 **Ex_49** Crear una tabla llamada **PRODUCTO_999x**, donde 999 deben ser las 3 últimas cifras de tu DNI, y x la letra, que sea una copia de la tabla **productos**, pero sustituyendo los valores nulos de **stock** y **stock_min** por ceros utilizando `COALESCE`.
 

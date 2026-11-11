@@ -66,7 +66,7 @@ Por ejemplo, si queremos saber el número de juegos en la plataforma:
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 **Ex_15** Contar el número de **clientes** que tienen la **dirección nula** (o el código postal).
 

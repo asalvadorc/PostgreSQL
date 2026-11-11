@@ -13,7 +13,7 @@ theme:
     text: Inter
     code: JetBrains Mono
   logo: assets/logo.png
-  favicon: assets/favicon.png
+  favicon: img/favicon.png
   features:
     - toc.follow
     - navigation.tabs
@@ -22,7 +22,6 @@ theme:
     - navigation.expand
     - navigation.top
     - navigation.footer
-    - navigation.path
     - navigation.instant
     - navigation.instant.progress
     - navigation.indexes
@@ -36,7 +35,6 @@ theme:
     - content.action.edit
     - content.action.view
     - header.autohide
-    - toc.integrate
 
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -77,18 +75,18 @@ markdown_extensions:
       toc_depth: 2
 
 nav:
-  
-  - SQL - POSTGRES:
-    - Resultados de Aprendizaje y Criterios de Evalucación: RA_CE.md
-    - Objetivos: BD_PostgreSQL_DQL/objectius_i_coneixements_previs.md
+  - 🏠 Inicio:
+    - index.md
+    - RA y CE: RA_CE.md
     - 1. Introducción: BD_PostgreSQL_DQL/1_introducci.md
-    - 2. DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
-    - 3 Datos de los ejemplos y los ejercicios: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
+    - 2. Bases de datos de ejemplo:
+      - MundoJuegos: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
+      - TecnoTienda: BD_PostgreSQL_DQL/tecnotienda.md
+    - 3. DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
     - 4. Operadores y Funciones de Postgres:
       - 4.1. Operadores: BD_PostgreSQL_DQL/6_operadors.md
       - 4.2. Funciones: BD_PostgreSQL_DQL/7_funcions.md
   - DQL - Consultas (parte I):  
-      - Presentación Tema 4 (Parte 1): BD_PostgreSQL_DQL/0_presentacion.md
       - 1. La consulta SELECT: BD_PostgreSQL_DQL/1_la_consulta_select.md
       - 2. Consulta básica: BD_PostgreSQL_DQL/2_consulta_bsica.md
       - 3. Alias en las columnas: BD_PostgreSQL_DQL/3_lies_en_les_columnes.md
@@ -104,7 +102,6 @@ nav:
       - Ejercicios con los resultados (parte I): BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats.md 
       - Ejemplos de BDs: BD_PostgreSQL_DQL/ejemplos_bd.md   
   - DQL - Consultas avanzadas (parte II):
-      - Presentación Tema 4 (Parte 2): BD_PostgreSQL_DQL_Avancat/20_presentacion.md
       - 1. Introducción: BD_PostgreSQL_DQL_Avancat/21_introducci.md
       - 2. Combinaciones de tablas: BD_PostgreSQL_DQL_Avancat/22_combinacions_de_taules.md
       - 3. Subconsultas: BD_PostgreSQL_DQL_Avancat/23_subconsultes.md

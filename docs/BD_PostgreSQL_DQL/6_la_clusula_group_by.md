@@ -83,7 +83,7 @@ Nos daría un error de sintaxis porque `titulo` no está en la cláusula GROUP B
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 **Ex_21** Contar el número de **clientes** de cada **provincia**.
 

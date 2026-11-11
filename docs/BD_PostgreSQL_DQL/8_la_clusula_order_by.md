@@ -79,7 +79,7 @@ no respetar esto sería lo mismo que lo visto en aquel apartado.
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 **Ex_34** Sacar a todos los **clientes** ordenados por **población**, y dentro de estos por **código postal**.
 

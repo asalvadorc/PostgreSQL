@@ -83,7 +83,7 @@ coma sirve para separar los campos de la consulta SQL.
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **TechQuest**, conectando como usuario **tech_alu**:
+En la BD **TecnoTienda**, conectando como usuario **tech_alu**:
 
 > **Ex_1** Sacar toda la información de los **productos**.
 >
