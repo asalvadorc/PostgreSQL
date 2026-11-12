@@ -1,6 +1,6 @@
 # Soluciones y resultados: DQL avanzado
 
-Estas soluciones utilizan **GameHub** con su carga inicial: 8 jugadores, 12 compras y 28 líneas. Los resultados se han calculado ejecutando las consultas en un motor PostgreSQL. Los decimales largos se muestran con un máximo de cuatro cifras decimales; los cálculos usan su precisión completa.
+Estas soluciones utilizan **Juegos** con su carga inicial: 8 jugadores, 12 compras y 28 líneas. Los resultados se han calculado ejecutando las consultas en un motor PostgreSQL. Los decimales largos se muestran con un máximo de cuatro cifras decimales; los cálculos usan su precisión completa.
 
 Si has modificado los datos, [restaura la carga inicial](../BD_PostgreSQL_DML/1_introducci.md) antes de comparar. Un resultado vacío también puede ser correcto. No se utilizan capturas de otra base de datos.
 
@@ -744,4 +744,4 @@ Sacar mediante EXCEPT las ciudades donde hay vendedores pero no jugadores.
 
     *Resultado: 0 filas con los datos iniciales.*
 
-Descarga las [consultas de solución](../soluciones/sql/gamehub-dql-avanzado.sql).
+Descarga las [consultas de solución](../soluciones/sql/juegos-dql-avanzado.sql).

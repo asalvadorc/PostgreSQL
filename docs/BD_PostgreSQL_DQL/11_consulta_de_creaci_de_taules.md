@@ -10,9 +10,9 @@ SELECT * FROM empresas_copia;
 DROP TABLE empresas_copia;
 ```
 
-Ejecuta el ejemplo en `mundomoviles`. `TEMP` limita la tabla a la sesión actual. Los campos y los datos proceden de la consulta; no se copian automáticamente las PK, FK, índices o valores por defecto de las tablas originales.
+Ejecuta el ejemplo en `moviles`. `TEMP` limita la tabla a la sesión actual. Los campos y los datos proceden de la consulta; no se copian automáticamente las PK, FK, índices o valores por defecto de las tablas originales.
 
-Otro ejemplo en MundoMoviles:
+Otro ejemplo en Moviles:
 
 ```sql
 CREATE TEMP TABLE resumen_empresas AS
@@ -29,7 +29,7 @@ Puedes utilizar alias para definir nombres de columnas legibles. Si la tabla des
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_49** Crear **PRODUCTO_999x**, sustituyendo 999 por las tres últimas cifras de tu DNI y x por su letra, como copia de **productos**, con los nulos de `stock` y `stock_minimo` sustituidos por 0 mediante `COALESCE`.
 

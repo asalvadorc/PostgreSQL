@@ -83,7 +83,7 @@ Nos daría un error de sintaxis porque `modelo` no está en la cláusula GROUP B
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_21** Contar los **jugadores** de cada **provincia**, relacionando jugadores, ciudades y provincias.
 

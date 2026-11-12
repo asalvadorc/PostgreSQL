@@ -42,7 +42,7 @@ de una expresión.
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_5** Sacar `id_compra`, `fecha` e `id_vendedor` de **compras** con las cabeceras **Número Compra**, **Fecha** y **Código Vendedor**.
 

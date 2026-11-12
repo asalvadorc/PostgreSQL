@@ -79,17 +79,17 @@ nav:
     - index.md
     - RA y CE: RA_CE.md
     - 1. Introducción: BD_PostgreSQL_DQL/1_introducci.md
-    - 2. Bases de datos de ejemplo:
-      - MundoMoviles: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
-      - GameHub: BD_PostgreSQL_DQL/gamehub.md
-    - 3. PostgreSQL con Docker Compose: entorno_postgresql.md
-    - 4. DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
+    - 2. PostgreSQL con Docker Compose: entorno_postgresql.md
+    - 3. Conectar desde DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
+    - 4. Bases de datos de ejemplo:
+      - 📖 Presentación: bases_datos.md
+      - 📱 Moviles: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
+      - 🎮 Juegos: BD_PostgreSQL_DQL/juegos.md
   - DDL - Creación de Tablas:
       - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md
       - 2. DDL: BD_PostgreSQL_DDL/2_ddl.md
-      - 3. Crear MundoMoviles: BD_PostgreSQL_DDL/3_crear_mundomoviles.md
-      - 4. Crear GameHub: BD_PostgreSQL_DDL/4_crear_gamehub.md
-      - Ejercicios de todo el tema: BD_PostgreSQL_DDL/exercicis_de_tot_el_tema.md    
+      - 3. Práctica guiada - Moviles: BD_PostgreSQL_DDL/3_crear_moviles.md
+      - 4. Práctica - Juegos: BD_PostgreSQL_DDL/4_crear_juegos.md
   - DML - Manipulación de Datos:
       - 1. Introducción y carga de datos: BD_PostgreSQL_DML/1_introducci.md
       - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md

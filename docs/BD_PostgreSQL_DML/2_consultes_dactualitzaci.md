@@ -1,6 +1,6 @@
 # 2. INSERT, UPDATE y DELETE
 
-Trabaja en tu conexión **gamehub**, después de la [carga inicial](1_introducci.md). Verifica siempre `SELECT current_database();`.
+Trabaja en tu conexión **juegos**, después de la [carga inicial](1_introducci.md). Verifica siempre `SELECT current_database();`.
 
 ## 2.1 INSERT
 
@@ -87,4 +87,4 @@ No puedes borrar un producto que siga referenciado por una línea con `NO ACTION
 
 `BEGIN` inicia una transacción, `COMMIT` confirma y `ROLLBACK` revierte sus cambios. Utiliza `ROLLBACK` para las prácticas que deben conservar los datos iniciales. `TRUNCATE` vacía tablas completas y no acepta `WHERE`; no lo confundas con un borrado filtrado.
 
-Continúa con los [ejercicios DML de GameHub](exercicis_de_tot_el_tema.md). Al terminar, pasa a DQL y conserva las cargas iniciales.
+Continúa con los [ejercicios DML de Juegos](exercicis_de_tot_el_tema.md). Al terminar, pasa a DQL y conserva las cargas iniciales.

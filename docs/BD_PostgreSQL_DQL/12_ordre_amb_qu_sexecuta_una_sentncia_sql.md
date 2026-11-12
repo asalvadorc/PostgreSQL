@@ -11,7 +11,7 @@ El orden lógico ayuda a entender una consulta; el optimizador puede utilizar un
 7. `ORDER BY` ordena el resultado.
 8. `LIMIT` y `OFFSET` seleccionan una parte del resultado.
 
-En `mundomoviles`, esta consulta es incorrecta porque `modelo` no está agrupado ni agregado:
+En `moviles`, esta consulta es incorrecta porque `modelo` no está agrupado ni agregado:
 
 ```sql
 -- Ejemplo que debe producir un error.

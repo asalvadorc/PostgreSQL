@@ -1,6 +1,6 @@
 # Operadores de PostgreSQL
 
-Los operadores permiten calcular expresiones y construir condiciones en DQL. Los tipos de las columnas se definieron en DDL. Ejemplos de móviles: conexión `mundomoviles`; ejemplos de tienda: conexión `gamehub`.
+Los operadores permiten calcular expresiones y construir condiciones en DQL. Los tipos de las columnas se definieron en DDL. Ejemplos de móviles: conexión `moviles`; ejemplos de tienda: conexión `juegos`.
 
 ## Aritméticos
 

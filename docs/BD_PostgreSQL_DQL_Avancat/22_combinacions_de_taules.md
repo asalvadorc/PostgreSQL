@@ -1,6 +1,6 @@
 # 2. Combinaciones de tablas
 
-Una combinación reúne columnas de distintas tablas. Trabaja en **gamehub** y consulta las claves del [modelo relacional](../BD_PostgreSQL_DQL/gamehub.md).
+Una combinación reúne columnas de distintas tablas. Trabaja en **juegos** y consulta las claves del [modelo relacional](../BD_PostgreSQL_DQL/juegos.md).
 
 ## 2.1 Producto cartesiano
 
@@ -83,9 +83,9 @@ Para buscar jugadores sin compras:
 SELECT j.id_jugador,j.nombre FROM jugadores j LEFT JOIN compras c ON c.id_jugador=j.id_jugador WHERE c.id_compra IS NULL ORDER BY j.id_jugador;
 ```
 
-## Ejercicios de GameHub
+## Ejercicios de Juegos
 
-Conexión `gamehub`, usuario `alumno`. Usa la carga inicial del tema DML.
+Conexión `juegos`, usuario `alumno`. Usa la carga inicial del tema DML.
 
 **Ex_51** Sacar el nombre del jugador, el código y la fecha de cada compra.
 

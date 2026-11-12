@@ -1,18 +1,18 @@
 # Soluciones
 
-Este apartado reúne los scripts de referencia. Los materiales de trabajo y el paquete Docker contienen únicamente instrucciones y datos.
+Este apartado reúne los scripts de referencia. La guía general ofrece únicamente el archivo Docker Compose; los datos se descargan en el tema de DML.
 
 ## Creación de tablas
 
-- [Estructura de MundoMoviles](sql/mundomoviles-estructura.sql): tres tablas, con claves y restricciones.
-- [Estructura de GameHub](sql/gamehub-estructura.sql): ocho tablas, nueve claves ajenas y borrado en cascada de las líneas.
+- [Estructura de Moviles](sql/moviles-estructura.sql): tres tablas, con claves y restricciones.
+- [Estructura de Juegos](sql/juegos-estructura.sql): ocho tablas, nueve claves ajenas y borrado en cascada de las líneas.
 
 Los scripts anteriores se ejecutan en su base correspondiente, previamente creada y vacía. No contienen `CREATE DATABASE` ni cargan datos.
 
 ## Restauración completa de referencia
 
-- [MundoMoviles: estructura y datos](sql/mundomoviles-completa.sql).
-- [GameHub: estructura y datos](sql/gamehub-completa.sql).
+- [Moviles: estructura y datos](sql/moviles-completa.sql).
+- [Juegos: estructura y datos](sql/juegos-completa.sql).
 
 Estos scripts completos son alternativas de restauración para una base vacía. No los ejecutes sobre las tablas que ya has creado en las prácticas.
 

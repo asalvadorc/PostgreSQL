@@ -1,8 +1,8 @@
-# Ejercicios DML: GameHub
+# Ejercicios DML: Juegos
 
-Trabaja sobre tu **gamehub local**, con sus datos iniciales cargados. Para cada bloque utiliza `BEGIN` y termina con `ROLLBACK`, de modo que DQL utilice el mismo conjunto de datos. Si quieres conservar un cambio, sustituye `ROLLBACK` por `COMMIT` solo cuando el profesor lo indique.
+Trabaja sobre tu **juegos local**, con sus datos iniciales cargados. Para cada bloque utiliza `BEGIN` y termina con `ROLLBACK`, de modo que DQL utilice el mismo conjunto de datos. Si quieres conservar un cambio, sustituye `ROLLBACK` por `COMMIT` solo cuando el profesor lo indique.
 
-Consulta el [modelo de GameHub](../BD_PostgreSQL_DQL/gamehub.md) y la [carga inicial](1_introducci.md).
+Consulta el [modelo de Juegos](../BD_PostgreSQL_DQL/juegos.md) y la [carga inicial](1_introducci.md).
 
 **Ex_1.** Inserta las categorías `Realidad virtual` y `Streaming`. Omite sus códigos y recupéralos con `RETURNING`. No adivines los valores de la secuencia.
 
@@ -28,4 +28,4 @@ Consulta el [modelo de GameHub](../BD_PostgreSQL_DQL/gamehub.md) y la [carga ini
 
 **Ex_12.** Inserta una compra y sus líneas dentro de una única transacción. Provoca un error usando un producto inexistente y realiza `ROLLBACK`. Comprueba que no quedan filas incompletas.
 
-Al terminar deben seguir existiendo las **12 compras y 28 líneas iniciales**. Guarda las sentencias y las comprobaciones en `03_gamehub_dml.sql`.
+Al terminar deben seguir existiendo las **12 compras y 28 líneas iniciales**. Guarda las sentencias y las comprobaciones en `03_juegos_dml.sql`.

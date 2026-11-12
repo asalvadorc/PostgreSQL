@@ -1360,3 +1360,32 @@ body.table-zoom-open { overflow: hidden; }
 .md-typeset .recetas-table table:not([class]) td + td {
     border-left: 1px solid var(--md-default-fg-color--light);
 }
+
+/* Ejemplos que el alumnado debe ejecutar. */
+.md-typeset .admonition.practica {
+    border: 2px solid #0284c7;
+    border-radius: 10px;
+    background: rgba(2, 132, 199, 0.04);
+    margin: 1.5rem 0;
+    box-shadow: 0 3px 12px rgba(2, 132, 199, 0.08);
+}
+.md-typeset .admonition.practica > .admonition-title {
+    background: rgba(2, 132, 199, 0.12);
+    font-weight: 700;
+}
+.md-typeset .admonition.practica > .admonition-title::before {
+    background-color: #0284c7;
+}
+.md-typeset .practica-conexion {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid #0284c7;
+    border-radius: 6px;
+    color: #075985;
+    background: #e0f2fe;
+}
+[data-md-color-scheme="slate"] .md-typeset .practica-conexion {
+    color: #e0f2fe;
+    background: #0c4a6e;
+    border-color: #38bdf8;
+}

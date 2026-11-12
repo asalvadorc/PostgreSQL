@@ -35,7 +35,7 @@ SELECT FLOOR(RANDOM() * 6 + 1) AS dado;
 | `LPAD(t,n,relleno)`, `RPAD(t,n,relleno)` | Rellena hasta la longitud indicada. |
 | `CONCAT(a,b,...)` | Concatena los argumentos, ignorando los nulos. |
 
-En `mundomoviles`, para obtener la primera palabra del modelo:
+En `moviles`, para obtener la primera palabra del modelo:
 
 ```sql
 SELECT modelo, SPLIT_PART(modelo, ' ', 1) AS primera_palabra
@@ -44,7 +44,7 @@ FROM moviles;
 
 Esta función también sirve para un modelo de una sola palabra, como `Xperia`. Usar `SUBSTR(modelo, 1, STRPOS(modelo, ' ') - 1)` sin comprobar que hay espacio produciría una longitud negativa en ese caso.
 
-En `gamehub`, algunos productos utilizan un separador `:`:
+En `juegos`, algunos productos utilizan un separador `:`:
 
 ```sql
 SELECT nombre, SPLIT_PART(nombre, ':', 1) AS parte_inicial

@@ -66,7 +66,7 @@ Por ejemplo, si queremos saber el número de móviles en la plataforma:
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_15** Contar los **jugadores** con la dirección o el código postal nulos.
 

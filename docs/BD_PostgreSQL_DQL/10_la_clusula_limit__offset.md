@@ -6,18 +6,7 @@ las filas que devuelve la sentencia, sino unas cuantas.
   * **LIMIT número** : especificaremos cuántas filas queremos que se devuelvan
   * **OFFSET número** : especificaremos a partir de qué posición queremos que se devuelvan las filas
 
-Si no ponemos la parte del OFFSET, aparecerán las primeras, y si especificamos
-OFFSET, se saltarán las primeras, tantas como se indica en OFFSET. Para que
-realmente tenga sentido esta cláusula, es conveniente ordenar la información,
-ya que al decir las primeras ya se está asumiendo que serán las primeras respeto
-algún orden. Así, por ejemplo, nos podremos plantear sacar cosas como las
-poblaciones más altas, o las más habitadas.
-
-El orden implícito que acabamos de comentar deberá realizarse por medio de la cláusula
-ORDER BY. Así, si queremos sacar a los jugadores más jóvenes tendremos que ordenar por la
-fecha de nacimiento en orden descendente, para después sacar los primeros. Por
-tanto es muy difícil ver una cláusula LIMIT si no tenemos una cláusula ORDER
-BY.
+Sin OFFSET se toman las primeras filas; con OFFSET se omiten tantas filas iniciales como indique su valor. Ordena antes con `ORDER BY` para que la selección tenga sentido, por ejemplo para consultar los móviles más caros. Añade un criterio de desempate, como `id_movil`, si necesitas una paginación reproducible.
 
 !!! note "Nota"
     En SQL de Access no existe la cláusula LIMIT. Para hacer cosas similar
@@ -29,7 +18,7 @@ BY.
 
     SELECT <columnes>  
       FROM <taules>  
-      [LIMITE _n_] [OFFSET _m_]
+      [LIMIT _n_] [OFFSET _m_]
 
 El número _**n**_ debe ser un entero, y se seleccionarán únicamente las _**n**_
 primeras filas (las de arriba). En caso de puesto OFFSET se saltarán _**m**_
@@ -93,7 +82,7 @@ Si quisiéramos sacar todos los móviles excepto los 3 más caros, podemos poner
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_44** Sacar toda la información de los dos **productos** más caros.
 

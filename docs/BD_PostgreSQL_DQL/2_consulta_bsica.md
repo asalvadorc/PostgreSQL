@@ -1,5 +1,12 @@
 # 2. Consulta básica
 
+## Ejecutar sentencias y scripts
+
+- **Ctrl+Enter** ejecuta la sentencia actual o el texto seleccionado.
+- **Alt+X** ejecuta el script completo. Es el modo que debes usar para cargar los archivos de datos.
+- Lee el primer error antes de continuar. Si una transacción queda abortada, ejecuta `ROLLBACK;`, corrige el problema y vuelve a intentar la carga en una base limpia.
+
+Para abrir un archivo SQL descargado, ábrelo desde el editor y selecciona la conexión correspondiente. Para ver las tablas, actualiza el navegador y despliega **Schemas → public → Tables**.
 
 Lo mínimo que debe indicarse en una instrucción SELECT es las columnas que queremos
 y su procedencia, que puede ser una o más de una mesa.
@@ -83,7 +90,7 @@ coma sirve para separar los campos de la consulta SQL.
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_1** Sacar toda la información de los **productos**.
 

@@ -1,6 +1,6 @@
 # 4. Operaciones de conjuntos
 
-`UNION`, `INTERSECT` y `EXCEPT` combinan filas completas de dos consultas. Ambas deben devolver el mismo número de columnas, con tipos compatibles en cada posición. Trabaja en **gamehub**.
+`UNION`, `INTERSECT` y `EXCEPT` combinan filas completas de dos consultas. Ambas deben devolver el mismo número de columnas, con tipos compatibles en cada posición. Trabaja en **juegos**.
 
 ## 4.1 UNION
 
@@ -36,9 +36,9 @@ Cambiar el orden de las consultas cambia el significado. Con los datos iniciales
 
 Sitúa `ORDER BY` al final para ordenar el resultado conjunto. Si necesitas un `ORDER BY ... LIMIT` dentro de una de las consultas, enciérrala entre paréntesis. Usa también paréntesis para hacer explícito el orden al mezclar varios operadores de conjuntos.
 
-## Ejercicios de GameHub
+## Ejercicios de Juegos
 
-Conexión `gamehub`, usuario `alumno`. Usa la carga inicial del tema DML.
+Conexión `juegos`, usuario `alumno`. Usa la carga inicial del tema DML.
 
 **Ex_75** Sacar sin repeticiones los nombres de jugadores y vendedores que participan en alguna compra.
 

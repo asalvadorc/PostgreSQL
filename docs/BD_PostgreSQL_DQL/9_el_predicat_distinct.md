@@ -51,7 +51,7 @@ Así, por ejemplo, si queremos contar cuántas empresas diferentes tienen móvil
 
 ## :pencil2: Ejercicios {: .ejercicios-header}
 
-En la BD **GameHub**, conectando como usuario **alumno**:
+En la BD **Juegos**, conectando como usuario **alumno**:
 
 **Ex_39** Sacar los **vendedores** que atendieron alguna compra en enero de 2024, sin repetirlos.
 
