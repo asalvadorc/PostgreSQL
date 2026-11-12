@@ -87,7 +87,7 @@ nav:
       - 🎮 Juegos: juegos.md
   - DDL - Creación de Tablas:
       - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md
-      - 2. DDL: BD_PostgreSQL_DDL/2_ddl.md
+      - 2. DDL - Esquema de la BD: BD_PostgreSQL_DDL/2_ddl.md
       - 3. Práctica guiada - Moviles: BD_PostgreSQL_DDL/3_crear_moviles.md
       - 4. Práctica - Juegos: BD_PostgreSQL_DDL/4_crear_juegos.md
   - DML - Manipulación de Datos:

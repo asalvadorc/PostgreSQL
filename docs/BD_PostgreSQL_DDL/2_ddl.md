@@ -1,4 +1,4 @@
-# 2. DDL: definir la estructura
+# 2. DDL: Esquema de la BD
 
 **DDL** (*Data Definition Language*) permite crear, modificar y eliminar bases de datos, tablas, restricciones y otros objetos. `CREATE` crea, `ALTER` modifica y `DROP` elimina. 
 
