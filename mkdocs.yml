@@ -81,9 +81,9 @@ nav:
     - 1. Introducción: BD_PostgreSQL_DQL/1_introducci.md
     - 2. PostgreSQL con Docker Compose: entorno_postgresql.md
     - 3. Conectar desde DBeaver: BD_PostgreSQL_DQL/2_client_dbeaver_installaci_i_confiuraci.md
-    - 4. Bases de datos de ejemplo:
+    - 4. Bases de datos de los apuntes:
       - 📖 Presentación: bases_datos.md
-      - 📱 Moviles: BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md
+      - 📱 Moviles: BD_PostgreSQL_DQL/moviles.md
       - 🎮 Juegos: BD_PostgreSQL_DQL/juegos.md
   - DDL - Creación de Tablas:
       - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md

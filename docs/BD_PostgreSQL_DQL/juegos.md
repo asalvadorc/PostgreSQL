@@ -1,6 +1,10 @@
 # Juegos
 
-**Juegos** es una tienda de videojuegos, consolas, periféricos y merchandising. Sus clientes son jugadores que compran juegos, montan su setup y buscan accesorios para jugar con sus amigos.
+Los ejercicios de los distintos temas se basan en **Juegos**, una base de datos de una tienda de videojuegos, consolas y accesorios, con ocho tablas: `categorias`, `productos`, `jugadores`, `vendedores`, `compras`, `lineas_compra`, `ciudades` y `provincias`.
+
+Los jugadores realizan compras atendidas por vendedores. Cada compra incluye uno o varios productos, agrupados en categorías. Los jugadores y vendedores están asociados a ciudades, que pertenecen a provincias. Además, un vendedor puede supervisar a otros vendedores.
+
+Los precios, las fechas y los datos personales de los ejemplos son ficticios y sirven para practicar SQL.
 
 ## Modelo E/R
 
@@ -48,6 +52,7 @@
 
 La clave primaria de `lineas_compra` es `(id_compra, num_linea)`. Cada compra debe tener un jugador y un vendedor; cada línea debe referenciar un producto.
 
+<!--
 ## Datos para las prácticas
 
 Los ejemplos incluyen videojuegos como Minecraft y Elden Ring, consolas, periféricos y merchandising. Los precios son datos ficticios para practicar SQL.
@@ -59,3 +64,4 @@ El script incluye jugadores, vendedores y compras de distintos meses de 2024, pr
 Crea las tablas en la [práctica DDL de Juegos](../BD_PostgreSQL_DDL/4_crear_juegos.md) y carga después el [archivo de datos](../recursos/postgresql/sql/juegos-datos.sql) durante el [tema DML](../BD_PostgreSQL_DML/1_introducci.md).
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+-->

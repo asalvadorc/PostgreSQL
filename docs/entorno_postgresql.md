@@ -61,7 +61,7 @@ volumes:
 | Elemento | Para qué sirve |
 | --- | --- |
 | `postgres:17` | Utiliza la versión mayor 17 de la imagen oficial, evitando cambios de versión mayor por usar `latest`. |
-| `POSTGRES_DB: postgres` | Crea la base administrativa inicial. **No crea Moviles ni Juegos**. |
+| `POSTGRES_DB: postgres` | Crea la base administrativa inicial. |
 | `127.0.0.1:5433:5432` | Conecta el puerto 5433 de tu ordenador con el 5432 del contenedor. Solo se publica en tu propio equipo. |
 | `datos_postgres` | Conserva las bases de datos al detener o recrear el contenedor. |
 | `healthcheck` | Comprueba que PostgreSQL acepta conexiones. |

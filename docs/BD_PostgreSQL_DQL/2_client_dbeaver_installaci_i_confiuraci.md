@@ -48,7 +48,6 @@ En esta conexión inicial debe aparecer `postgres` y el usuario `alumno`. Cambia
 
 ![alt text](image-16.png)
 
-La creación de las bases `pruebas`, `moviles` y `juegos`, y de sus conexiones, se realizará en el [tema DDL](../BD_PostgreSQL_DDL/1_introducci.md).
 
 
 

@@ -32,9 +32,11 @@ La estructura forma una cadena de dos relaciones 1:N:
 
 ![Modelo relacional de Moviles: tablas paises, empresas y móviles, con sus datos y claves](moviles-tablas.png)
 
+<!--
 Crea las tablas en la [práctica DDL de Moviles](../BD_PostgreSQL_DDL/3_crear_moviles.md) y carga después sus [datos](../recursos/postgresql/sql/moviles-datos.sql) siguiendo el [tema DML](../BD_PostgreSQL_DML/1_introducci.md).
 
 
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial
 CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+-->
