@@ -11,7 +11,6 @@
 | DQL | ¿Qué información queremos obtener? | SELECT. |
 
 
-Primero prepara [PostgreSQL con Docker Compose](../entorno_postgresql.md) y [DBeaver](2_client_dbeaver_installaci_i_confiuraci.md). En DDL crearás **Moviles** y después **Juegos**. En DML cargarás sus datos y practicarás modificaciones. En DQL usarás Moviles para los ejemplos y Juegos para los ejercicios.
 
 ## PostgreSQL y Docker
 

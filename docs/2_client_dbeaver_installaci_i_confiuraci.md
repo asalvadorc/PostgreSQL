@@ -1,6 +1,6 @@
-# Conectar desde DBeaver
+# Cliente PostgreSQL con Dbeaver
 
-**DBeaver Community** será el cliente con el que crearás tablas y ejecutarás consultas. PostgreSQL se ejecuta en el contenedor preparado en [PostgreSQL local con Docker Compose](../entorno_postgresql.md).
+**DBeaver Community** será el cliente con el que crearás tablas y ejecutarás consultas. PostgreSQL se ejecuta en el contenedor preparado en [PostgreSQL local con Docker Compose](entorno_postgresql.md).
 
 ## Instalar y conectar
 
@@ -22,7 +22,7 @@ Descarga [DBeaver Community](https://dbeaver.io/download/) y crea una conexión 
 
 <div class="image-panel" markdown>
 
-![Configuración de la conexión PostgreSQL en DBeaver](image-17.png)
+![Configuración de la conexión PostgreSQL en DBeaver](BD_PostgreSQL_DQL/image-17.png)
 
 </div>
 
@@ -34,7 +34,7 @@ Descarga [DBeaver Community](https://dbeaver.io/download/) y crea una conexión 
     Después de crear una base de datos, actualiza la conexión en el navegador de DBeaver para que aparezca.
 
 Pulsa **Probar conexión**, descarga el controlador si se solicita y guarda. 
-![alt text](image-15.png)
+![alt text](BD_PostgreSQL_DQL/image-15.png)
 
 ## Trabajar en la base correcta
 
@@ -46,7 +46,7 @@ SELECT current_database(), current_user;
 
 En esta conexión inicial debe aparecer `postgres` y el usuario `alumno`. Cambiar el nombre de la conexión no cambia la base a la que está conectada: revisa el campo **Base de datos**.
 
-![alt text](image-16.png)
+![alt text](BD_PostgreSQL_DQL/image-16.png)
 
 
 

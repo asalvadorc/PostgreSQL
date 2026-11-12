@@ -2,7 +2,7 @@
 
 En esta práctica construiremos juntos la base de datos **Moviles**, paso a paso. Escribe y ejecuta las sentencias en el orden indicado, lee las explicaciones y comprueba cada resultado antes de continuar.
 
-Necesitas el [servidor PostgreSQL con Docker](../entorno_postgresql.md) en marcha y la conexión inicial a `postgres` en DBeaver. Ten a mano el [modelo E/R y relacional de Moviles](../BD_PostgreSQL_DQL/3_dades_dels_exemples_i_els_exercicis.md).
+Necesitas el [servidor PostgreSQL con Docker](../entorno_postgresql.md) en marcha y la conexión inicial a `postgres` en DBeaver. Ten a mano el [modelo E/R y relacional de Moviles](../moviles.md).
 
 La estructura es **PAISES (1) → (N) EMPRESAS (1) → (N) MOVILES**. Crearemos primero las tablas referenciadas y después las que contienen sus claves ajenas.
 

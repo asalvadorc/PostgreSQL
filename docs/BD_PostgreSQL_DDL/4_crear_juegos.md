@@ -2,7 +2,7 @@
 
 Después de la práctica guiada de Moviles, crearás la base de datos **Juegos** mediante una secuencia de ejercicios. Los ejercicios **1–13** construyen sus ocho tablas y añaden las restricciones por etapas; los **14–18** trabajan índices y vistas; los **19–22** se realizan en `pruebas` con objetos auxiliares.
 
-Consulta el [modelo E/R y relacional de Juegos](../BD_PostgreSQL_DQL/juegos.md). Escribe las sentencias en `02_juegos.sql` y ejecútalas en el orden de los ejercicios. No crees antes todas las tablas con sus restricciones: precisamente irás incorporándolas mediante `CREATE` y `ALTER`.
+Consulta el [modelo E/R y relacional de Juegos](../juegos.md). Escribe las sentencias en `02_juegos.sql` y ejecútalas en el orden de los ejercicios. No crees antes todas las tablas con sus restricciones: precisamente irás incorporándolas mediante `CREATE` y `ALTER`.
 
 Las tablas definitivas deben quedar **vacías**. La inserción de datos se realizará después, en DML; las vistas pueden definirse ahora aunque todavía no devuelvan filas.
 

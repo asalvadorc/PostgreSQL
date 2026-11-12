@@ -1,6 +1,6 @@
 # 2. Combinaciones de tablas
 
-Una combinación reúne columnas de distintas tablas. Trabaja en **juegos** y consulta las claves del [modelo relacional](../BD_PostgreSQL_DQL/juegos.md).
+Una combinación reúne columnas de distintas tablas. Trabaja en **juegos** y consulta las claves del [modelo relacional](../juegos.md).
 
 ## 2.1 Producto cartesiano
 

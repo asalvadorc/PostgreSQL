@@ -2,7 +2,7 @@
 
 Trabaja sobre tu **juegos local**, con sus datos iniciales cargados. Para cada bloque utiliza `BEGIN` y termina con `ROLLBACK`, de modo que DQL utilice el mismo conjunto de datos. Si quieres conservar un cambio, sustituye `ROLLBACK` por `COMMIT` solo cuando el profesor lo indique.
 
-Consulta el [modelo de Juegos](../BD_PostgreSQL_DQL/juegos.md) y la [carga inicial](1_introducci.md).
+Consulta el [modelo de Juegos](../juegos.md) y la [carga inicial](1_introducci.md).
 
 **Ex_1.** Inserta las categorías `Realidad virtual` y `Streaming`. Omite sus códigos y recupéralos con `RETURNING`. No adivines los valores de la secuencia.
 

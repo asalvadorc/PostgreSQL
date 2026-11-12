@@ -4,11 +4,9 @@ Los ejercicios de los distintos temas se basan en **Juegos**, una base de datos 
 
 Los jugadores realizan compras atendidas por vendedores. Cada compra incluye uno o varios productos, agrupados en categorías. Los jugadores y vendedores están asociados a ciudades, que pertenecen a provincias. Además, un vendedor puede supervisar a otros vendedores.
 
-Los precios, las fechas y los datos personales de los ejemplos son ficticios y sirven para practicar SQL.
-
 ## Modelo E/R
 
-![Modelo entidad-relación de Juegos](image-4.png)
+![Modelo entidad-relación de Juegos](juegos_er.png)
 
 ## Modelo relacional
 
