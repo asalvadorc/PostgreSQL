@@ -1,0 +1,4337 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asalvadorc.github.io/PostgreSQL/BD_PostgreSQL_DQL_Avancat/exercicis_de_tot_el_tema_amb_els_resultats/">
+      
+      
+        <link rel="prev" href="../../BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>DQL avanzado - BD - PostgreSQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#soluciones-y-resultados-dql-avanzado" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BD - PostgreSQL" class="md-header__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BD - PostgreSQL
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DQL avanzado
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  🏠 Inicio
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BD_PostgreSQL_DDL/1_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DDL - Creación de Tablas
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BD_PostgreSQL_DML/1_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DML - Manipulación de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BD_PostgreSQL_DQL/1_la_consulta_select/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DQL - Consultas (parte I)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../21_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DQL - Consultas avanzadas (parte II)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../soluciones/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Soluciones
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BD - PostgreSQL" class="md-nav__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    BD - PostgreSQL
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 Inicio
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🏠 Inicio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RA_CE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA y CE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno_postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor PostgreSQL con Docker 
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2_client_dbeaver_installaci_i_confiuraci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Cliente PostgreSQL con Dbeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../crear_pruebas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Crear la base de pruebas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Bases de datos de los apuntes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    5. Bases de datos de los apuntes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bases_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../moviles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📱 Moviles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../juegos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎮 Juegos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDL - Creación de Tablas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DDL - Creación de Tablas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DDL/1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DDL/2_ddl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. DDL - Esquema de la BD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DDL/3_crear_moviles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Práctica guiada - Moviles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DDL/4_crear_juegos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Práctica - Juegos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DML - Manipulación de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DML - Manipulación de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DML/1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción y carga de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DML/2_consultes_dactualitzaci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Consultas de actualización (DML)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DML/exercicis_de_tot_el_tema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejercicios de todo el tema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL - Consultas (parte I)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DQL - Consultas (parte I)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/1_la_consulta_select/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. La consulta SELECT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/2_consulta_bsica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Consulta básica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operadores y funciones de PostgreSQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operadores y funciones de PostgreSQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/6_operadors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/7_funcions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/3_lies_en_les_columnes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Alias en las columnas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/4_la_clusula_where/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. La cláusula WHERE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/5_funcions_dagregat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Funciones de agregado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/6_la_clusula_group_by/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. La cláusula GROUP BY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/7_la_clusula_having/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. La cláusula HAVING
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/8_la_clusula_order_by/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. La cláusula ORDER BY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/9_el_predicat_distinct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. El predicado DISTINCT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/10_la_clusula_limit__offset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. La cláusula LIMIT .. OFFSET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/11_consulta_de_creaci_de_taules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Consulta de creación de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/12_ordre_amb_qu_sexecuta_una_sentncia_sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Orden en el que se ejecuta una sentencia SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/ejemplos_bd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejemplos de BDs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL - Consultas avanzadas (parte II)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DQL - Consultas avanzadas (parte II)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22_combinacions_de_taules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Combinaciones de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23_subconsultes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Subconsultas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24_consultes_doperacions_de_conjunts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consultas de operaciones de conjuntos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../soluciones/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Soluciones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Soluciones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL básico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL avanzado
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL avanzado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 51
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 52
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 53
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 54
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 55
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 56
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 57
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 58
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 59
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 60
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 61
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 62
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 63
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 64
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 65
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 66
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 67
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 68
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-69" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 69
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-70" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 70
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 71
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 72
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 73
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 74
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 75
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-76a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 76a
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-76b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 76b
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-76c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 76c
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 51
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 52
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 53
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 54
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 55
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 56
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 57
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 58
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 59
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 60
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 61
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 62
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 63
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 64
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 65
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 66
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 67
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 68
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-69" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 69
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-70" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 70
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 71
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 72
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 73
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 74
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 75
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-76a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 76a
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-76b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 76b
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-76c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 76c
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="soluciones-y-resultados-dql-avanzado">Soluciones y resultados: DQL avanzado</h1>
+<p>Estas soluciones utilizan <strong>Juegos</strong> con su carga inicial: 8 jugadores, 12 compras y 28 líneas. Los resultados se han calculado ejecutando las consultas en un motor PostgreSQL. Los decimales largos se muestran con un máximo de cuatro cifras decimales; los cálculos usan su precisión completa.</p>
+<p>Si has modificado los datos, <a href="../../BD_PostgreSQL_DML/1_introducci/">restaura la carga inicial</a> antes de comparar. Un resultado vacío también puede ser correcto. No se utilizan capturas de otra base de datos.</p>
+<p>Los ejercicios de importes utilizan esta vista. Si ya existe la vista del tema DDL con la misma definición, no vuelvas a crearla.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">resumen_compras</span><span class="w"> </span><span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">fecha</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">precio_unitario</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">base_sin_descuentos</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">precio_unitario</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">descuento_linea</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">base_descuento_lineas</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">precio_unitario</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">descuento_linea</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">descuento</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">base_descuento_general</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">precio_unitario</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">descuento_linea</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">descuento</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span>
+<span class="w">           </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">iva</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_compra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="ejercicio-51">Ejercicio 51</h2>
+<p>Sacar el nombre del jugador, el código y la fecha de cada compra.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">fecha</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="o">=</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>nombre</th>
+<th>id_compra</th>
+<th>fecha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Juan Pérez López</td>
+<td>1</td>
+<td>2024-01-10</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>2</td>
+<td>2024-01-15</td>
+</tr>
+<tr>
+<td>Marta Sánchez Vidal</td>
+<td>3</td>
+<td>2024-02-05</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>4</td>
+<td>2024-03-04</td>
+</tr>
+<tr>
+<td>Luis Villalonga García</td>
+<td>5</td>
+<td>2024-03-12</td>
+</tr>
+<tr>
+<td>Sara Vidal Villalonga</td>
+<td>6</td>
+<td>2024-03-20</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>7</td>
+<td>2024-07-02</td>
+</tr>
+<tr>
+<td>Noa López Serra</td>
+<td>8</td>
+<td>2024-09-10</td>
+</tr>
+<tr>
+<td>Hugo Martín Ruiz</td>
+<td>9</td>
+<td>2024-10-01</td>
+</tr>
+<tr>
+<td>Juan Pérez López</td>
+<td>10</td>
+<td>2024-10-15</td>
+</tr>
+<tr>
+<td>Marta Sánchez Vidal</td>
+<td>11</td>
+<td>2024-11-05</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>12</td>
+<td>2024-12-02</td>
+</tr>
+</tbody>
+</table>
+<p><em>12 filas.</em></p>
+</details>
+<h2 id="ejercicio-52">Ejercicio 52</h2>
+<p>Sacar el nombre de cada jugador y los productos que ha comprado, permitiendo repeticiones.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">producto</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="o">=</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_compra</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="o">=</span><span class="n">l</span><span class="p">.</span><span class="n">id_producto</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">,</span><span class="n">l</span><span class="p">.</span><span class="n">num_linea</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>nombre</th>
+<th>id_producto</th>
+<th>producto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Juan Pérez López</td>
+<td>1</td>
+<td>Elden Ring</td>
+</tr>
+<tr>
+<td>Juan Pérez López</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>Juan Pérez López</td>
+<td>12</td>
+<td>PC Gaming: RTX 4080</td>
+</tr>
+<tr>
+<td>Marta Sánchez Vidal</td>
+<td>2</td>
+<td>Minecraft</td>
+</tr>
+<tr>
+<td>Marta Sánchez Vidal</td>
+<td>8</td>
+<td>Mando: Xbox Wireless</td>
+</tr>
+<tr>
+<td>Marta Sánchez Vidal</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>Luis Villalonga García</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>Luis Villalonga García</td>
+<td>4</td>
+<td>Nintendo Switch</td>
+</tr>
+<tr>
+<td>Sara Vidal Villalonga</td>
+<td>2</td>
+<td>Minecraft</td>
+</tr>
+<tr>
+<td>Sara Vidal Villalonga</td>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>1</td>
+<td>Elden Ring</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>6</td>
+<td>RZ Teclado: BlackWidow</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>11</td>
+<td>PC Gaming: RTX 4070</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>1</td>
+<td>Elden Ring</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>2</td>
+<td>Minecraft</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>4</td>
+<td>Nintendo Switch</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>6</td>
+<td>RZ Teclado: BlackWidow</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>7</td>
+<td>Auriculares: HyperX Cloud</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>8</td>
+<td>Mando: Xbox Wireless</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>9</td>
+<td>Camiseta: Creeper</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+</tr>
+<tr>
+<td>Noa López Serra</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>Hugo Martín Ruiz</td>
+<td>4</td>
+<td>Nintendo Switch</td>
+</tr>
+</tbody>
+</table>
+<p><em>28 filas.</em></p>
+</details>
+<h2 id="ejercicio-53">Ejercicio 53</h2>
+<p>Repetir la consulta anterior sin repetir una combinación de jugador y producto.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">producto</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="o">=</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_compra</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="o">=</span><span class="n">l</span><span class="p">.</span><span class="n">id_producto</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_jugador</th>
+<th>nombre</th>
+<th>id_producto</th>
+<th>producto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Juan Pérez López</td>
+<td>1</td>
+<td>Elden Ring</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Juan Pérez López</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Juan Pérez López</td>
+<td>12</td>
+<td>PC Gaming: RTX 4080</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Marta Sánchez Vidal</td>
+<td>2</td>
+<td>Minecraft</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Marta Sánchez Vidal</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Marta Sánchez Vidal</td>
+<td>8</td>
+<td>Mando: Xbox Wireless</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis Villalonga García</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis Villalonga García</td>
+<td>4</td>
+<td>Nintendo Switch</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Sara Vidal Villalonga</td>
+<td>2</td>
+<td>Minecraft</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Sara Vidal Villalonga</td>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>1</td>
+<td>Elden Ring</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>2</td>
+<td>Minecraft</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>3</td>
+<td>PlayStation 5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>4</td>
+<td>Nintendo Switch</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>6</td>
+<td>RZ Teclado: BlackWidow</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>7</td>
+<td>Auriculares: HyperX Cloud</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>8</td>
+<td>Mando: Xbox Wireless</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>9</td>
+<td>Camiseta: Creeper</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>11</td>
+<td>PC Gaming: RTX 4070</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Noa López Serra</td>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Hugo Martín Ruiz</td>
+<td>4</td>
+<td>Nintendo Switch</td>
+</tr>
+</tbody>
+</table>
+<p><em>23 filas.</em></p>
+</details>
+<h2 id="ejercicio-54">Ejercicio 54</h2>
+<p>Sacar todos los jugadores con su número de compras, incluyendo quienes no han comprado.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="k">COUNT</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">compras</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="o">=</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_jugador</th>
+<th>nombre</th>
+<th>compras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Juan Pérez López</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Marta Sánchez Vidal</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis Villalonga García</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Sara Vidal Villalonga</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Álex García Torres</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Noa López Serra</td>
+<td>1</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Hugo Martín Ruiz</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Paula Serra Gil</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><em>8 filas.</em></p>
+</details>
+<h2 id="ejercicio-55">Ejercicio 55</h2>
+<p>Sacar el código, la fecha, el jugador y la base sin descuentos ni IVA de cada compra.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">fecha</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">precio_unitario</span><span class="o">*</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">base</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_compra</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_compra</th>
+<th>fecha</th>
+<th>id_jugador</th>
+<th>base</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2024-01-10</td>
+<td>1</td>
+<td>104.99</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2024-01-15</td>
+<td>5</td>
+<td>524.98</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2024-02-05</td>
+<td>2</td>
+<td>119.97</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2024-03-04</td>
+<td>5</td>
+<td>149.98</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2024-03-12</td>
+<td>3</td>
+<td>799.98</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2024-03-20</td>
+<td>4</td>
+<td>79.97</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2024-07-02</td>
+<td>5</td>
+<td>1344.00</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2024-09-10</td>
+<td>6</td>
+<td>90.00</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2024-10-01</td>
+<td>7</td>
+<td>299.99</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2024-10-15</td>
+<td>1</td>
+<td>1899.00</td>
+</tr>
+<tr>
+<td>11</td>
+<td>2024-11-05</td>
+<td>2</td>
+<td>499.99</td>
+</tr>
+<tr>
+<td>12</td>
+<td>2024-12-02</td>
+<td>5</td>
+<td>1219.90</td>
+</tr>
+</tbody>
+</table>
+<p><em>12 filas.</em></p>
+</details>
+<h2 id="ejercicio-56">Ejercicio 56</h2>
+<p>Calcular el total final de cada compra: descuento de líneas, descuento general y finalmente IVA.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">precio_unitario</span><span class="o">*</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="k">COALESCE</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">descuento_linea</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="k">COALESCE</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">descuento</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="k">COALESCE</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">iva</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_compra</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_compra</th>
+<th>total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>124.3154</td>
+</tr>
+<tr>
+<td>2</td>
+<td>517.2543</td>
+</tr>
+<tr>
+<td>3</td>
+<td>141.5343</td>
+</tr>
+<tr>
+<td>4</td>
+<td>168.9541</td>
+</tr>
+<tr>
+<td>5</td>
+<td>967.9758</td>
+</tr>
+<tr>
+<td>6</td>
+<td>90.7161</td>
+</tr>
+<tr>
+<td>7</td>
+<td>1461.1658</td>
+</tr>
+<tr>
+<td>8</td>
+<td>108.9000</td>
+</tr>
+<tr>
+<td>9</td>
+<td>344.8385</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2068.0110</td>
+</tr>
+<tr>
+<td>11</td>
+<td>514.2397</td>
+</tr>
+<tr>
+<td>12</td>
+<td>1466.7033</td>
+</tr>
+</tbody>
+</table>
+<p><em>12 filas.</em></p>
+</details>
+<h2 id="ejercicio-57">Ejercicio 57</h2>
+<p>Sacar el código y nombre de los vendedores que supervisan a otro vendedor.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">jefe</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">,</span><span class="n">jefe</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">jefe</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">empleado</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">empleado</span><span class="p">.</span><span class="n">id_jefe</span><span class="o">=</span><span class="n">jefe</span><span class="p">.</span><span class="n">id_vendedor</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">jefe</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_vendedor</th>
+<th>nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Alicia Damborenea</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-58">Ejercicio 58</h2>
+<p>Sacar los productos y su categoría, incluyendo productos sin categoría.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">descripcion</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">categoria</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">categorias</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_producto</th>
+<th>nombre</th>
+<th>categoria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Elden Ring</td>
+<td>Videojuegos</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Minecraft</td>
+<td>Videojuegos</td>
+</tr>
+<tr>
+<td>3</td>
+<td>PlayStation 5</td>
+<td>Consolas</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Nintendo Switch</td>
+<td>Consolas</td>
+</tr>
+<tr>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+<td>Periféricos</td>
+</tr>
+<tr>
+<td>6</td>
+<td>RZ Teclado: BlackWidow</td>
+<td>Periféricos</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Auriculares: HyperX Cloud</td>
+<td>Periféricos</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Mando: Xbox Wireless</td>
+<td>Periféricos</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Camiseta: Creeper</td>
+<td>Merchandising</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+<td>Merchandising</td>
+</tr>
+<tr>
+<td>11</td>
+<td>PC Gaming: RTX 4070</td>
+<td>Consolas</td>
+</tr>
+<tr>
+<td>12</td>
+<td>PC Gaming: RTX 4080</td>
+<td>Consolas</td>
+</tr>
+</tbody>
+</table>
+<p><em>12 filas.</em></p>
+</details>
+<h2 id="ejercicio-59">Ejercicio 59</h2>
+<p>Sacar las categorías y su número de productos, incluyendo las vacías.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">descripcion</span><span class="p">,</span><span class="k">COUNT</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">productos</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">categorias</span><span class="w"> </span><span class="k">c</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_categoria</th>
+<th>descripcion</th>
+<th>productos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Videojuegos</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Consolas</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Periféricos</td>
+<td>4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Merchandising</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><em>4 filas.</em></p>
+</details>
+<h2 id="ejercicio-60">Ejercicio 60</h2>
+<p>Sacar los jugadores que no han realizado compras.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">,</span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="o">=</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_jugador</th>
+<th>nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>Paula Serra Gil</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-61">Ejercicio 61</h2>
+<p>Sacar todos los productos y sus unidades vendidas, mostrando 0 si no tienen ventas.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="k">COALESCE</span><span class="p">(</span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">unidades</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_producto</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_producto</th>
+<th>nombre</th>
+<th>unidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Elden Ring</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Minecraft</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>PlayStation 5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Nintendo Switch</td>
+<td>3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>RZ Mouse: DeathAdder</td>
+<td>5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>RZ Teclado: BlackWidow</td>
+<td>2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Auriculares: HyperX Cloud</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Mando: Xbox Wireless</td>
+<td>2</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Camiseta: Creeper</td>
+<td>2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+<td>4</td>
+</tr>
+<tr>
+<td>11</td>
+<td>PC Gaming: RTX 4070</td>
+<td>1</td>
+</tr>
+<tr>
+<td>12</td>
+<td>PC Gaming: RTX 4080</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><em>12 filas.</em></p>
+</details>
+<h2 id="ejercicio-62">Ejercicio 62</h2>
+<p>Sacar todas las ciudades con su número de jugadores, incluyendo las que no tienen ninguno.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="k">COUNT</span><span class="p">(</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">jugadores</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_ciudad</th>
+<th>nombre</th>
+<th>jugadores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Madrid</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Alcalá de Henares</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Barcelona</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Terrassa</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Castellón de la Plana</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Vila-real</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><em>6 filas.</em></p>
+</details>
+<h2 id="ejercicio-63">Ejercicio 63</h2>
+<p>Sacar las categorías sin productos. Un resultado vacío puede ser correcto con estos datos.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">descripcion</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">categorias</span><span class="w"> </span><span class="k">c</span>
+<span class="k">LEFT</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">;</span>
+</code></pre></div>
+<p><em>Resultado: 0 filas con los datos iniciales.</em></p>
+</details>
+<h2 id="ejercicio-64">Ejercicio 64</h2>
+<p>Sacar el mayor número de compras realizadas por un mismo jugador.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">maximo_compras</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">n</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">compras</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_jugador</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">recuentos</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>maximo_compras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-65">Ejercicio 65</h2>
+<p>Sacar el importe de la compra más cara y de la más barata, usando los totales finales.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">compra_mas_cara</span><span class="p">,</span><span class="k">MIN</span><span class="p">(</span><span class="n">total</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">compra_mas_barata</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">resumen_compras</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>compra_mas_cara</th>
+<th>compra_mas_barata</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2068.0110</td>
+<td>90.7161</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-66">Ejercicio 66</h2>
+<p>Sacar el mayor número de compras atendidas por un vendedor en el segundo semestre de 2024.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">maximo_compras</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">n</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">compras</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">fecha</span><span class="o">&gt;=</span><span class="nb">DATE</span><span class="w"> </span><span class="s1">'2024-07-01'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">fecha</span><span class="o">&lt;</span><span class="nb">DATE</span><span class="w"> </span><span class="s1">'2025-01-01'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_vendedor</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">recuentos</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>maximo_compras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-67">Ejercicio 67</h2>
+<p>Sacar los productos con precio superior a la media global, ordenados por precio descendente.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">precio</span><span class="o">&gt;</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">precio</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">precio</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="n">id_producto</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_producto</th>
+<th>nombre</th>
+<th>precio</th>
+<th>stock</th>
+<th>stock_minimo</th>
+<th>id_categoria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>PC Gaming: RTX 4080</td>
+<td>1899.00</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>PC Gaming: RTX 4070</td>
+<td>1299.00</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>PlayStation 5</td>
+<td>499.99</td>
+<td>6</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><em>3 filas.</em></p>
+</details>
+<h2 id="ejercicio-68">Ejercicio 68</h2>
+<p>Sacar los productos con precio superior a la media de su propia categoría.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">precio</span><span class="o">&gt;</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">p2</span><span class="p">.</span><span class="n">precio</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p2</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">id_categoria</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">precio</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_producto</th>
+<th>nombre</th>
+<th>precio</th>
+<th>stock</th>
+<th>stock_minimo</th>
+<th>id_categoria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Elden Ring</td>
+<td>59.99</td>
+<td>20</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>12</td>
+<td>PC Gaming: RTX 4080</td>
+<td>1899.00</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>PC Gaming: RTX 4070</td>
+<td>1299.00</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>RZ Teclado: BlackWidow</td>
+<td>89.99</td>
+<td>5</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Auriculares: HyperX Cloud</td>
+<td>69.99</td>
+<td>NULL</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Figura: Hollow Knight</td>
+<td>24.99</td>
+<td>10</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p><em>6 filas.</em></p>
+</details>
+<h2 id="ejercicio-69">Ejercicio 69</h2>
+<p>Sacar las ciudades donde hay jugadores pero no vendedores, usando EXISTS y NOT EXISTS.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_ciudad</th>
+<th>nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Alcalá de Henares</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-70">Ejercicio 70</h2>
+<p>Sacar las ciudades con más vendedores que jugadores. Con los datos iniciales puede no haber ninguna.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">;</span>
+</code></pre></div>
+<p><em>Resultado: 0 filas con los datos iniciales.</em></p>
+</details>
+<h2 id="ejercicio-71">Ejercicio 71</h2>
+<p>Sacar el importe máximo de compra de cada trimestre.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">EXTRACT</span><span class="p">(</span><span class="n">QUARTER</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">fecha</span><span class="p">)::</span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">trimestre</span><span class="p">,</span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_maximo</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">resumen_compras</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">EXTRACT</span><span class="p">(</span><span class="n">QUARTER</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">fecha</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">trimestre</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>trimestre</th>
+<th>total_maximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>967.9758</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1461.1658</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2068.0110</td>
+</tr>
+</tbody>
+</table>
+<p><em>3 filas.</em></p>
+</details>
+<h2 id="ejercicio-72">Ejercicio 72</h2>
+<p>Sacar todos los vendedores, su número de compras y su importe total vendido, incluyendo ceros.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">,</span><span class="n">v</span><span class="p">.</span><span class="n">nombre</span><span class="p">,(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_vendedor</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">compras</span><span class="p">,</span><span class="k">COALESCE</span><span class="p">((</span><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">total</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">resumen_compras</span><span class="w"> </span><span class="n">r</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">id_vendedor</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_vendedor</th>
+<th>nombre</th>
+<th>compras</th>
+<th>total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Alicia Damborenea</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Marcos Vidal</td>
+<td>6</td>
+<td>3554.0695</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Elena García</td>
+<td>6</td>
+<td>4420.5388</td>
+</tr>
+</tbody>
+</table>
+<p><em>3 filas.</em></p>
+</details>
+<h2 id="ejercicio-73">Ejercicio 73</h2>
+<p>Sacar toda la información de la compra de mayor importe. Incluir todas si hay empate.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">resumen_compras</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">total</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">resumen_compras</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_compra</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_compra</th>
+<th>fecha</th>
+<th>id_jugador</th>
+<th>id_vendedor</th>
+<th>base_sin_descuentos</th>
+<th>base_descuento_lineas</th>
+<th>base_descuento_general</th>
+<th>total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>2024-10-15</td>
+<td>1</td>
+<td>3</td>
+<td>1899.00</td>
+<td>1709.1000</td>
+<td>1709.1000</td>
+<td>2068.0110</td>
+</tr>
+</tbody>
+</table>
+<p><em>1 filas.</em></p>
+</details>
+<h2 id="ejercicio-74">Ejercicio 74</h2>
+<p>Voluntario: sacar el vendedor con más unidades vendidas de cada categoría, incluyendo empates.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">ventas</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">cantidad</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">unidades</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos</span><span class="w"> </span><span class="n">p</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">lineas_compra</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">id_producto</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_compra</span><span class="o">=</span><span class="n">l</span><span class="p">.</span><span class="n">id_compra</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">)</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="n">v</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="n">x</span><span class="p">.</span><span class="n">unidades</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ventas</span><span class="w"> </span><span class="n">x</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_vendedor</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">id_vendedor</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">unidades</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">unidades</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ventas</span><span class="w"> </span><span class="n">y</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">id_categoria</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">,</span><span class="n">x</span><span class="p">.</span><span class="n">id_vendedor</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_categoria</th>
+<th>nombre</th>
+<th>unidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Elena García</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Marcos Vidal</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Elena García</td>
+<td>7</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Elena García</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><em>4 filas.</em></p>
+</details>
+<h2 id="ejercicio-75">Ejercicio 75</h2>
+<p>Sacar sin repeticiones los nombres de jugadores y vendedores que participan en alguna compra.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_jugador</span><span class="o">=</span><span class="n">j</span><span class="p">.</span><span class="n">id_jugador</span>
+<span class="k">UNION</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">compras</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_vendedor</span><span class="o">=</span><span class="n">v</span><span class="p">.</span><span class="n">id_vendedor</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Elena García</td>
+</tr>
+<tr>
+<td>Hugo Martín Ruiz</td>
+</tr>
+<tr>
+<td>Juan Pérez López</td>
+</tr>
+<tr>
+<td>Luis Villalonga García</td>
+</tr>
+<tr>
+<td>Marcos Vidal</td>
+</tr>
+<tr>
+<td>Marta Sánchez Vidal</td>
+</tr>
+<tr>
+<td>Noa López Serra</td>
+</tr>
+<tr>
+<td>Sara Vidal Villalonga</td>
+</tr>
+<tr>
+<td>Álex García Torres</td>
+</tr>
+</tbody>
+</table>
+<p><em>9 filas.</em></p>
+</details>
+<h2 id="ejercicio-76a">Ejercicio 76a</h2>
+<p>Sacar mediante UNION las ciudades donde hay jugadores o vendedores.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">UNION</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_ciudad</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_ciudad</th>
+<th>nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Madrid</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Alcalá de Henares</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Barcelona</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Castellón de la Plana</td>
+</tr>
+</tbody>
+</table>
+<p><em>4 filas.</em></p>
+</details>
+<h2 id="ejercicio-76b">Ejercicio 76b</h2>
+<p>Sacar mediante INTERSECT las ciudades donde hay jugadores y también vendedores.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">INTERSECT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_ciudad</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>id_ciudad</th>
+<th>nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Madrid</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Barcelona</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Castellón de la Plana</td>
+</tr>
+</tbody>
+</table>
+<p><em>3 filas.</em></p>
+</details>
+<h2 id="ejercicio-76c">Ejercicio 76c</h2>
+<p>Sacar mediante EXCEPT las ciudades donde hay vendedores pero no jugadores.</p>
+<details class="success">
+<summary>Consulta y resultado</summary>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">vendedores</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">EXCEPT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span><span class="p">,</span><span class="k">c</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ciudades</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">jugadores</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_ciudad</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">id_ciudad</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_ciudad</span><span class="p">;</span>
+</code></pre></div>
+<p><em>Resultado: 0 filas con los datos iniciales.</em></p>
+</details>
+<p>Descarga las <a href="../../soluciones/sql/juegos-dql-avanzado.sql">consultas de solución</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DQL básico">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                DQL básico
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 Alicia Salvador — <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"> Licencia CC BY-NC-ND 4.0 </a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.tabs.link", "content.tooltips", "content.action.edit", "content.action.view", "header.autohide"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/lightbox.js"></script>
+      
+    
+  </body>
+</html>

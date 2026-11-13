@@ -1,0 +1,3594 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asalvadorc.github.io/PostgreSQL/BD_PostgreSQL_DDL/2_ddl/">
+      
+      
+        <link rel="prev" href="../1_introducci/">
+      
+      
+        <link rel="next" href="../3_crear_moviles/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>2. DDL - Esquema de la BD - BD - PostgreSQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-ddl-esquema-de-la-bd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BD - PostgreSQL" class="md-header__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BD - PostgreSQL
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. DDL - Esquema de la BD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  🏠 Inicio
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DDL - Creación de Tablas
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BD_PostgreSQL_DML/1_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DML - Manipulación de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BD_PostgreSQL_DQL/1_la_consulta_select/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DQL - Consultas (parte I)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BD_PostgreSQL_DQL_Avancat/21_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DQL - Consultas avanzadas (parte II)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../soluciones/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Soluciones
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BD - PostgreSQL" class="md-nav__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    BD - PostgreSQL
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 Inicio
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🏠 Inicio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RA_CE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA y CE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno_postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor PostgreSQL con Docker 
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2_client_dbeaver_installaci_i_confiuraci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Cliente PostgreSQL con Dbeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../crear_pruebas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Crear la base de pruebas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Bases de datos de los apuntes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    5. Bases de datos de los apuntes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bases_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../moviles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📱 Moviles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../juegos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎮 Juegos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDL - Creación de Tablas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DDL - Creación de Tablas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. DDL - Esquema de la BD
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. DDL - Esquema de la BD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-tipos-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Tipos de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-crear-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Crear bases de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-esquemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Esquemas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-tablas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Tablas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Tablas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CREATE TABLE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restricciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALTER TABLE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DROP TABLE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Índices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-vistas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Vistas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-secuencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Secuencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-dominios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Dominios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29-tipos-enumerados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Tipos enumerados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#210-usuarios-y-privilegios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10 Usuarios y privilegios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.10 Usuarios y privilegios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usuarios-y-roles-que-diferencia-hay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usuarios y roles: qué diferencia hay
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permisos-mas-habituales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permisos más habituales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-usuario-de-consulta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear un usuario de consulta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-los-permisos-desde-dbeaver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobar los permisos desde DBeaver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceder-y-retirar-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceder y retirar permisos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agrupar-los-permisos-en-un-rol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agrupar los permisos en un rol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limpiar-los-objetos-de-la-practica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpiar los objetos de la práctica
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_crear_moviles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Práctica guiada - Moviles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_crear_juegos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Práctica - Juegos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DML - Manipulación de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DML - Manipulación de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DML/1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción y carga de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DML/2_consultes_dactualitzaci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Consultas de actualización (DML)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DML/exercicis_de_tot_el_tema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejercicios de todo el tema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL - Consultas (parte I)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DQL - Consultas (parte I)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/1_la_consulta_select/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. La consulta SELECT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/2_consulta_bsica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Consulta básica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operadores y funciones de PostgreSQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operadores y funciones de PostgreSQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/6_operadors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/7_funcions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/3_lies_en_les_columnes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Alias en las columnas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/4_la_clusula_where/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. La cláusula WHERE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/5_funcions_dagregat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Funciones de agregado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/6_la_clusula_group_by/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. La cláusula GROUP BY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/7_la_clusula_having/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. La cláusula HAVING
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/8_la_clusula_order_by/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. La cláusula ORDER BY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/9_el_predicat_distinct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. El predicado DISTINCT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/10_la_clusula_limit__offset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. La cláusula LIMIT .. OFFSET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/11_consulta_de_creaci_de_taules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Consulta de creación de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/12_ordre_amb_qu_sexecuta_una_sentncia_sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Orden en el que se ejecuta una sentencia SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/ejemplos_bd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejemplos de BDs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL - Consultas avanzadas (parte II)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DQL - Consultas avanzadas (parte II)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL_Avancat/21_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL_Avancat/22_combinacions_de_taules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Combinaciones de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL_Avancat/23_subconsultes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Subconsultas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL_Avancat/24_consultes_doperacions_de_conjunts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consultas de operaciones de conjuntos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../soluciones/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Soluciones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Soluciones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL/exercicis_de_tot_el_tema_amb_els_resultats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL básico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BD_PostgreSQL_DQL_Avancat/exercicis_de_tot_el_tema_amb_els_resultats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DQL avanzado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-tipos-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Tipos de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-crear-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Crear bases de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-esquemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Esquemas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-tablas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Tablas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Tablas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CREATE TABLE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restricciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALTER TABLE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DROP TABLE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Índices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-vistas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Vistas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-secuencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Secuencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-dominios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Dominios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29-tipos-enumerados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Tipos enumerados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#210-usuarios-y-privilegios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10 Usuarios y privilegios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.10 Usuarios y privilegios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usuarios-y-roles-que-diferencia-hay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usuarios y roles: qué diferencia hay
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permisos-mas-habituales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permisos más habituales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-usuario-de-consulta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear un usuario de consulta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-los-permisos-desde-dbeaver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobar los permisos desde DBeaver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceder-y-retirar-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceder y retirar permisos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agrupar-los-permisos-en-un-rol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agrupar los permisos en un rol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limpiar-los-objetos-de-la-practica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpiar los objetos de la práctica
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2-ddl-esquema-de-la-bd">2. DDL: Esquema de la BD</h1>
+<p><strong>DDL</strong> (<em>Data Definition Language</em>) permite crear, modificar y eliminar bases de datos, tablas, restricciones y otros objetos. <code>CREATE</code> crea, <code>ALTER</code> modifica y <code>DROP</code> elimina. </p>
+<div class="admonition warning">
+<p class="admonition-title">Antes de empezar: conecta a pruebas y ejecuta los ejemplos</p>
+<p>Abre un editor SQL desde la conexión <strong>Pruebas</strong> de DBeaver. Comprueba que estás en la base correcta ejecutando:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">current_database</span><span class="p">();</span>
+</code></pre></div>
+<p>El resultado debe ser <strong>pruebas</strong>. <strong>No te limites a leer los ejemplos: escribe y ejecuta cada sentencia</strong>, observa el resultado y revisa los cambios en las tablas. Todos los ejemplos de este apartado se realizan en <strong>pruebas</strong>, siguiendo el orden en que aparecen.</p>
+</div>
+<p><strong>Cómo leer los bloques de sintaxis</strong></p>
+<p>Los bloques de <strong>sintaxis</strong> sirven como referencia: sustituye los nombres genéricos y elige las opciones que necesites. No se ejecutan literalmente.</p>
+<table>
+<thead>
+<tr>
+<th>Notación</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[ ... ]</code></td>
+<td>Parte opcional.</td>
+</tr>
+<tr>
+<td><code>{ opcion1 \| opcion2 }</code></td>
+<td>Debes elegir una de las alternativas.</td>
+</tr>
+<tr>
+<td><code>[, ...]</code></td>
+<td>Se pueden repetir elementos separados por comas.</td>
+</tr>
+<tr>
+<td><code>[esquema.]nombre</code></td>
+<td>El esquema es opcional; en nuestro entorno se utiliza <code>public</code> por defecto. Por ejemplo, <code>public.productos_demo</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Los recuadros <strong>Pruébalo</strong> contienen las sentencias concretas que sí debes ejecutar, en el orden indicado.</p>
+<h2 id="21-tipos-de-datos">2.1 Tipos de datos</h2>
+<p>Al crear una tabla debemos indicar <strong>qué tipo de dato almacenará cada columna</strong>. El tipo determina qué valores admite, cómo se representan y qué operaciones podemos realizar con ellos. Por ejemplo, un nombre necesita un tipo de texto, una cantidad un tipo entero y una fecha de compra un tipo de fecha.</p>
+<p>Elegir el tipo adecuado ayuda a mantener la coherencia de los datos. En nuestras bases utilizaremos principalmente texto, números, fechas y valores lógicos. Para los precios emplearemos números decimales exactos; los códigos postales, en cambio, se guardarán como texto para conservar posibles ceros iniciales.</p>
+<p>La siguiente tabla resume los tipos de PostgreSQL que utilizaremos en las prácticas:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Uso en nuestras bases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INTEGER</td>
+<td>Códigos que referencian otras tablas, cantidades y stock.</td>
+</tr>
+<tr>
+<td>SERIAL</td>
+<td>Abreviatura de una columna entera con una secuencia y un valor por defecto. No añade por sí solo una PK.</td>
+</tr>
+<tr>
+<td>VARCHAR(n)</td>
+<td>Texto con longitud máxima: nombres, modelos y direcciones.</td>
+</tr>
+<tr>
+<td>VARCHAR o TEXT</td>
+<td>Texto sin el límite <code>n</code> declarado. En PostgreSQL, omitir <code>n</code> <strong>no</strong> establece un límite de 255.</td>
+</tr>
+<tr>
+<td>DECIMAL(10,2) o NUMERIC(10,2)</td>
+<td>Valores exactos con hasta diez cifras, dos decimales: precios.</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>Fechas sin hora. Escribe literales como <code>DATE '2024-03-01'</code>.</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>Fecha y hora sin zona horaria.</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>Valores TRUE, FALSE o NULL.</td>
+</tr>
+</tbody>
+</table>
+<p>Consulta los <a href="https://www.postgresql.org/docs/17/datatype.html">tipos de PostgreSQL 17</a>.</p>
+<h2 id="22-crear-bases-de-datos">2.2 Crear bases de datos</h2>
+<p>Una <strong>base de datos</strong> contiene los esquemas y objetos con los que trabajaremos. <code>CREATE DATABASE</code> crea una base de datos nueva dentro del servidor PostgreSQL; después debemos conectarnos a ella para crear sus tablas.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE DATABASE nombre_bd</code><br/><code>    [ OWNER nombre_usuario ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code>nombre_bd</code>: nombre de la nueva base de datos.</li>
+<li><code>OWNER</code>: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.</li>
+</ul>
+</div>
+<p>En <a href="../../crear_pruebas/">Inicio creamos la base de datos <code>pruebas</code></a> ejecutando <code>CREATE DATABASE pruebas;</code> desde la conexión a <code>postgres</code>. <strong>No vuelvas a crearla si ya existe.</strong> La creación se ejecuta como sentencia independiente, fuera de un bloque de transacción. También puede realizarse desde el modo gráfico de DBeaver, como vimos en ese apartado.</p>
+<p>Crear una base de datos no cambia automáticamente la conexión del editor SQL. Para los ejemplos siguientes utiliza la conexión a <strong>pruebas</strong> y comprueba su destino con <code>SELECT current_database();</code>.</p>
+<h2 id="23-esquemas">2.3 Esquemas</h2>
+<p>Un <strong>esquema</strong> es un espacio dentro de una base de datos que organiza sus objetos, como tablas y vistas. En la configuración de estas prácticas, si no indicamos el esquema, se utiliza <strong><code>public</code> por defecto</strong>: <code>CREATE TABLE productos_demo (...)</code> crea la misma tabla que <code>CREATE TABLE public.productos_demo (...)</code>. Este comportamiento depende de la ruta de búsqueda de esquemas (<code>search_path</code>); aquí mantendremos su configuración inicial.</p>
+<p>La organización es <strong>servidor → base de datos → esquema → tabla</strong>. Por ejemplo, en nuestro servidor tenemos la base de datos <code>pruebas</code>, que contiene el esquema <code>public</code>, donde crearemos <code>productos_demo</code>.</p>
+<p>La notación <code>[esquema.]nombre_tabla</code> indica que podemos escribir el esquema seguido de un punto o dejar solo el nombre de la tabla. En los ejemplos posteriores utilizaremos <code>public</code>, pero primero vamos a crear un esquema de demostración.</p>
+<p><code>CREATE SCHEMA</code> crea un espacio para organizar objetos dentro de la base de datos a la que estamos conectados. Crear un esquema no crea otra base de datos ni cambia el esquema predeterminado del editor.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE SCHEMA [ IF NOT EXISTS ] nombre_esquema</code><br/><code>    [ AUTHORIZATION nombre_usuario ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code>IF NOT EXISTS</code>: evita el error si el esquema ya existe.</li>
+<li><code>AUTHORIZATION</code>: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.</li>
+</ul>
+</div>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear un esquema</p>
+<p>Desde la conexión a <strong>pruebas</strong>, con el usuario <strong>alumno</strong>, ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Crear un esquema cuyo propietario será el usuario alumno.</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">laboratorio</span><span class="p">;</span>
+</code></pre></div>
+<p>Actualiza el nodo <strong>Esquemas / Schemas</strong> de <code>pruebas</code> en DBeaver. Debe aparecer <code>laboratorio</code> junto a <code>public</code>. Si no lo ves, revisa los filtros de esquemas de la conexión.</p>
+<p>Este esquema permitiría organizar tablas con nombres como <code>laboratorio.productos_demo</code>. Para crearlas dentro de él tendríamos que indicar el prefijo <code>laboratorio.</code>; crearlo no hace que las nuevas tablas dejen de utilizar <code>public</code> por defecto.</p>
+<p>Como todavía está vacío y no lo utilizaremos en los siguientes ejemplos, elimínalo:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Eliminar el esquema de demostración, que no contiene objetos.</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">laboratorio</span><span class="p">;</span>
+</code></pre></div>
+<p>Actualiza de nuevo el nodo <strong>Esquemas / Schemas</strong> y comprueba que desaparece. <code>DROP SCHEMA</code> sin <code>CASCADE</code> solo permite eliminarlo si está vacío.</p>
+</div>
+<h2 id="24-tablas">2.4 Tablas</h2>
+<h3 id="create-table">CREATE TABLE</h3>
+<p><code>CREATE TABLE</code> crea una tabla y define sus columnas, tipos de datos, valores por defecto y restricciones. La tabla se crea vacía, preparada para insertar datos más adelante.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE TABLE [ IF NOT EXISTS ] [esquema.]nombre_tabla (</code><br><code>    columna tipo_dato [ DEFAULT expresion ] [ restricciones_de_columna ]</code><br><code>    [, ...]</code><br><code>    [, restricciones_de_tabla ... ]</code><br><code>);</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code>IF NOT EXISTS</code>: evita el error si la tabla ya existe; no modifica su estructura.</li>
+<li><code>esquema.</code>: opcional; si se omite, en estas prácticas se utiliza <code>public</code> por defecto.</li>
+<li><code>DEFAULT</code>: valor que se aplica si se omite la columna.</li>
+<li><code>restricciones_de_columna</code>: reglas como <code>NOT NULL</code>, <code>PRIMARY KEY</code>, <code>UNIQUE</code>, <code>CHECK</code> o <code>REFERENCES</code>.</li>
+<li><code>restricciones_de_tabla</code>: reglas sobre una o varias columnas, separadas de las definiciones de columna mediante comas.</li>
+</ul>
+</div>
+<p>Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear las primeras tablas</p>
+<p>Ejecuta las sentencias en orden y comprueba que aparecen <code>categorias_demo</code> y <code>productos_demo</code> en el navegador de DBeaver.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">categorias_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_categoria</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: PRIMARY KEY</span>
+<span class="w">    </span><span class="n">descripcion</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="c1">-- Restricción de columna: NOT NULL</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_producto</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: PRIMARY KEY</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: NOT NULL</span>
+<span class="w">    </span><span class="n">precio</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<span class="w">    </span><span class="n">stock</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">id_categoria</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">ck_demo_precio</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">precio</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="c1">-- Restricción de tabla: CHECK</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_demo_categoria</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_categoria</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de tabla: FOREIGN KEY</span>
+<span class="w">        </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">categorias_demo</span><span class="p">(</span><span class="n">id_categoria</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<h3 id="restricciones">Restricciones</h3>
+<p>Las restricciones definen las reglas que deben cumplir los datos de una tabla. En <code>CREATE TABLE</code> podemos declararlas sobre una columna o sobre varias columnas. Las claves ajenas permiten además mantener la coherencia entre tablas y representar la participación obligatoria en una relación.</p>
+<h4 id="restricciones-de-una-columna">Restricciones de una columna</h4>
+<p>Las restricciones de columna establecen las reglas que debe cumplir un campo: exigir un valor, evitar duplicados, identificar una fila o referenciar otra tabla. Se escriben después del tipo de dato y pueden recibir un nombre mediante <code>CONSTRAINT</code>.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>[ CONSTRAINT nombre_restriccion ]</code><br/><code>{ NOT NULL</code><br/><code>| UNIQUE</code><br/><code>| PRIMARY KEY</code><br/><code>| CHECK (condicion)</code><br/><code>| REFERENCES [esquema.]tabla_destino (columna_destino)</code><br/><code>    [ ON DELETE accion ]</code><br/><code>    [ ON UPDATE accion ]</code><br/><code>}</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code>CONSTRAINT</code>: asigna un nombre a la restricción.</li>
+<li><code>REFERENCES</code>: indica la clave referenciada.</li>
+<li><code>ON DELETE / ON UPDATE</code>: acción al borrar o actualizar la fila referenciada.</li>
+</ul>
+</div>
+<ul>
+<li><strong>PRIMARY KEY</strong>: identifica la fila, sin duplicados ni nulos.</li>
+<li><strong>NOT NULL</strong>: exige un valor.</li>
+<li><strong>UNIQUE</strong>: impide duplicados; en su comportamiento normal permite varios nulos.</li>
+<li><strong>CHECK</strong>: exige que una expresión no sea falsa. Si el resultado es desconocido por un NULL, la fila puede aceptarse; añade <code>NOT NULL</code> si el dato es obligatorio.</li>
+<li><strong>REFERENCES</strong>: exige que el valor no nulo exista en una clave referenciada.</li>
+</ul>
+<h4 id="restricciones-de-varias-columnas">Restricciones de varias columnas</h4>
+<p>Las restricciones de tabla permiten definir claves que abarcan varias columnas y condiciones que relacionan distintos campos. Se incluyen dentro de <code>CREATE TABLE</code>, separadas de las definiciones de columna mediante comas.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>[ CONSTRAINT nombre_restriccion ]</code><br/><code>{ PRIMARY KEY (columna [, ...])</code><br/><code>| UNIQUE (columna [, ...])</code><br/><code>| CHECK (condicion)</code><br/><code>| FOREIGN KEY (columna [, ...])</code><br/><code>    REFERENCES [esquema.]tabla_destino (columna_destino [, ...])</code><br/><code>    [ ON DELETE accion ]</code><br/><code>    [ ON UPDATE accion ]</code><br/><code>}</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code>CONSTRAINT</code>: asigna un nombre a la restricción.</li>
+<li><code>REFERENCES</code>: indica la clave referenciada.</li>
+<li><code>ON DELETE / ON UPDATE</code>: acción al borrar o actualizar la fila referenciada.</li>
+</ul>
+</div>
+<p>En una FK compuesta, el número y los tipos de las columnas deben ser compatibles con los de la clave referenciada.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Definir una clave compuesta</p>
+<p>Crea la tabla y revisa que su clave primaria contiene las dos columnas: <code>id_compra</code> y <code>num_linea</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">lineas_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_compra</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">num_linea</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cantidad</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">cantidad</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="c1">-- Restricciones de columna: NOT NULL y CHECK</span>
+<span class="w">    </span><span class="n">precio_unitario</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<span class="w">    </span><span class="n">descuento_linea</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_compra</span><span class="p">,</span><span class="w"> </span><span class="n">num_linea</span><span class="p">),</span><span class="w"> </span><span class="c1">-- Restricción de tabla: PRIMARY KEY compuesta</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">ck_demo_descuento</span>
+<span class="w">        </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">descuento_linea</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de tabla: CHECK</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<p>La clave identifica cada línea dentro de su compra. Distintas compras pueden tener una línea número 1. La combinación completa no se repite.</p>
+<h4 id="claves-ajenas-y-participacion">Claves ajenas y participación</h4>
+<p>Las acciones de <code>ON DELETE</code> y <code>ON UPDATE</code> son:</p>
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Efecto sobre las filas que contienen la FK</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NO ACTION</code></td>
+<td>Rechaza la operación si al comprobar la restricción quedan referencias sin destino. Es la acción predeterminada.</td>
+</tr>
+<tr>
+<td><code>RESTRICT</code></td>
+<td>Impide la operación si hay referencias; esta comprobación no se puede aplazar.</td>
+</tr>
+<tr>
+<td><code>CASCADE</code></td>
+<td>Propaga el borrado o la actualización de la clave referenciada.</td>
+</tr>
+<tr>
+<td><code>SET NULL</code></td>
+<td>Asigna NULL a la referencia; requiere que las columnas afectadas admitan nulos.</td>
+</tr>
+<tr>
+<td><code>SET DEFAULT</code></td>
+<td>Aplica su valor por defecto, que debe seguir cumpliendo la FK.</td>
+</tr>
+</tbody>
+</table>
+<p>En las tablas que acabamos de crear en <code>pruebas</code>, <code>productos_demo.id_categoria</code> referencia a <code>categorias_demo.id_categoria</code>. Como admite nulos, un producto puede quedarse sin categoría: la clave ajena por sí sola no obliga a rellenarla. Si añadiéramos <strong>NOT NULL</strong> a esa columna, todo producto tendría que pertenecer a una categoría existente; así representaríamos su <strong>participación total</strong> en la relación.</p>
+<p>En este ejemplo, se aplica <code>NO ACTION</code> por defecto: no podemos borrar una categoría mientras haya productos que la referencien. Si hubiéramos definido la FK con <code>ON DELETE CASCADE</code>, borrar la categoría también eliminaría sus productos. La acción debe elegirse según el comportamiento que necesitemos.</p>
+<h3 id="alter-table">ALTER TABLE</h3>
+<p><code>ALTER TABLE</code> modifica la estructura de una tabla existente: permite añadir o eliminar columnas y restricciones, cambiar tipos y valores por defecto, o renombrar la tabla y sus columnas.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>ALTER TABLE [esquema.]nombre_tabla</code><br/><code>    accion [, ...];</code></td></tr>
+<tr><td><code>ADD COLUMN columna tipo_dato [ restricciones ]</code><br/><code>DROP COLUMN columna [ CASCADE | RESTRICT ]</code><br/><code>ALTER COLUMN columna TYPE tipo_dato [ USING expresion ]</code><br/><code>ALTER COLUMN columna SET DEFAULT expresion</code><br/><code>ALTER COLUMN columna DROP DEFAULT</code><br/><code>ALTER COLUMN columna SET NOT NULL</code><br/><code>ALTER COLUMN columna DROP NOT NULL</code></td></tr>
+<tr><td><code>ADD [ CONSTRAINT nombre_restriccion ] restriccion_de_tabla</code><br/><code>DROP CONSTRAINT nombre_restriccion</code></td></tr>
+<tr><td><code>ALTER TABLE [esquema.]nombre_tabla</code><br/><code>    RENAME COLUMN columna TO nuevo_nombre;</code><br/><br/><br/><code>ALTER TABLE [esquema.]nombre_tabla</code><br/><code>    RENAME TO nuevo_nombre;</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>ALTER TABLE</code></strong></p>
+<ul>
+<li><code>accion</code>: cambio que se aplica a la tabla.</li>
+<li>Se pueden separar varias acciones compatibles por comas.</li>
+</ul>
+<p><strong><code>ADD COLUMN</code></strong></p>
+<ul>
+<li><code>ADD / DROP COLUMN</code>: añade o elimina una columna.</li>
+<li><code>TYPE</code>: cambia el tipo; <code>USING</code> indica cómo convertir los valores.</li>
+<li><code>SET / DROP DEFAULT</code>: establece o quita el valor por defecto.</li>
+<li><code>SET / DROP NOT NULL</code>: exige un valor o permite nulos.</li>
+</ul>
+<p><strong><code>ADD [</code></strong></p>
+<ul>
+<li><code>ADD CONSTRAINT</code>: añade una restricción.</li>
+<li><code>DROP CONSTRAINT</code>: elimina la restricción indicada.</li>
+</ul>
+<p><strong><code>ALTER TABLE</code></strong></p>
+<ul>
+<li><code>RENAME COLUMN</code>: cambia el nombre de una columna.</li>
+<li><code>RENAME TO</code>: cambia el nombre de la tabla. Son sentencias independientes.</li>
+</ul>
+</div>
+<p><code>USING</code> indica cómo convertir los valores existentes al cambiar el tipo de una columna.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Modificar una tabla</p>
+<p>Ejecuta las sentencias una a una y observa los cambios en las columnas y restricciones de <code>productos_demo</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">activo</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">nombre</span><span class="w"> </span><span class="k">TYPE</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">stock</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">stock</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Restricción de columna: NOT NULL</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">ck_demo_stock</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">stock</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">-- Restricción de tabla: CHECK</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">activo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">disponible</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">disponible</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">ck_demo_stock</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Elimina la restricción de tabla CHECK</span>
+</code></pre></div>
+</div>
+<p>Antes de añadir una restricción, los datos existentes deben cumplirla. <code>SET NOT NULL</code> falla si ya hay nulos. Para cambiar una FK, elimina su restricción y créala con el comportamiento nuevo.</p>
+<h3 id="drop-table">DROP TABLE</h3>
+<p><code>DROP TABLE</code> elimina una tabla completa, incluida su estructura y todos sus datos. Las opciones <code>RESTRICT</code> y <code>CASCADE</code> determinan qué ocurre si otros objetos dependen de ella.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>DROP TABLE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code>IF EXISTS</code>: evita el error si no existe.</li>
+<li><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes.</li>
+</ul>
+</div>
+<ul>
+<li><code>IF EXISTS</code>: si la tabla no existe, emite un aviso en lugar de un error.</li>
+<li><code>RESTRICT</code>: comportamiento predeterminado; rechaza el borrado si hay objetos dependientes.</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes, como vistas o restricciones de clave ajena de otras tablas; no significa necesariamente borrar esas otras tablas.</li>
+<li><code>[, ...]</code>: permite indicar varias tablas, separadas por comas.</li>
+</ul>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Eliminar una tabla que ya no necesitamos</p>
+<p>Elimina únicamente <code>lineas_demo</code> y actualiza el navegador. Conserva <code>productos_demo</code> y <code>categorias_demo</code>: las utilizaremos después en los ejemplos de índices y vistas.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">lineas_demo</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>Borra primero las tablas dependientes. <code>IF EXISTS</code> evita el error de objeto inexistente, pero no protege datos. <code>DROP TABLE ... CASCADE</code> elimina también objetos dependientes; no es equivalente a <code>ON DELETE CASCADE</code>, que actúa sobre filas. Usa <code>pruebas</code> para estos ejemplos.</p>
+<h2 id="25-indices">2.5 Índices</h2>
+<p>Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y trabajo adicional al modificar datos. PostgreSQL ya crea índices para PK y UNIQUE; no crea automáticamente uno para cada FK.</p>
+<p><code>CREATE INDEX</code> crea un índice sobre una o varias columnas; <code>ALTER INDEX</code> permite renombrarlo y <code>DROP INDEX</code> lo elimina sin borrar la tabla ni sus datos.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE [ UNIQUE ] INDEX [ IF NOT EXISTS ] nombre_indice</code><br/><code>    ON [esquema.]tabla (columna [ ASC | DESC ] [, ...]);</code></td></tr>
+<tr><td><code>ALTER INDEX [esquema.]nombre_indice RENAME TO nuevo_nombre;</code></td></tr>
+<tr><td><code>DROP INDEX [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE [</code></strong></p>
+<ul>
+<li><code>UNIQUE</code>: impide duplicados.</li>
+<li><code>IF NOT EXISTS</code>: evita el error si el índice ya existe.</li>
+<li><code>ASC / DESC</code>: orden ascendente (por defecto) o descendente.</li>
+</ul>
+<p><strong><code>ALTER INDEX</code></strong></p>
+<ul>
+<li><code>RENAME TO</code>: cambia el nombre del índice.</li>
+</ul>
+<p><strong><code>DROP INDEX</code></strong></p>
+<ul>
+<li><code>IF EXISTS</code>: evita el error si no existe.</li>
+<li><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes.</li>
+</ul>
+</div>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear y eliminar índices</p>
+<p>Utiliza <code>productos_demo</code>, que has conservado en <code>pruebas</code>. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">i_demo_productos_nombre</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="p">(</span><span class="n">nombre</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">i_demo_productos_categoria_precio</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="p">(</span><span class="n">id_categoria</span><span class="w"> </span><span class="k">ASC</span><span class="p">,</span><span class="w"> </span><span class="n">precio</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">i_demo_productos_nombre</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">i_demo_productos_categoria_precio</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir un recorrido completo.</p>
+<h2 id="26-vistas">2.6 Vistas</h2>
+<p>Una vista guarda una consulta, no una copia estática de sus filas. <code>CREATE VIEW</code> define la vista y <code>CREATE OR REPLACE VIEW</code> permite sustituir su consulta. <code>ALTER VIEW</code> puede cambiar su nombre y <code>DROP VIEW</code> elimina la vista sin borrar las tablas consultadas.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE [ OR REPLACE ] VIEW [esquema.]nombre_vista</code><br/><code>    [ (columna [, ...]) ]</code><br/><code>    AS consulta;</code></td></tr>
+<tr><td><code>ALTER VIEW [esquema.]nombre_vista RENAME TO nuevo_nombre;</code></td></tr>
+<tr><td><code>DROP VIEW [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE [</code></strong></p>
+<ul>
+<li><code>OR REPLACE</code>: sustituye la consulta de una vista existente, manteniendo compatibles sus columnas.</li>
+<li>Lista de columnas: permite asignar nombres a las columnas de salida.</li>
+</ul>
+<p><strong><code>ALTER VIEW</code></strong></p>
+<ul>
+<li><code>RENAME TO</code>: cambia el nombre de la vista.</li>
+<li>Para cambiar la consulta se utiliza <code>CREATE OR REPLACE VIEW</code>.</li>
+</ul>
+<p><strong><code>DROP VIEW</code></strong></p>
+<ul>
+<li><code>IF EXISTS</code>: evita el error si no existe.</li>
+<li><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes.</li>
+</ul>
+</div>
+<p><code>ALTER VIEW</code> <strong>no cambia la consulta</strong>: para eso se usa <code>CREATE OR REPLACE VIEW</code>. La lista de columnas existente debe conservar nombres, orden y tipos. Para cambiar tipos o eliminar columnas puede ser necesario borrar y recrear la vista, revisando antes sus dependencias.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear y consultar una vista</p>
+<p>En la misma base <code>pruebas</code>, crea una vista que muestre los productos junto con la descripción de su categoría. Utiliza las tablas <code>productos_demo</code> y <code>categorias_demo</code> de los ejemplos anteriores.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">catalogo_demo</span><span class="w"> </span><span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_producto</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">descripcion</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">categoria</span><span class="p">,</span>
+<span class="w">       </span><span class="n">p</span><span class="p">.</span><span class="n">precio</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">stock</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">productos_demo</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">p</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">categorias_demo</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_categoria</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_categoria</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">catalogo_demo</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_producto</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>La consulta estará vacía porque todavía no hemos insertado datos: eso se trabajará en DML. Aun así, puedes comprobar que la vista aparece en <strong>Views</strong> y revisar sus columnas. Cuando las tablas tengan datos, la vista mostrará sus valores actuales; no guarda una copia independiente.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Eliminar la vista</p>
+<p>Elimina la vista y comprueba que desaparece de <strong>Views</strong>. Las dos tablas se conservan.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">catalogo_demo</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Limpiar las tablas utilizadas</p>
+<p>Una vez terminados los ejemplos de índices y vistas, estas dos tablas ya no se necesitan. Elimina primero la tabla que contiene la clave ajena y después la tabla referenciada.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">productos_demo</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">categorias_demo</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 id="27-secuencias">2.7 Secuencias</h2>
+<p>Una secuencia genera valores numéricos que podemos utilizar como identificadores. <code>CREATE SEQUENCE</code> define su inicio e incremento; <code>ALTER SEQUENCE</code> permite reiniciar el contador o vincularlo a una columna, y <code>DROP SEQUENCE</code> elimina la secuencia.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE SEQUENCE [ IF NOT EXISTS ] [esquema.]nombre</code><br/><code>    [ START WITH inicio ]</code><br/><code>    [ INCREMENT BY incremento ]</code><br/><code>    [ OWNED BY tabla.columna ];</code></td></tr>
+<tr><td><code>ALTER SEQUENCE [esquema.]nombre</code><br/><code>    RESTART WITH valor;</code><br/><br/><br/><code>ALTER SEQUENCE [esquema.]nombre</code><br/><code>    OWNED BY tabla.columna;</code></td></tr>
+<tr><td><code>DROP SEQUENCE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE SEQUENCE</code></strong></p>
+<ul>
+<li><code>START WITH</code>: primer valor; por defecto, 1 en una secuencia ascendente.</li>
+<li><code>INCREMENT BY</code>: salto entre valores; por defecto, 1.</li>
+<li><code>OWNED BY</code>: vincula la secuencia a una columna.</li>
+</ul>
+<p><strong><code>ALTER SEQUENCE</code></strong></p>
+<ul>
+<li><code>RESTART WITH</code>: establece el próximo valor.</li>
+<li><code>OWNED BY</code>: vincula una secuencia existente a una columna.</li>
+</ul>
+<p><strong><code>DROP SEQUENCE</code></strong></p>
+<ul>
+<li><code>IF EXISTS</code>: evita el error si no existe.</li>
+<li><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes.</li>
+</ul>
+</div>
+<p><code>OWNED BY</code> vincula la secuencia al ciclo de vida de una columna; no la convierte en una clave primaria.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Probar una secuencia</p>
+<p>Ejecuta las sentencias una a una. Observa los códigos generados antes de eliminar la tabla de demostración.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">SEQUENCE</span><span class="w"> </span><span class="n">seq_jugadores_demo</span><span class="w"> </span><span class="k">START</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">INCREMENT</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">jugadores_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_jugador</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">nextval</span><span class="p">(</span><span class="s1">'seq_jugadores_demo'</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="n">SEQUENCE</span><span class="w"> </span><span class="n">seq_jugadores_demo</span><span class="w"> </span><span class="n">OWNED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">jugadores_demo</span><span class="p">.</span><span class="n">id_jugador</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">jugadores_demo</span><span class="w"> </span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'Alex'</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="s1">'Noa'</span><span class="p">);</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">jugadores_demo</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">jugadores_demo</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>Se generan 1000 y 1005. Una secuencia puede tener huecos: no garantiza una numeración consecutiva. Al estar vinculada con <code>OWNED BY</code>, se elimina al borrar su columna. Otra opción es <code>INTEGER GENERATED BY DEFAULT AS IDENTITY</code>.</p>
+<h2 id="28-dominios">2.8 Dominios</h2>
+<p>Un dominio reutiliza un tipo de dato y sus restricciones en distintas columnas. <code>CREATE DOMAIN</code> lo define; <code>ALTER DOMAIN</code> cambia sus valores por defecto o sus restricciones, y <code>DROP DOMAIN</code> lo elimina, teniendo en cuenta los objetos que lo utilizan.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE DOMAIN [esquema.]nombre AS tipo_dato</code><br/><code>    [ DEFAULT expresion ]</code><br/><code>    [ NOT NULL ]</code><br/><code>    [ [ CONSTRAINT nombre_restriccion ] CHECK (condicion) ];</code></td></tr>
+<tr><td><code>ALTER DOMAIN [esquema.]nombre</code><br/><code>    { SET DEFAULT expresion</code><br/><code>    | DROP DEFAULT</code><br/><code>    | SET NOT NULL</code><br/><code>    | DROP NOT NULL</code><br/><code>    | ADD [ CONSTRAINT nombre ] CHECK (condicion)</code><br/><code>    | DROP CONSTRAINT nombre };</code></td></tr>
+<tr><td><code>DROP DOMAIN [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE DOMAIN</code></strong></p>
+<ul>
+<li><code>DEFAULT</code>: valor por defecto.</li>
+<li><code>NOT NULL</code>: exige un valor.</li>
+<li><code>CHECK</code>: comprueba una condición sobre <code>VALUE</code>.</li>
+<li><code>CONSTRAINT</code>: asigna un nombre a la restricción.</li>
+</ul>
+<p><strong><code>ALTER DOMAIN</code></strong></p>
+<ul>
+<li><code>SET / DROP</code>: establece o elimina el valor por defecto o la obligatoriedad.</li>
+<li><code>ADD / DROP CONSTRAINT</code>: añade o elimina restricciones.</li>
+</ul>
+<p><strong><code>DROP DOMAIN</code></strong></p>
+<ul>
+<li><code>IF EXISTS</code>: evita el error si no existe.</li>
+<li><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes.</li>
+</ul>
+</div>
+<p>En los CHECK de un dominio, <code>VALUE</code> representa el valor que se está validando. Los cambios deben ser compatibles con los datos de las columnas que ya lo utilizan.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Probar un dominio</p>
+<p>Crea el dominio y la tabla que lo utiliza. Revisa sus definiciones antes de eliminar los objetos.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DOMAIN</span><span class="w"> </span><span class="n">porcentaje_demo</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">VALUE</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">promociones_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_promocion</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">descuento</span><span class="w"> </span><span class="n">porcentaje_demo</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">promociones_demo</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">DOMAIN</span><span class="w"> </span><span class="n">porcentaje_demo</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 id="29-tipos-enumerados">2.9 Tipos enumerados</h2>
+<p>Un tipo enumerado limita una columna a una lista de valores permitidos. <code>CREATE TYPE ... AS ENUM</code> define esa lista; <code>ALTER TYPE</code> permite añadir o renombrar valores, y <code>DROP TYPE</code> elimina el tipo cuando ya no se necesita.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE TYPE [esquema.]nombre AS ENUM ('valor1' [, ...]);</code></td></tr>
+<tr><td><code>ALTER TYPE [esquema.]nombre ADD VALUE 'nuevo_valor';</code><br/><br/><br/><code>ALTER TYPE [esquema.]nombre</code><br/><code>    RENAME VALUE 'valor_existente' TO 'nuevo_valor';</code></td></tr>
+<tr><td><code>DROP TYPE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE TYPE</code></strong></p>
+<ul>
+<li><code>AS ENUM</code>: lista de valores permitidos entre comillas simples.</li>
+</ul>
+<p><strong><code>ALTER TYPE</code></strong></p>
+<ul>
+<li><code>ADD VALUE</code>: añade un valor al final de la lista.</li>
+<li><code>RENAME VALUE</code>: cambia un valor existente.</li>
+</ul>
+<p><strong><code>DROP TYPE</code></strong></p>
+<ul>
+<li><code>IF EXISTS</code>: evita el error si no existe.</li>
+<li><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).</li>
+<li><code>CASCADE</code>: elimina también objetos dependientes.</li>
+</ul>
+</div>
+<p>No existe una operación directa para eliminar un único valor de un ENUM. Aquí utilizaremos los tipos enumerados para limitar los valores admitidos por una columna.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Probar un tipo enumerado</p>
+<p>Crea el tipo y la tabla; revisa los valores permitidos y el valor por defecto antes de ejecutar los borrados.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TYPE</span><span class="w"> </span><span class="n">estado_producto_demo</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ENUM</span><span class="w"> </span><span class="p">(</span><span class="s1">'Disponible'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Agotado'</span><span class="p">,</span><span class="w"> </span><span class="s1">'En espera'</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">inventario_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_producto</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">estado</span><span class="w"> </span><span class="n">estado_producto_demo</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">'Disponible'</span>
+<span class="p">);</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">inventario_demo</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TYPE</span><span class="w"> </span><span class="n">estado_producto_demo</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 id="210-usuarios-y-privilegios">2.10 Usuarios y privilegios</h2>
+<p>Hasta ahora hemos trabajado con <code>alumno</code>, el administrador de nuestro entorno. En una base de datos compartida, cada usuario debe disponer de los permisos que necesita: por ejemplo, una persona puede consultar una tabla sin poder modificarla.</p>
+<p>En PostgreSQL los permisos se asignan a <strong>roles</strong>. Un rol que puede iniciar sesión actúa como un <strong>usuario</strong>. <code>CREATE USER</code> equivale a <code>CREATE ROLE</code> con la opción <code>LOGIN</code>. Los usuarios pertenecen al servidor PostgreSQL y pueden utilizarse en sus distintas bases de datos; los permisos sobre tablas se conceden dentro de la base correspondiente.</p>
+<p><code>CREATE USER</code> crea un usuario, <code>ALTER USER</code> permite cambiar su contraseña y <code>DROP USER</code> lo elimina. La creación de usuarios se completa con <code>GRANT</code>, para <strong>conceder privilegios</strong>, y <code>REVOKE</code>, para <strong>retirarlos</strong>. Estas dos sentencias forman parte de <strong>DCL</strong> (<em>Data Control Language</em>, lenguaje de control de datos). Las estudiamos aquí para completar la definición y el acceso a los objetos de la base de datos.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE USER nombre PASSWORD 'contraseña';</code></td></tr>
+<tr><td><code>ALTER USER nombre PASSWORD 'nueva_contraseña';</code></td></tr>
+<tr><td><code>GRANT privilegio [, ...]</code><br/><code>    ON TABLE [esquema.]tabla TO usuario;</code></td></tr>
+<tr><td><code>REVOKE privilegio [, ...]</code><br/><code>    ON TABLE [esquema.]tabla FROM usuario;</code></td></tr>
+<tr><td><code>DROP USER nombre;</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE USER</code></strong></p>
+<ul>
+<li><code>CREATE USER</code>: crea un rol con permiso para iniciar sesión.</li>
+<li><code>PASSWORD</code>: establece su contraseña.</li>
+</ul>
+<p><strong><code>ALTER USER</code></strong></p>
+<ul>
+<li><code>PASSWORD</code>: cambia la contraseña.</li>
+</ul>
+<p><strong><code>GRANT privilegio</code></strong></p>
+<ul>
+<li><code>TO</code>: usuario que recibe los permisos.</li>
+<li>Para una tabla: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code>, entre otros.</li>
+</ul>
+<p><strong><code>REVOKE privilegio</code></strong></p>
+<ul>
+<li><code>FROM</code>: usuario al que se retira el permiso concedido.</li>
+</ul>
+<p><strong><code>DROP USER</code></strong></p>
+<ul>
+<li>Antes deben eliminarse o reasignarse sus objetos y retirarse sus permisos en las bases de datos correspondientes.</li>
+</ul>
+</div>
+<h3 id="usuarios-y-roles-que-diferencia-hay">Usuarios y roles: qué diferencia hay</h3>
+<p>Imagina que varias personas necesitan consultar las mismas tablas. Podemos conceder <code>SELECT</code> a cada usuario por separado, pero tendríamos que repetir las concesiones cada vez que se incorpora alguien. Un <strong>rol de grupo</strong> permite reunir esos permisos y asignarlos de una vez a sus miembros.</p>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Para qué sirve</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usuario, un rol con <code>LOGIN</code></td>
+<td>Identifica a una persona o aplicación que se conecta.</td>
+<td><code>lector_demo</code></td>
+</tr>
+<tr>
+<td>Rol de grupo, normalmente con <code>NOLOGIN</code></td>
+<td>Agrupa permisos para compartirlos entre usuarios.</td>
+<td><code>consulta_demo</code></td>
+</tr>
+<tr>
+<td>Privilegio</td>
+<td>Autoriza una operación sobre un objeto.</td>
+<td><code>SELECT</code> sobre <code>permisos_demo</code></td>
+</tr>
+<tr>
+<td>Pertenencia</td>
+<td>Vincula un usuario con un rol de grupo.</td>
+<td><code>lector_demo</code> pertenece a <code>consulta_demo</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Los permisos se conceden al rol; los usuarios se incorporan a ese rol.</strong> Por ejemplo, si cinco usuarios pertenecen a <code>consulta_demo</code>, podemos conceder una nueva tabla al rol y sus cinco miembros tendrán acceso a ella. Cada persona sigue conectándose con su propio usuario y contraseña.</p>
+<p>En PostgreSQL ambos son roles: <code>CREATE ROLE consulta_demo NOLOGIN</code> crea el grupo sin inicio de sesión; <code>CREATE USER lector_demo ...</code> crea un rol con <code>LOGIN</code>. Con la configuración predeterminada que utilizamos, los usuarios <strong>heredan automáticamente</strong> los permisos de los roles a los que pertenecen.</p>
+<h3 id="permisos-mas-habituales">Permisos más habituales</h3>
+<table>
+<thead>
+<tr>
+<th>Objeto</th>
+<th>Privilegio</th>
+<th>Permite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base de datos</td>
+<td><code>CONNECT</code></td>
+<td>Conectarse a esa base de datos.</td>
+</tr>
+<tr>
+<td>Esquema</td>
+<td><code>USAGE</code></td>
+<td>Acceder a los objetos del esquema, si también se tienen los permisos necesarios sobre ellos.</td>
+</tr>
+<tr>
+<td>Tabla o vista</td>
+<td><code>SELECT</code></td>
+<td>Consultar sus datos.</td>
+</tr>
+<tr>
+<td>Tabla</td>
+<td><code>INSERT</code></td>
+<td>Insertar filas.</td>
+</tr>
+<tr>
+<td>Tabla</td>
+<td><code>UPDATE</code></td>
+<td>Modificar filas.</td>
+</tr>
+<tr>
+<td>Tabla</td>
+<td><code>DELETE</code></td>
+<td>Borrar filas.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conectarse a una base de datos no da permiso para consultar o modificar todas sus tablas.</strong> Los permisos de base de datos, esquema y tabla cumplen funciones diferentes. Tampoco es lo mismo <code>DELETE</code>, que borra filas, que <code>DROP TABLE</code>, que elimina la tabla: conceder <code>DELETE</code> no permite eliminar su estructura.</p>
+<h3 id="crear-un-usuario-de-consulta">Crear un usuario de consulta</h3>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear un usuario y conceder permisos</p>
+<p>Desde tu conexión a <strong>pruebas</strong>, con el usuario <strong>alumno</strong>, ejecuta las sentencias una a una. Utilizaremos una tabla independiente de los ejemplos anteriores.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Crear una tabla para comprobar los permisos.</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">permisos_demo</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+
+<span class="c1">-- Crear un usuario sin privilegios de administrador.</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">lector_demo</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'lector_demo'</span><span class="p">;</span>
+
+<span class="c1">-- Permitir la conexión a pruebas y el acceso al esquema public.</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">CONNECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">pruebas</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+
+<span class="c1">-- Permitir únicamente la consulta de esta tabla.</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>La contraseña es un ejemplo para el entorno local de las prácticas. No modifiques el usuario <code>alumno</code> ni las variables de <code>compose.yaml</code>: el nuevo usuario se crea en el servidor que ya está funcionando.</p>
+</div>
+<p>PostgreSQL puede conceder algunos permisos a <code>PUBLIC</code>, que representa a todos los usuarios. Por ejemplo, <code>CONNECT</code> y el acceso al esquema <code>public</code> pueden estar disponibles de antemano. Los indicamos explícitamente para distinguir los niveles de acceso. Un usuario acumula sus permisos directos, los de sus roles y los de <code>PUBLIC</code>.</p>
+<h3 id="comprobar-los-permisos-desde-dbeaver">Comprobar los permisos desde DBeaver</h3>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Conectarte como lector_demo</p>
+<p>Crea una <strong>nueva conexión PostgreSQL</strong> en DBeaver con estos datos. Conserva abierta la conexión de <code>alumno</code> para administrar los permisos.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td>Puerto</td>
+<td><code>5433</code></td>
+</tr>
+<tr>
+<td>Base de datos</td>
+<td><code>pruebas</code></td>
+</tr>
+<tr>
+<td>Usuario</td>
+<td><code>lector_demo</code></td>
+</tr>
+<tr>
+<td>Contraseña</td>
+<td><code>lector_demo</code></td>
+</tr>
+<tr>
+<td>Nombre de la conexión</td>
+<td><code>Pruebas - lector</code></td>
+</tr>
+</tbody>
+</table>
+<p>Abre <strong>Editor SQL → Nuevo script SQL</strong> desde esta nueva conexión y ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">current_database</span><span class="p">(),</span><span class="w"> </span><span class="k">current_user</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>La primera consulta debe mostrar <code>pruebas</code> y <code>lector_demo</code>. La segunda funciona, aunque no devuelve filas porque la tabla está vacía.</p>
+<p>Después ejecuta <strong>por separado</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Debe aparecer un error de permiso denegado: <code>lector_demo</code> puede consultar la tabla, pero no borrar sus filas, aunque esté vacía. Estas comprobaciones deben hacerse con <code>lector_demo</code>; el administrador <code>alumno</code> no tiene esas limitaciones. Si el editor queda en una transacción fallida tras el error, pulsa <strong>Rollback</strong> antes de continuar.</p>
+</div>
+<h3 id="conceder-y-retirar-permisos">Conceder y retirar permisos</h3>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Cambiar los permisos</p>
+<p>Vuelve al editor de <strong>pruebas con el usuario alumno</strong> y concede el permiso de borrado:</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Desde la conexión <strong>Pruebas - lector</strong>, repite:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Ahora la sentencia se ejecuta correctamente y afecta a <strong>0 filas</strong>, porque la tabla está vacía.</p>
+<p>De nuevo como <strong>alumno</strong>, retira ese permiso:</p>
+<div class="highlight"><pre><span></span><code><span class="k">REVOKE</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Comprueba como <strong>lector_demo</strong>, ejecutando cada sentencia por separado, que <code>SELECT</code> sigue funcionando y <code>DELETE</code> vuelve a dar un error de permiso denegado.</p>
+</div>
+<p><code>REVOKE</code> retira la concesión indicada. Si un usuario obtiene el mismo permiso a través de otro rol o de <code>PUBLIC</code>, puede seguir disponiendo de él. En este ejemplo, el permiso <code>DELETE</code> se había concedido directamente a <code>lector_demo</code>.</p>
+<h3 id="agrupar-los-permisos-en-un-rol">Agrupar los permisos en un rol</h3>
+<p><code>CREATE ROLE ... NOLOGIN</code> crea un grupo de permisos. <code>GRANT rol TO usuario</code> incorpora un usuario al grupo y <code>REVOKE rol FROM usuario</code> retira su pertenencia. <code>DROP ROLE</code> elimina el rol una vez resueltas sus dependencias.</p>
+<p>Ahora sustituiremos el permiso de consulta concedido directamente a <code>lector_demo</code> por un permiso obtenido a través de un rol. Utilizaremos el mismo usuario y la misma tabla, antes de eliminarlos.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>CREATE ROLE nombre_rol NOLOGIN;</code></td></tr>
+<tr><td><code>GRANT SELECT ON TABLE tabla TO nombre_rol;</code></td></tr>
+<tr><td><code>GRANT nombre_rol TO usuario;</code></td></tr>
+<tr><td><code>REVOKE nombre_rol FROM usuario;</code></td></tr>
+<tr><td><code>DROP ROLE nombre_rol;</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<p><strong><code>CREATE ROLE</code></strong></p>
+<ul>
+<li><code>NOLOGIN</code>: impide iniciar sesión con el rol; es el valor predeterminado de <code>CREATE ROLE</code>.</li>
+</ul>
+<p><strong><code>GRANT SELECT</code></strong></p>
+<ul>
+<li>Concede el permiso al grupo.</li>
+</ul>
+<p><strong><code>GRANT nombre_rol</code></strong></p>
+<ul>
+<li>Incorpora el usuario al rol; no lleva <code>ON TABLE</code>.</li>
+</ul>
+<p><strong><code>REVOKE nombre_rol</code></strong></p>
+<ul>
+<li>Retira la pertenencia, sin eliminar el usuario ni el rol.</li>
+</ul>
+<p><strong><code>DROP ROLE</code></strong></p>
+<ul>
+<li>Antes deben retirarse sus permisos y resolverse sus dependencias.</li>
+</ul>
+</div>
+<p>Fíjate en las dos formas de <code>GRANT</code>: <strong><code>GRANT SELECT ON TABLE ...</code> concede un privilegio sobre una tabla</strong>, mientras que <strong><code>GRANT consulta_demo TO ...</code> concede pertenencia a un rol</strong>.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Compartir permisos mediante un rol</p>
+<p>Desde <strong>pruebas con el usuario alumno</strong>, ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Crear un rol que agrupará los permisos de consulta.</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">consulta_demo</span><span class="w"> </span><span class="n">NOLOGIN</span><span class="p">;</span>
+
+<span class="c1">-- Conceder el permiso al rol de grupo.</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">consulta_demo</span><span class="p">;</span>
+
+<span class="c1">-- Incorporar el usuario al grupo.</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="n">consulta_demo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+
+<span class="c1">-- Retirar la concesión directa: la consulta dependerá ahora del rol.</span>
+<span class="k">REVOKE</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Desde la conexión <strong>Pruebas - lector</strong>, ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>La consulta sigue funcionando: <code>lector_demo</code> recibe <code>SELECT</code> por pertenecer a <code>consulta_demo</code>, aunque ya no lo tenga concedido directamente.</p>
+<p>Ahora, como <strong>alumno</strong>, retira la pertenencia:</p>
+<div class="highlight"><pre><span></span><code><span class="k">REVOKE</span><span class="w"> </span><span class="n">consulta_demo</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Repite la consulta como <strong>lector_demo</strong>: debe fallar por falta de permisos. Si queda una transacción fallida, pulsa <strong>Rollback</strong>. El usuario sigue existiendo y puede conectarse, pero ya no recibe el permiso del grupo.</p>
+<p>Por último, como <strong>alumno</strong>, vuelve a incorporarlo:</p>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">consulta_demo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Comprueba que la consulta vuelve a funcionar desde <strong>Pruebas - lector</strong>.</p>
+</div>
+<p>Si más adelante creamos otro usuario que necesite consultar esta tabla, bastará con incorporarlo a <code>consulta_demo</code>. No tendremos que repetir la concesión de <code>SELECT</code> para cada usuario.</p>
+<h3 id="limpiar-los-objetos-de-la-practica">Limpiar los objetos de la práctica</h3>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Eliminar la tabla y el usuario de demostración</p>
+<p>Cierra los editores y desconecta <strong>Pruebas - lector</strong>. Si había cambios pendientes, revierte la transacción. Desde <strong>pruebas con el usuario alumno</strong>, ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Eliminar la tabla y los permisos asociados a ella.</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">permisos_demo</span><span class="p">;</span>
+
+<span class="c1">-- Retirar las otras concesiones explícitas de la práctica.</span>
+<span class="k">REVOKE</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+<span class="k">REVOKE</span><span class="w"> </span><span class="k">CONNECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">pruebas</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+
+<span class="c1">-- Retirar la pertenencia al grupo.</span>
+<span class="k">REVOKE</span><span class="w"> </span><span class="n">consulta_demo</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+
+<span class="c1">-- Eliminar el rol y el usuario una vez resueltas sus dependencias.</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">consulta_demo</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">lector_demo</span><span class="p">;</span>
+</code></pre></div>
+<p>Después puedes eliminar de DBeaver la conexión <strong>Pruebas - lector</strong>, que ya no podrá utilizarse. Conserva tu conexión habitual con <code>alumno</code>.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Autoevaluación</p>
+<p>Un usuario puede conectarse a <code>pruebas</code>, pero recibe un error al consultar <code>permisos_demo</code>. ¿Es suficiente tener <code>CONNECT</code>? ¿Qué otros permisos necesita?</p>
+<details class="success">
+<summary>Ver solución</summary>
+<p>No. Necesita <code>USAGE</code> sobre el esquema que contiene la tabla y <code>SELECT</code> sobre la tabla. <code>CONNECT</code> permite conectarse a la base de datos, pero no concede por sí solo acceso a sus tablas.</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Autoevaluación: permisos directos y roles</p>
+<p>Si retiramos a <code>lector_demo</code> del rol <code>consulta_demo</code>, ¿se elimina el usuario? ¿Podría seguir consultando la tabla si también tuviera <code>SELECT</code> concedido directamente?</p>
+<details class="success">
+<summary>Ver solución</summary>
+<p>El usuario no se elimina: solo pierde la pertenencia al rol y los permisos que recibía por esa vía. Si conserva una concesión directa de <code>SELECT</code>, puede seguir consultando la tabla. Para retirar un acceso hay que revisar todas las vías por las que lo obtiene.</p>
+</details>
+</div>
+<p>Consulta también la documentación sobre <a href="https://www.postgresql.org/docs/17/role-membership.html">pertenencia a roles</a>.</p>
+<p>Consulta la documentación de PostgreSQL 17 sobre <a href="https://www.postgresql.org/docs/17/sql-createrole.html">usuarios y roles</a> y <a href="https://www.postgresql.org/docs/17/sql-grant.html">concesión de privilegios</a>.</p>
+<p><strong>Referencias de sintaxis</strong></p>
+<ul>
+<li><a href="https://nbeltran-gva.github.io/asgbd/ud3/03-basesdatos-objetos/">Gestión de bases de datos y objetos: material de referencia</a>.</li>
+<li><a href="https://www.postgresql.org/docs/17/sql-commands.html">Órdenes SQL de PostgreSQL 17</a>, con las variantes completas, incluidas opciones avanzadas de particionamiento y almacenamiento.</li>
+</ul>
+<p>Continúa con la <a href="../3_crear_moviles/">práctica guiada de Moviles</a> y después con la <a href="../4_crear_juegos/">práctica de Juegos</a>, que reúne los ejercicios de creación de tablas, restricciones, índices, vistas y otros objetos.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../1_introducci/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 1. Introducción">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                1. Introducción
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../3_crear_moviles/" class="md-footer__link md-footer__link--next" aria-label="Next: 3. Práctica guiada - Moviles">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                3. Práctica guiada - Moviles
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 Alicia Salvador — <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"> Licencia CC BY-NC-ND 4.0 </a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.tabs.link", "content.tooltips", "content.action.edit", "content.action.view", "header.autohide"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/lightbox.js"></script>
+      
+    
+  </body>
+</html>
