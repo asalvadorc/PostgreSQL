@@ -38,6 +38,7 @@ Por ahora solo necesitas este archivo para arrancar el servidor PostgreSQL.
     services:
       postgres:
         image: postgres:17
+        container_name: postgres_local
         environment:
           POSTGRES_USER: alumno
           POSTGRES_PASSWORD: alumno
@@ -46,12 +47,6 @@ Por ahora solo necesitas este archivo para arrancar el servidor PostgreSQL.
           - "127.0.0.1:5433:5432"
         volumes:
           - datos_postgres:/var/lib/postgresql/data
-        healthcheck:
-          test: ["CMD-SHELL", "pg_isready -U alumno -d postgres"]
-          interval: 5s
-          timeout: 5s
-          retries: 12
-          start_period: 10s
     volumes:
       datos_postgres:
     ```
@@ -62,32 +57,24 @@ Por ahora solo necesitas este archivo para arrancar el servidor PostgreSQL.
     | `POSTGRES_DB: postgres` | Crea la base administrativa inicial. |
     | `127.0.0.1:5433:5432` | Conecta el puerto 5433 de tu ordenador con el 5432 del contenedor. Solo se publica en tu propio equipo. |
     | `datos_postgres` | Conserva las bases de datos al detener o recrear el contenedor. |
-    | `healthcheck` | Comprueba que PostgreSQL acepta conexiones. |
+    | `container_name: postgres_local` | Asigna el nombre `postgres_local` al contenedor. |
 
     El usuario `alumno` es el administrador de este entorno docente local. La contraseña `alumno` es solo para esta práctica. Las variables de inicialización se aplican al crear un volumen vacío; editarlas después no cambia las credenciales de un volumen existente.
 
-    Documentación: [imagen oficial de PostgreSQL](https://hub.docker.com/_/postgres) y [comprobación del estado en Compose](https://docs.docker.com/compose/how-tos/startup-order/).
+    Documentación: [imagen oficial de PostgreSQL](https://hub.docker.com/_/postgres).
 
-## 2.3 Puesta en marcha y comprobación
+## 2.3 Puesta en marcha
 
 Desde la carpeta que contiene `compose.yaml`:
 
 ```bash
-docker compose config
+
+
+# Crea y arranca el contenedor en segundo plano (-d).
 docker compose up -d
+
+# Muestra el estado del contenedor y los puertos publicados.
 docker compose ps
-```
-
-La primera vez se descarga la imagen. Espera a que el servicio aparezca como **healthy**. Para consultar los mensajes:
-
-```bash
-docker compose logs --tail=50 postgres
-```
-
-Comprueba el acceso:
-
-```bash
-docker compose exec postgres psql -U alumno -d postgres -c "SELECT version();"
 ```
 
 ## 2.4 Parar, reanudar y conservar los datos
@@ -103,4 +90,11 @@ docker compose up -d
 docker compose down
 ```
 
-No añadas `-v` a `down` en el trabajo habitual: eliminaría el volumen y todas las bases de datos de esta práctica. Para repetir una carga de datos, utiliza una base nueva; los archivos de datos no son una actualización ni deben ejecutarse dos veces sobre las mismas tablas.
+!!! warning "Este comando elimina también los datos"
+
+    No ejecutes este comando en el trabajo habitual: elimina el contenedor, la red y el volumen con **todas las bases de datos de esta práctica**.
+
+    ```bash
+    docker compose down -v
+    ```
+

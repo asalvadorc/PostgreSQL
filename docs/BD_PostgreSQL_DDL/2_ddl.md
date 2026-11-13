@@ -20,7 +20,7 @@ Los bloques de **sintaxis** sirven como referencia: sustituye los nombres genér
 | `[ ... ]` | Parte opcional. |
 | `{ opcion1 \| opcion2 }` | Debes elegir una de las alternativas. |
 | `[, ...]` | Se pueden repetir elementos separados por comas. |
-| `[esquema.]nombre` | Puedes indicar el esquema; por ejemplo, `public.productos_demo`. |
+| `[esquema.]nombre` | El esquema es opcional; en nuestro entorno se utiliza `public` por defecto. Por ejemplo, `public.productos_demo`. |
 
 Los recuadros **Pruébalo** contienen las sentencias concretas que sí debes ejecutar, en el orden indicado.
 
@@ -45,19 +45,98 @@ La siguiente tabla resume los tipos de PostgreSQL que utilizaremos en las práct
 
 Consulta los [tipos de PostgreSQL 17](https://www.postgresql.org/docs/17/datatype.html).
 
-## 2.2 Tablas
+## 2.2 Crear bases de datos
 
-### CREATE TABLE
+Una **base de datos** contiene los esquemas y objetos con los que trabajaremos. `CREATE DATABASE` crea una base de datos nueva dentro del servidor PostgreSQL; después debemos conectarnos a ella para crear sus tablas.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Crear</td><td><code>CREATE TABLE [ IF NOT EXISTS ] [esquema.]nombre_tabla (</code><br><code>    columna tipo_dato [ DEFAULT expresion ] [ restricciones ]</code><br><code>    [, ...]</code><br><code>    [, restricciones_de_tabla ... ]</code><br><code>);</code></td><td><code>IF NOT EXISTS</code>: evita el error si ya existe; no modifica su estructura.<br><code>esquema.</code>: esquema de la tabla; usaremos <code>public</code>.<br><code>DEFAULT</code>: valor que se aplica si se omite la columna.<br><code>restricciones</code>: reglas como <code>NOT NULL</code>, <code>PRIMARY KEY</code>, <code>UNIQUE</code>, <code>CHECK</code> o <code>REFERENCES</code>.</td></tr>
+    <tr><td><code>CREATE DATABASE nombre_bd</code><br/><code>    [ OWNER nombre_usuario ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    - `nombre_bd`: nombre de la nueva base de datos.
+    - `OWNER`: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.
+
+
+En [Inicio creamos la base de datos `pruebas`](../crear_pruebas.md) ejecutando `CREATE DATABASE pruebas;` desde la conexión a `postgres`. **No vuelvas a crearla si ya existe.** La creación se ejecuta como sentencia independiente, fuera de un bloque de transacción. También puede realizarse desde el modo gráfico de DBeaver, como vimos en ese apartado.
+
+Crear una base de datos no cambia automáticamente la conexión del editor SQL. Para los ejemplos siguientes utiliza la conexión a **pruebas** y comprueba su destino con `SELECT current_database();`.
+
+## 2.3 Esquemas
+
+Un **esquema** es un espacio dentro de una base de datos que organiza sus objetos, como tablas y vistas. En la configuración de estas prácticas, si no indicamos el esquema, se utiliza **`public` por defecto**: `CREATE TABLE productos_demo (...)` crea la misma tabla que `CREATE TABLE public.productos_demo (...)`. Este comportamiento depende de la ruta de búsqueda de esquemas (`search_path`); aquí mantendremos su configuración inicial.
+
+La organización es **servidor → base de datos → esquema → tabla**. Por ejemplo, en nuestro servidor tenemos la base de datos `pruebas`, que contiene el esquema `public`, donde crearemos `productos_demo`.
+
+La notación `[esquema.]nombre_tabla` indica que podemos escribir el esquema seguido de un punto o dejar solo el nombre de la tabla. En los ejemplos posteriores utilizaremos `public`, pero primero vamos a crear un esquema de demostración.
+
+`CREATE SCHEMA` crea un espacio para organizar objetos dentro de la base de datos a la que estamos conectados. Crear un esquema no crea otra base de datos ni cambia el esquema predeterminado del editor.
+
+!!! quote sintaxis "Sintaxis básica"
+
+    <div class="syntax-table-wrap">
+    <table class="syntax-table syntax-completa">
+    <tbody>
+    <tr><td><code>CREATE SCHEMA [ IF NOT EXISTS ] nombre_esquema</code><br/><code>    [ AUTHORIZATION nombre_usuario ];</code></td></tr>
+    </tbody></table>
+    </div>
+
+    **Opciones**
+
+    - `IF NOT EXISTS`: evita el error si el esquema ya existe.
+    - `AUTHORIZATION`: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.
+
+
+!!! example practica "Pruébalo: Crear un esquema"
+
+    Desde la conexión a **pruebas**, con el usuario **alumno**, ejecuta:
+
+    ```sql
+    -- Crear un esquema cuyo propietario será el usuario alumno.
+    CREATE SCHEMA laboratorio;
+    ```
+
+    Actualiza el nodo **Esquemas / Schemas** de `pruebas` en DBeaver. Debe aparecer `laboratorio` junto a `public`. Si no lo ves, revisa los filtros de esquemas de la conexión.
+
+    Este esquema permitiría organizar tablas con nombres como `laboratorio.productos_demo`. Para crearlas dentro de él tendríamos que indicar el prefijo `laboratorio.`; crearlo no hace que las nuevas tablas dejen de utilizar `public` por defecto.
+
+    Como todavía está vacío y no lo utilizaremos en los siguientes ejemplos, elimínalo:
+
+    ```sql
+    -- Eliminar el esquema de demostración, que no contiene objetos.
+    DROP SCHEMA laboratorio;
+    ```
+
+    Actualiza de nuevo el nodo **Esquemas / Schemas** y comprueba que desaparece. `DROP SCHEMA` sin `CASCADE` solo permite eliminarlo si está vacío.
+
+## 2.4 Tablas
+
+### CREATE TABLE
+
+`CREATE TABLE` crea una tabla y define sus columnas, tipos de datos, valores por defecto y restricciones. La tabla se crea vacía, preparada para insertar datos más adelante.
+
+!!! quote sintaxis "Sintaxis básica"
+
+    <div class="syntax-table-wrap">
+    <table class="syntax-table syntax-completa">
+    <tbody>
+    <tr><td><code>CREATE TABLE [ IF NOT EXISTS ] [esquema.]nombre_tabla (</code><br><code>    columna tipo_dato [ DEFAULT expresion ] [ restricciones_de_columna ]</code><br><code>    [, ...]</code><br><code>    [, restricciones_de_tabla ... ]</code><br><code>);</code></td></tr>
+    </tbody></table>
+    </div>
+
+    **Opciones**
+
+    - `IF NOT EXISTS`: evita el error si la tabla ya existe; no modifica su estructura.
+    - `esquema.`: opcional; si se omite, en estas prácticas se utiliza `public` por defecto.
+    - `DEFAULT`: valor que se aplica si se omite la columna.
+    - `restricciones_de_columna`: reglas como `NOT NULL`, `PRIMARY KEY`, `UNIQUE`, `CHECK` o `REFERENCES`.
+    - `restricciones_de_tabla`: reglas sobre una o varias columnas, separadas de las definiciones de columna mediante comas.
 
 Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.
 
@@ -67,35 +146,45 @@ Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni 
 
     ```sql
     CREATE TABLE categorias_demo (
-        id_categoria SERIAL PRIMARY KEY,
-        descripcion VARCHAR(100) NOT NULL
+        id_categoria SERIAL PRIMARY KEY, -- Restricción de columna: PRIMARY KEY
+        descripcion VARCHAR(100) NOT NULL -- Restricción de columna: NOT NULL
     );
 
     CREATE TABLE productos_demo (
-        id_producto SERIAL PRIMARY KEY,
-        nombre VARCHAR(200) NOT NULL,
+        id_producto SERIAL PRIMARY KEY, -- Restricción de columna: PRIMARY KEY
+        nombre VARCHAR(200) NOT NULL, -- Restricción de columna: NOT NULL
         precio NUMERIC(10,2),
         stock INTEGER DEFAULT 0,
         id_categoria INTEGER,
-        CONSTRAINT ck_demo_precio CHECK (precio >= 0),
-        CONSTRAINT fk_demo_categoria FOREIGN KEY (id_categoria)
+        CONSTRAINT ck_demo_precio CHECK (precio >= 0), -- Restricción de tabla: CHECK
+        CONSTRAINT fk_demo_categoria FOREIGN KEY (id_categoria) -- Restricción de tabla: FOREIGN KEY
             REFERENCES categorias_demo(id_categoria)
     );
     ```
 
+### Restricciones
+
+Las restricciones definen las reglas que deben cumplir los datos de una tabla. En `CREATE TABLE` podemos declararlas sobre una columna o sobre varias columnas. Las claves ajenas permiten además mantener la coherencia entre tablas y representar la participación obligatoria en una relación.
+
 #### Restricciones de una columna
 
-Puedes nombrar cada restricción con `CONSTRAINT`. Las restricciones se escriben después del tipo de la columna:
+Las restricciones de columna establecen las reglas que debe cumplir un campo: exigir un valor, evitar duplicados, identificar una fila o referenciar otra tabla. Se escriben después del tipo de dato y pueden recibir un nombre mediante `CONSTRAINT`.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Definir</td><td><code>[ CONSTRAINT nombre_restriccion ]</code><br><code>{ NOT NULL</code><br><code>| UNIQUE</code><br><code>| PRIMARY KEY</code><br><code>| CHECK (condicion)</code><br><code>| REFERENCES [esquema.]tabla_destino (columna_destino)</code><br><code>    [ ON DELETE accion ]</code><br><code>    [ ON UPDATE accion ]</code><br><code>}</code></td><td><code>CONSTRAINT</code>: asigna un nombre a la restricción.<br><code>REFERENCES</code>: indica la clave referenciada.<br><code>ON DELETE / ON UPDATE</code>: acción al borrar o actualizar la fila referenciada.</td></tr>
+    <tr><td><code>[ CONSTRAINT nombre_restriccion ]</code><br/><code>{ NOT NULL</code><br/><code>| UNIQUE</code><br/><code>| PRIMARY KEY</code><br/><code>| CHECK (condicion)</code><br/><code>| REFERENCES [esquema.]tabla_destino (columna_destino)</code><br/><code>    [ ON DELETE accion ]</code><br/><code>    [ ON UPDATE accion ]</code><br/><code>}</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    - `CONSTRAINT`: asigna un nombre a la restricción.
+    - `REFERENCES`: indica la clave referenciada.
+    - `ON DELETE / ON UPDATE`: acción al borrar o actualizar la fila referenciada.
+
 
 - **PRIMARY KEY**: identifica la fila, sin duplicados ni nulos.
 - **NOT NULL**: exige un valor.
@@ -105,17 +194,23 @@ Puedes nombrar cada restricción con `CONSTRAINT`. Las restricciones se escriben
 
 #### Restricciones de varias columnas
 
-Las restricciones de tabla se separan de las columnas mediante comas:
+Las restricciones de tabla permiten definir claves que abarcan varias columnas y condiciones que relacionan distintos campos. Se incluyen dentro de `CREATE TABLE`, separadas de las definiciones de columna mediante comas.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Definir</td><td><code>[ CONSTRAINT nombre_restriccion ]</code><br><code>{ PRIMARY KEY (columna [, ...])</code><br><code>| UNIQUE (columna [, ...])</code><br><code>| CHECK (condicion)</code><br><code>| FOREIGN KEY (columna [, ...])</code><br><code>    REFERENCES [esquema.]tabla_destino (columna_destino [, ...])</code><br><code>    [ ON DELETE accion ]</code><br><code>    [ ON UPDATE accion ]</code><br><code>}</code></td><td><code>CONSTRAINT</code>: asigna un nombre a la restricción.<br><code>REFERENCES</code>: indica la clave referenciada.<br><code>ON DELETE / ON UPDATE</code>: acción al borrar o actualizar la fila referenciada.</td></tr>
+    <tr><td><code>[ CONSTRAINT nombre_restriccion ]</code><br/><code>{ PRIMARY KEY (columna [, ...])</code><br/><code>| UNIQUE (columna [, ...])</code><br/><code>| CHECK (condicion)</code><br/><code>| FOREIGN KEY (columna [, ...])</code><br/><code>    REFERENCES [esquema.]tabla_destino (columna_destino [, ...])</code><br/><code>    [ ON DELETE accion ]</code><br/><code>    [ ON UPDATE accion ]</code><br/><code>}</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    - `CONSTRAINT`: asigna un nombre a la restricción.
+    - `REFERENCES`: indica la clave referenciada.
+    - `ON DELETE / ON UPDATE`: acción al borrar o actualizar la fila referenciada.
+
 
 En una FK compuesta, el número y los tipos de las columnas deben ser compatibles con los de la clave referenciada.
 
@@ -127,12 +222,12 @@ En una FK compuesta, el número y los tipos de las columnas deben ser compatible
     CREATE TABLE lineas_demo (
         id_compra INTEGER,
         num_linea INTEGER,
-        cantidad INTEGER NOT NULL CHECK (cantidad > 0),
+        cantidad INTEGER NOT NULL CHECK (cantidad > 0), -- Restricciones de columna: NOT NULL y CHECK
         precio_unitario NUMERIC(10,2),
         descuento_linea NUMERIC(5,2),
-        PRIMARY KEY (id_compra, num_linea),
+        PRIMARY KEY (id_compra, num_linea), -- Restricción de tabla: PRIMARY KEY compuesta
         CONSTRAINT ck_demo_descuento
-            CHECK (descuento_linea BETWEEN 0 AND 100)
+            CHECK (descuento_linea BETWEEN 0 AND 100) -- Restricción de tabla: CHECK
     );
     ```
 
@@ -156,20 +251,44 @@ En este ejemplo, se aplica `NO ACTION` por defecto: no podemos borrar una catego
 
 ### ALTER TABLE
 
-Sirve para cambiar columnas, restricciones y otras propiedades de una tabla existente.
+`ALTER TABLE` modifica la estructura de una tabla existente: permite añadir o eliminar columnas y restricciones, cambiar tipos y valores por defecto, o renombrar la tabla y sus columnas.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Alterar</td><td><code>ALTER TABLE [esquema.]nombre_tabla</code><br><code>    accion [, ...];</code></td><td><code>accion</code>: cambio que se aplica a la tabla.<br>Se pueden separar varias acciones compatibles por comas.</td></tr>
-    <tr><td>Columnas</td><td><code>ADD COLUMN columna tipo_dato [ restricciones ]</code><br><code>DROP COLUMN columna [ CASCADE | RESTRICT ]</code><br><code>ALTER COLUMN columna TYPE tipo_dato [ USING expresion ]</code><br><code>ALTER COLUMN columna SET DEFAULT expresion</code><br><code>ALTER COLUMN columna DROP DEFAULT</code><br><code>ALTER COLUMN columna SET NOT NULL</code><br><code>ALTER COLUMN columna DROP NOT NULL</code></td><td><code>ADD / DROP COLUMN</code>: añade o elimina una columna.<br><code>TYPE</code>: cambia el tipo; <code>USING</code> indica cómo convertir los valores.<br><code>SET / DROP DEFAULT</code>: establece o quita el valor por defecto.<br><code>SET / DROP NOT NULL</code>: exige un valor o permite nulos.</td></tr>
-    <tr><td>Restricciones</td><td><code>ADD [ CONSTRAINT nombre_restriccion ] restriccion_de_tabla</code><br><code>DROP CONSTRAINT nombre_restriccion</code></td><td><code>ADD CONSTRAINT</code>: añade una restricción.<br><code>DROP CONSTRAINT</code>: elimina la restricción indicada.</td></tr>
-    <tr><td>Renombrar</td><td><code>ALTER TABLE [esquema.]nombre_tabla</code><br><code>    RENAME COLUMN columna TO nuevo_nombre;</code><br><br><br><code>ALTER TABLE [esquema.]nombre_tabla</code><br><code>    RENAME TO nuevo_nombre;</code></td><td><code>RENAME COLUMN</code>: cambia el nombre de una columna.<br><code>RENAME TO</code>: cambia el nombre de la tabla. Son sentencias independientes.</td></tr>
+    <tr><td><code>ALTER TABLE [esquema.]nombre_tabla</code><br/><code>    accion [, ...];</code></td></tr>
+    <tr><td><code>ADD COLUMN columna tipo_dato [ restricciones ]</code><br/><code>DROP COLUMN columna [ CASCADE | RESTRICT ]</code><br/><code>ALTER COLUMN columna TYPE tipo_dato [ USING expresion ]</code><br/><code>ALTER COLUMN columna SET DEFAULT expresion</code><br/><code>ALTER COLUMN columna DROP DEFAULT</code><br/><code>ALTER COLUMN columna SET NOT NULL</code><br/><code>ALTER COLUMN columna DROP NOT NULL</code></td></tr>
+    <tr><td><code>ADD [ CONSTRAINT nombre_restriccion ] restriccion_de_tabla</code><br/><code>DROP CONSTRAINT nombre_restriccion</code></td></tr>
+    <tr><td><code>ALTER TABLE [esquema.]nombre_tabla</code><br/><code>    RENAME COLUMN columna TO nuevo_nombre;</code><br/><br/><br/><code>ALTER TABLE [esquema.]nombre_tabla</code><br/><code>    RENAME TO nuevo_nombre;</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    **`ALTER TABLE`**
+
+    - `accion`: cambio que se aplica a la tabla.
+    - Se pueden separar varias acciones compatibles por comas.
+
+    **`ADD COLUMN`**
+
+    - `ADD / DROP COLUMN`: añade o elimina una columna.
+    - `TYPE`: cambia el tipo; `USING` indica cómo convertir los valores.
+    - `SET / DROP DEFAULT`: establece o quita el valor por defecto.
+    - `SET / DROP NOT NULL`: exige un valor o permite nulos.
+
+    **`ADD [`**
+
+    - `ADD CONSTRAINT`: añade una restricción.
+    - `DROP CONSTRAINT`: elimina la restricción indicada.
+
+    **`ALTER TABLE`**
+
+    - `RENAME COLUMN`: cambia el nombre de una columna.
+    - `RENAME TO`: cambia el nombre de la tabla. Son sentencias independientes.
+
 
 `USING` indica cómo convertir los valores existentes al cambiar el tipo de una columna.
 
@@ -181,26 +300,34 @@ Sirve para cambiar columnas, restricciones y otras propiedades de una tabla exis
     ALTER TABLE productos_demo ADD COLUMN activo BOOLEAN DEFAULT TRUE;
     ALTER TABLE productos_demo ALTER COLUMN nombre TYPE VARCHAR(250);
     ALTER TABLE productos_demo ALTER COLUMN stock SET DEFAULT 1;
-    ALTER TABLE productos_demo ALTER COLUMN stock SET NOT NULL;
-    ALTER TABLE productos_demo ADD CONSTRAINT ck_demo_stock CHECK (stock >= 0);
+    ALTER TABLE productos_demo ALTER COLUMN stock SET NOT NULL; -- Restricción de columna: NOT NULL
+    ALTER TABLE productos_demo ADD CONSTRAINT ck_demo_stock CHECK (stock >= 0); -- Restricción de tabla: CHECK
     ALTER TABLE productos_demo RENAME COLUMN activo TO disponible;
     ALTER TABLE productos_demo DROP COLUMN disponible;
-    ALTER TABLE productos_demo DROP CONSTRAINT ck_demo_stock;
+    ALTER TABLE productos_demo DROP CONSTRAINT ck_demo_stock; -- Elimina la restricción de tabla CHECK
     ```
 
 Antes de añadir una restricción, los datos existentes deben cumplirla. `SET NOT NULL` falla si ya hay nulos. Para cambiar una FK, elimina su restricción y créala con el comportamiento nuevo.
 
 ### DROP TABLE
 
+`DROP TABLE` elimina una tabla completa, incluida su estructura y todos sus datos. Las opciones `RESTRICT` y `CASCADE` determinan qué ocurre si otros objetos dependen de ella.
+
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Borrar</td><td><code>DROP TABLE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br><code>    [ CASCADE | RESTRICT ];</code></td><td><code>IF EXISTS</code>: evita el error si no existe.<br><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).<br><code>CASCADE</code>: elimina también objetos dependientes.</td></tr>
+    <tr><td><code>DROP TABLE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    - `IF EXISTS`: evita el error si no existe.
+    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
+    - `CASCADE`: elimina también objetos dependientes.
+
 
 - `IF EXISTS`: si la tabla no existe, emite un aviso en lugar de un error.
 - `RESTRICT`: comportamiento predeterminado; rechaza el borrado si hay objetos dependientes.
@@ -217,21 +344,41 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. `SET NO
 
 Borra primero las tablas dependientes. `IF EXISTS` evita el error de objeto inexistente, pero no protege datos. `DROP TABLE ... CASCADE` elimina también objetos dependientes; no es equivalente a `ON DELETE CASCADE`, que actúa sobre filas. Usa `pruebas` para estos ejemplos.
 
-## 2.3 Índices
+## 2.5 Índices
 
 Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y trabajo adicional al modificar datos. PostgreSQL ya crea índices para PK y UNIQUE; no crea automáticamente uno para cada FK.
+
+`CREATE INDEX` crea un índice sobre una o varias columnas; `ALTER INDEX` permite renombrarlo y `DROP INDEX` lo elimina sin borrar la tabla ni sus datos.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Crear</td><td><code>CREATE [ UNIQUE ] INDEX [ IF NOT EXISTS ] nombre_indice</code><br><code>    ON [esquema.]tabla (columna [ ASC | DESC ] [, ...]);</code></td><td><code>UNIQUE</code>: impide duplicados.<br><code>IF NOT EXISTS</code>: evita el error si el índice ya existe.<br><code>ASC / DESC</code>: orden ascendente (por defecto) o descendente.</td></tr>
-    <tr><td>Alterar</td><td><code>ALTER INDEX [esquema.]nombre_indice RENAME TO nuevo_nombre;</code></td><td><code>RENAME TO</code>: cambia el nombre del índice.</td></tr>
-    <tr><td>Borrar</td><td><code>DROP INDEX [ IF EXISTS ] [esquema.]nombre [, ...]</code><br><code>    [ CASCADE | RESTRICT ];</code></td><td><code>IF EXISTS</code>: evita el error si no existe.<br><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).<br><code>CASCADE</code>: elimina también objetos dependientes.</td></tr>
+    <tr><td><code>CREATE [ UNIQUE ] INDEX [ IF NOT EXISTS ] nombre_indice</code><br/><code>    ON [esquema.]tabla (columna [ ASC | DESC ] [, ...]);</code></td></tr>
+    <tr><td><code>ALTER INDEX [esquema.]nombre_indice RENAME TO nuevo_nombre;</code></td></tr>
+    <tr><td><code>DROP INDEX [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    **`CREATE [`**
+
+    - `UNIQUE`: impide duplicados.
+    - `IF NOT EXISTS`: evita el error si el índice ya existe.
+    - `ASC / DESC`: orden ascendente (por defecto) o descendente.
+
+    **`ALTER INDEX`**
+
+    - `RENAME TO`: cambia el nombre del índice.
+
+    **`DROP INDEX`**
+
+    - `IF EXISTS`: evita el error si no existe.
+    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
+    - `CASCADE`: elimina también objetos dependientes.
+
 
 !!! example practica "Pruébalo: Crear y eliminar índices"
 
@@ -248,21 +395,39 @@ Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y traba
 
 El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir un recorrido completo.
 
-## 2.4 Vistas
+## 2.6 Vistas
 
-Una vista guarda una consulta, no una copia estática de sus filas.
+Una vista guarda una consulta, no una copia estática de sus filas. `CREATE VIEW` define la vista y `CREATE OR REPLACE VIEW` permite sustituir su consulta. `ALTER VIEW` puede cambiar su nombre y `DROP VIEW` elimina la vista sin borrar las tablas consultadas.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Crear</td><td><code>CREATE [ OR REPLACE ] VIEW [esquema.]nombre_vista</code><br><code>    [ (columna [, ...]) ]</code><br><code>    AS consulta;</code></td><td><code>OR REPLACE</code>: sustituye la consulta de una vista existente, manteniendo compatibles sus columnas.<br>Lista de columnas: permite asignar nombres a las columnas de salida.</td></tr>
-    <tr><td>Alterar</td><td><code>ALTER VIEW [esquema.]nombre_vista RENAME TO nuevo_nombre;</code></td><td><code>RENAME TO</code>: cambia el nombre de la vista.<br>Para cambiar la consulta se utiliza <code>CREATE OR REPLACE VIEW</code>.</td></tr>
-    <tr><td>Borrar</td><td><code>DROP VIEW [ IF EXISTS ] [esquema.]nombre [, ...]</code><br><code>    [ CASCADE | RESTRICT ];</code></td><td><code>IF EXISTS</code>: evita el error si no existe.<br><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).<br><code>CASCADE</code>: elimina también objetos dependientes.</td></tr>
+    <tr><td><code>CREATE [ OR REPLACE ] VIEW [esquema.]nombre_vista</code><br/><code>    [ (columna [, ...]) ]</code><br/><code>    AS consulta;</code></td></tr>
+    <tr><td><code>ALTER VIEW [esquema.]nombre_vista RENAME TO nuevo_nombre;</code></td></tr>
+    <tr><td><code>DROP VIEW [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    **`CREATE [`**
+
+    - `OR REPLACE`: sustituye la consulta de una vista existente, manteniendo compatibles sus columnas.
+    - Lista de columnas: permite asignar nombres a las columnas de salida.
+
+    **`ALTER VIEW`**
+
+    - `RENAME TO`: cambia el nombre de la vista.
+    - Para cambiar la consulta se utiliza `CREATE OR REPLACE VIEW`.
+
+    **`DROP VIEW`**
+
+    - `IF EXISTS`: evita el error si no existe.
+    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
+    - `CASCADE`: elimina también objetos dependientes.
+
 
 `ALTER VIEW` **no cambia la consulta**: para eso se usa `CREATE OR REPLACE VIEW`. La lista de columnas existente debe conservar nombres, orden y tipos. Para cambiar tipos o eliminar columnas puede ser necesario borrar y recrear la vista, revisando antes sus dependencias.
 
@@ -299,21 +464,40 @@ La consulta estará vacía porque todavía no hemos insertado datos: eso se trab
     DROP TABLE categorias_demo;
     ```
 
-## 2.5 Secuencias, dominios y tipos
+## 2.7 Secuencias
 
-#### Secuencias
+Una secuencia genera valores numéricos que podemos utilizar como identificadores. `CREATE SEQUENCE` define su inicio e incremento; `ALTER SEQUENCE` permite reiniciar el contador o vincularlo a una columna, y `DROP SEQUENCE` elimina la secuencia.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Crear</td><td><code>CREATE SEQUENCE [ IF NOT EXISTS ] [esquema.]nombre</code><br><code>    [ START WITH inicio ]</code><br><code>    [ INCREMENT BY incremento ]</code><br><code>    [ OWNED BY tabla.columna ];</code></td><td><code>START WITH</code>: primer valor; por defecto, 1 en una secuencia ascendente.<br><code>INCREMENT BY</code>: salto entre valores; por defecto, 1.<br><code>OWNED BY</code>: vincula la secuencia a una columna.</td></tr>
-    <tr><td>Alterar</td><td><code>ALTER SEQUENCE [esquema.]nombre</code><br><code>    RESTART WITH valor;</code><br><br><br><code>ALTER SEQUENCE [esquema.]nombre</code><br><code>    OWNED BY tabla.columna;</code></td><td><code>RESTART WITH</code>: establece el próximo valor.<br><code>OWNED BY</code>: vincula una secuencia existente a una columna.</td></tr>
-    <tr><td>Borrar</td><td><code>DROP SEQUENCE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br><code>    [ CASCADE | RESTRICT ];</code></td><td><code>IF EXISTS</code>: evita el error si no existe.<br><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).<br><code>CASCADE</code>: elimina también objetos dependientes.</td></tr>
+    <tr><td><code>CREATE SEQUENCE [ IF NOT EXISTS ] [esquema.]nombre</code><br/><code>    [ START WITH inicio ]</code><br/><code>    [ INCREMENT BY incremento ]</code><br/><code>    [ OWNED BY tabla.columna ];</code></td></tr>
+    <tr><td><code>ALTER SEQUENCE [esquema.]nombre</code><br/><code>    RESTART WITH valor;</code><br/><br/><br/><code>ALTER SEQUENCE [esquema.]nombre</code><br/><code>    OWNED BY tabla.columna;</code></td></tr>
+    <tr><td><code>DROP SEQUENCE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    **`CREATE SEQUENCE`**
+
+    - `START WITH`: primer valor; por defecto, 1 en una secuencia ascendente.
+    - `INCREMENT BY`: salto entre valores; por defecto, 1.
+    - `OWNED BY`: vincula la secuencia a una columna.
+
+    **`ALTER SEQUENCE`**
+
+    - `RESTART WITH`: establece el próximo valor.
+    - `OWNED BY`: vincula una secuencia existente a una columna.
+
+    **`DROP SEQUENCE`**
+
+    - `IF EXISTS`: evita el error si no existe.
+    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
+    - `CASCADE`: elimina también objetos dependientes.
+
 
 `OWNED BY` vincula la secuencia al ciclo de vida de una columna; no la convierte en una clave primaria.
 
@@ -335,21 +519,41 @@ La consulta estará vacía porque todavía no hemos insertado datos: eso se trab
 
 Se generan 1000 y 1005. Una secuencia puede tener huecos: no garantiza una numeración consecutiva. Al estar vinculada con `OWNED BY`, se elimina al borrar su columna. Otra opción es `INTEGER GENERATED BY DEFAULT AS IDENTITY`.
 
-#### Dominios
+## 2.8 Dominios
 
-Un dominio reutiliza un tipo y sus restricciones.
+Un dominio reutiliza un tipo de dato y sus restricciones en distintas columnas. `CREATE DOMAIN` lo define; `ALTER DOMAIN` cambia sus valores por defecto o sus restricciones, y `DROP DOMAIN` lo elimina, teniendo en cuenta los objetos que lo utilizan.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Crear</td><td><code>CREATE DOMAIN [esquema.]nombre AS tipo_dato</code><br><code>    [ DEFAULT expresion ]</code><br><code>    [ NOT NULL ]</code><br><code>    [ [ CONSTRAINT nombre_restriccion ] CHECK (condicion) ];</code></td><td><code>DEFAULT</code>: valor por defecto.<br><code>NOT NULL</code>: exige un valor.<br><code>CHECK</code>: comprueba una condición sobre <code>VALUE</code>.<br><code>CONSTRAINT</code>: asigna un nombre a la restricción.</td></tr>
-    <tr><td>Alterar</td><td><code>ALTER DOMAIN [esquema.]nombre</code><br><code>    { SET DEFAULT expresion</code><br><code>    | DROP DEFAULT</code><br><code>    | SET NOT NULL</code><br><code>    | DROP NOT NULL</code><br><code>    | ADD [ CONSTRAINT nombre ] CHECK (condicion)</code><br><code>    | DROP CONSTRAINT nombre };</code></td><td><code>SET / DROP</code>: establece o elimina el valor por defecto o la obligatoriedad.<br><code>ADD / DROP CONSTRAINT</code>: añade o elimina restricciones.</td></tr>
-    <tr><td>Borrar</td><td><code>DROP DOMAIN [ IF EXISTS ] [esquema.]nombre [, ...]</code><br><code>    [ CASCADE | RESTRICT ];</code></td><td><code>IF EXISTS</code>: evita el error si no existe.<br><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).<br><code>CASCADE</code>: elimina también objetos dependientes.</td></tr>
+    <tr><td><code>CREATE DOMAIN [esquema.]nombre AS tipo_dato</code><br/><code>    [ DEFAULT expresion ]</code><br/><code>    [ NOT NULL ]</code><br/><code>    [ [ CONSTRAINT nombre_restriccion ] CHECK (condicion) ];</code></td></tr>
+    <tr><td><code>ALTER DOMAIN [esquema.]nombre</code><br/><code>    { SET DEFAULT expresion</code><br/><code>    | DROP DEFAULT</code><br/><code>    | SET NOT NULL</code><br/><code>    | DROP NOT NULL</code><br/><code>    | ADD [ CONSTRAINT nombre ] CHECK (condicion)</code><br/><code>    | DROP CONSTRAINT nombre };</code></td></tr>
+    <tr><td><code>DROP DOMAIN [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    **`CREATE DOMAIN`**
+
+    - `DEFAULT`: valor por defecto.
+    - `NOT NULL`: exige un valor.
+    - `CHECK`: comprueba una condición sobre `VALUE`.
+    - `CONSTRAINT`: asigna un nombre a la restricción.
+
+    **`ALTER DOMAIN`**
+
+    - `SET / DROP`: establece o elimina el valor por defecto o la obligatoriedad.
+    - `ADD / DROP CONSTRAINT`: añade o elimina restricciones.
+
+    **`DROP DOMAIN`**
+
+    - `IF EXISTS`: evita el error si no existe.
+    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
+    - `CASCADE`: elimina también objetos dependientes.
+
 
 En los CHECK de un dominio, `VALUE` representa el valor que se está validando. Los cambios deben ser compatibles con los datos de las columnas que ya lo utilizan.
 
@@ -368,19 +572,38 @@ En los CHECK de un dominio, `VALUE` representa el valor que se está validando. 
     DROP DOMAIN porcentaje_demo;
     ```
 
-#### Tipos enumerados
+## 2.9 Tipos enumerados
+
+Un tipo enumerado limita una columna a una lista de valores permitidos. `CREATE TYPE ... AS ENUM` define esa lista; `ALTER TYPE` permite añadir o renombrar valores, y `DROP TYPE` elimina el tipo cuando ya no se necesita.
 
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
-    <table class="syntax-table">
-    <thead><tr><th scope="col">Operación</th><th scope="col">Sintaxis</th><th scope="col">Opciones</th></tr></thead>
+    <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td>Crear</td><td><code>CREATE TYPE [esquema.]nombre AS ENUM (&#x27;valor1&#x27; [, ...]);</code></td><td><code>AS ENUM</code>: lista de valores permitidos entre comillas simples.</td></tr>
-    <tr><td>Alterar</td><td><code>ALTER TYPE [esquema.]nombre ADD VALUE &#x27;nuevo_valor&#x27;;</code><br><br><br><code>ALTER TYPE [esquema.]nombre</code><br><code>    RENAME VALUE &#x27;valor_existente&#x27; TO &#x27;nuevo_valor&#x27;;</code></td><td><code>ADD VALUE</code>: añade un valor al final de la lista.<br><code>RENAME VALUE</code>: cambia un valor existente.</td></tr>
-    <tr><td>Borrar</td><td><code>DROP TYPE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br><code>    [ CASCADE | RESTRICT ];</code></td><td><code>IF EXISTS</code>: evita el error si no existe.<br><code>RESTRICT</code>: impide borrar si hay dependencias (por defecto).<br><code>CASCADE</code>: elimina también objetos dependientes.</td></tr>
+    <tr><td><code>CREATE TYPE [esquema.]nombre AS ENUM ('valor1' [, ...]);</code></td></tr>
+    <tr><td><code>ALTER TYPE [esquema.]nombre ADD VALUE 'nuevo_valor';</code><br/><br/><br/><code>ALTER TYPE [esquema.]nombre</code><br/><code>    RENAME VALUE 'valor_existente' TO 'nuevo_valor';</code></td></tr>
+    <tr><td><code>DROP TYPE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
     </tbody></table>
     </div>
+
+    **Opciones**
+
+    **`CREATE TYPE`**
+
+    - `AS ENUM`: lista de valores permitidos entre comillas simples.
+
+    **`ALTER TYPE`**
+
+    - `ADD VALUE`: añade un valor al final de la lista.
+    - `RENAME VALUE`: cambia un valor existente.
+
+    **`DROP TYPE`**
+
+    - `IF EXISTS`: evita el error si no existe.
+    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
+    - `CASCADE`: elimina también objetos dependientes.
+
 
 No existe una operación directa para eliminar un único valor de un ENUM. Aquí utilizaremos los tipos enumerados para limitar los valores admitidos por una columna.
 
@@ -397,6 +620,300 @@ No existe una operación directa para eliminar un único valor de un ENUM. Aquí
     DROP TABLE inventario_demo;
     DROP TYPE estado_producto_demo;
     ```
+
+## 2.10 Usuarios y privilegios
+
+Hasta ahora hemos trabajado con `alumno`, el administrador de nuestro entorno. En una base de datos compartida, cada usuario debe disponer de los permisos que necesita: por ejemplo, una persona puede consultar una tabla sin poder modificarla.
+
+En PostgreSQL los permisos se asignan a **roles**. Un rol que puede iniciar sesión actúa como un **usuario**. `CREATE USER` equivale a `CREATE ROLE` con la opción `LOGIN`. Los usuarios pertenecen al servidor PostgreSQL y pueden utilizarse en sus distintas bases de datos; los permisos sobre tablas se conceden dentro de la base correspondiente.
+
+`CREATE USER` crea un usuario, `ALTER USER` permite cambiar su contraseña y `DROP USER` lo elimina. La creación de usuarios se completa con `GRANT`, para **conceder privilegios**, y `REVOKE`, para **retirarlos**. Estas dos sentencias forman parte de **DCL** (*Data Control Language*, lenguaje de control de datos). Las estudiamos aquí para completar la definición y el acceso a los objetos de la base de datos.
+
+!!! quote sintaxis "Sintaxis básica"
+
+    <div class="syntax-table-wrap">
+    <table class="syntax-table syntax-completa">
+    <tbody>
+    <tr><td><code>CREATE USER nombre PASSWORD 'contraseña';</code></td></tr>
+    <tr><td><code>ALTER USER nombre PASSWORD 'nueva_contraseña';</code></td></tr>
+    <tr><td><code>GRANT privilegio [, ...]</code><br/><code>    ON TABLE [esquema.]tabla TO usuario;</code></td></tr>
+    <tr><td><code>REVOKE privilegio [, ...]</code><br/><code>    ON TABLE [esquema.]tabla FROM usuario;</code></td></tr>
+    <tr><td><code>DROP USER nombre;</code></td></tr>
+    </tbody></table>
+    </div>
+
+    **Opciones**
+
+    **`CREATE USER`**
+
+    - `CREATE USER`: crea un rol con permiso para iniciar sesión.
+    - `PASSWORD`: establece su contraseña.
+
+    **`ALTER USER`**
+
+    - `PASSWORD`: cambia la contraseña.
+
+    **`GRANT privilegio`**
+
+    - `TO`: usuario que recibe los permisos.
+    - Para una tabla: `SELECT`, `INSERT`, `UPDATE` y `DELETE`, entre otros.
+
+    **`REVOKE privilegio`**
+
+    - `FROM`: usuario al que se retira el permiso concedido.
+
+    **`DROP USER`**
+
+    - Antes deben eliminarse o reasignarse sus objetos y retirarse sus permisos en las bases de datos correspondientes.
+
+
+### Usuarios y roles: qué diferencia hay
+
+Imagina que varias personas necesitan consultar las mismas tablas. Podemos conceder `SELECT` a cada usuario por separado, pero tendríamos que repetir las concesiones cada vez que se incorpora alguien. Un **rol de grupo** permite reunir esos permisos y asignarlos de una vez a sus miembros.
+
+| Concepto | Para qué sirve | Ejemplo |
+| --- | --- | --- |
+| Usuario, un rol con `LOGIN` | Identifica a una persona o aplicación que se conecta. | `lector_demo` |
+| Rol de grupo, normalmente con `NOLOGIN` | Agrupa permisos para compartirlos entre usuarios. | `consulta_demo` |
+| Privilegio | Autoriza una operación sobre un objeto. | `SELECT` sobre `permisos_demo` |
+| Pertenencia | Vincula un usuario con un rol de grupo. | `lector_demo` pertenece a `consulta_demo` |
+
+**Los permisos se conceden al rol; los usuarios se incorporan a ese rol.** Por ejemplo, si cinco usuarios pertenecen a `consulta_demo`, podemos conceder una nueva tabla al rol y sus cinco miembros tendrán acceso a ella. Cada persona sigue conectándose con su propio usuario y contraseña.
+
+En PostgreSQL ambos son roles: `CREATE ROLE consulta_demo NOLOGIN` crea el grupo sin inicio de sesión; `CREATE USER lector_demo ...` crea un rol con `LOGIN`. Con la configuración predeterminada que utilizamos, los usuarios **heredan automáticamente** los permisos de los roles a los que pertenecen.
+
+### Permisos más habituales
+
+| Objeto | Privilegio | Permite |
+| --- | --- | --- |
+| Base de datos | `CONNECT` | Conectarse a esa base de datos. |
+| Esquema | `USAGE` | Acceder a los objetos del esquema, si también se tienen los permisos necesarios sobre ellos. |
+| Tabla o vista | `SELECT` | Consultar sus datos. |
+| Tabla | `INSERT` | Insertar filas. |
+| Tabla | `UPDATE` | Modificar filas. |
+| Tabla | `DELETE` | Borrar filas. |
+
+**Conectarse a una base de datos no da permiso para consultar o modificar todas sus tablas.** Los permisos de base de datos, esquema y tabla cumplen funciones diferentes. Tampoco es lo mismo `DELETE`, que borra filas, que `DROP TABLE`, que elimina la tabla: conceder `DELETE` no permite eliminar su estructura.
+
+### Crear un usuario de consulta
+
+!!! example practica "Pruébalo: Crear un usuario y conceder permisos"
+
+    Desde tu conexión a **pruebas**, con el usuario **alumno**, ejecuta las sentencias una a una. Utilizaremos una tabla independiente de los ejemplos anteriores.
+
+    ```sql
+    -- Crear una tabla para comprobar los permisos.
+    CREATE TABLE permisos_demo (
+        id INTEGER PRIMARY KEY,
+        nombre VARCHAR(100) NOT NULL
+    );
+
+    -- Crear un usuario sin privilegios de administrador.
+    CREATE USER lector_demo PASSWORD 'lector_demo';
+
+    -- Permitir la conexión a pruebas y el acceso al esquema public.
+    GRANT CONNECT ON DATABASE pruebas TO lector_demo;
+    GRANT USAGE ON SCHEMA public TO lector_demo;
+
+    -- Permitir únicamente la consulta de esta tabla.
+    GRANT SELECT ON TABLE public.permisos_demo TO lector_demo;
+    ```
+
+    La contraseña es un ejemplo para el entorno local de las prácticas. No modifiques el usuario `alumno` ni las variables de `compose.yaml`: el nuevo usuario se crea en el servidor que ya está funcionando.
+
+PostgreSQL puede conceder algunos permisos a `PUBLIC`, que representa a todos los usuarios. Por ejemplo, `CONNECT` y el acceso al esquema `public` pueden estar disponibles de antemano. Los indicamos explícitamente para distinguir los niveles de acceso. Un usuario acumula sus permisos directos, los de sus roles y los de `PUBLIC`.
+
+### Comprobar los permisos desde DBeaver
+
+!!! example practica "Pruébalo: Conectarte como lector_demo"
+
+    Crea una **nueva conexión PostgreSQL** en DBeaver con estos datos. Conserva abierta la conexión de `alumno` para administrar los permisos.
+
+    | Campo | Valor |
+    | --- | --- |
+    | Host | `localhost` |
+    | Puerto | `5433` |
+    | Base de datos | `pruebas` |
+    | Usuario | `lector_demo` |
+    | Contraseña | `lector_demo` |
+    | Nombre de la conexión | `Pruebas - lector` |
+
+    Abre **Editor SQL → Nuevo script SQL** desde esta nueva conexión y ejecuta:
+
+    ```sql
+    SELECT current_database(), current_user;
+    SELECT * FROM public.permisos_demo;
+    ```
+
+    La primera consulta debe mostrar `pruebas` y `lector_demo`. La segunda funciona, aunque no devuelve filas porque la tabla está vacía.
+
+    Después ejecuta **por separado**:
+
+    ```sql
+    DELETE FROM public.permisos_demo;
+    ```
+
+    Debe aparecer un error de permiso denegado: `lector_demo` puede consultar la tabla, pero no borrar sus filas, aunque esté vacía. Estas comprobaciones deben hacerse con `lector_demo`; el administrador `alumno` no tiene esas limitaciones. Si el editor queda en una transacción fallida tras el error, pulsa **Rollback** antes de continuar.
+
+### Conceder y retirar permisos
+
+!!! example practica "Pruébalo: Cambiar los permisos"
+
+    Vuelve al editor de **pruebas con el usuario alumno** y concede el permiso de borrado:
+
+    ```sql
+    GRANT DELETE ON TABLE public.permisos_demo TO lector_demo;
+    ```
+
+    Desde la conexión **Pruebas - lector**, repite:
+
+    ```sql
+    DELETE FROM public.permisos_demo;
+    ```
+
+    Ahora la sentencia se ejecuta correctamente y afecta a **0 filas**, porque la tabla está vacía.
+
+    De nuevo como **alumno**, retira ese permiso:
+
+    ```sql
+    REVOKE DELETE ON TABLE public.permisos_demo FROM lector_demo;
+    ```
+
+    Comprueba como **lector_demo**, ejecutando cada sentencia por separado, que `SELECT` sigue funcionando y `DELETE` vuelve a dar un error de permiso denegado.
+
+`REVOKE` retira la concesión indicada. Si un usuario obtiene el mismo permiso a través de otro rol o de `PUBLIC`, puede seguir disponiendo de él. En este ejemplo, el permiso `DELETE` se había concedido directamente a `lector_demo`.
+
+### Agrupar los permisos en un rol
+
+`CREATE ROLE ... NOLOGIN` crea un grupo de permisos. `GRANT rol TO usuario` incorpora un usuario al grupo y `REVOKE rol FROM usuario` retira su pertenencia. `DROP ROLE` elimina el rol una vez resueltas sus dependencias.
+
+Ahora sustituiremos el permiso de consulta concedido directamente a `lector_demo` por un permiso obtenido a través de un rol. Utilizaremos el mismo usuario y la misma tabla, antes de eliminarlos.
+
+!!! quote sintaxis "Sintaxis básica"
+
+    <div class="syntax-table-wrap">
+    <table class="syntax-table syntax-completa">
+    <tbody>
+    <tr><td><code>CREATE ROLE nombre_rol NOLOGIN;</code></td></tr>
+    <tr><td><code>GRANT SELECT ON TABLE tabla TO nombre_rol;</code></td></tr>
+    <tr><td><code>GRANT nombre_rol TO usuario;</code></td></tr>
+    <tr><td><code>REVOKE nombre_rol FROM usuario;</code></td></tr>
+    <tr><td><code>DROP ROLE nombre_rol;</code></td></tr>
+    </tbody></table>
+    </div>
+
+    **Opciones**
+
+    **`CREATE ROLE`**
+
+    - `NOLOGIN`: impide iniciar sesión con el rol; es el valor predeterminado de `CREATE ROLE`.
+
+    **`GRANT SELECT`**
+
+    - Concede el permiso al grupo.
+
+    **`GRANT nombre_rol`**
+
+    - Incorpora el usuario al rol; no lleva `ON TABLE`.
+
+    **`REVOKE nombre_rol`**
+
+    - Retira la pertenencia, sin eliminar el usuario ni el rol.
+
+    **`DROP ROLE`**
+
+    - Antes deben retirarse sus permisos y resolverse sus dependencias.
+
+
+Fíjate en las dos formas de `GRANT`: **`GRANT SELECT ON TABLE ...` concede un privilegio sobre una tabla**, mientras que **`GRANT consulta_demo TO ...` concede pertenencia a un rol**.
+
+!!! example practica "Pruébalo: Compartir permisos mediante un rol"
+
+    Desde **pruebas con el usuario alumno**, ejecuta:
+
+    ```sql
+    -- Crear un rol que agrupará los permisos de consulta.
+    CREATE ROLE consulta_demo NOLOGIN;
+
+    -- Conceder el permiso al rol de grupo.
+    GRANT SELECT ON TABLE public.permisos_demo TO consulta_demo;
+
+    -- Incorporar el usuario al grupo.
+    GRANT consulta_demo TO lector_demo;
+
+    -- Retirar la concesión directa: la consulta dependerá ahora del rol.
+    REVOKE SELECT ON TABLE public.permisos_demo FROM lector_demo;
+    ```
+
+    Desde la conexión **Pruebas - lector**, ejecuta:
+
+    ```sql
+    SELECT * FROM public.permisos_demo;
+    ```
+
+    La consulta sigue funcionando: `lector_demo` recibe `SELECT` por pertenecer a `consulta_demo`, aunque ya no lo tenga concedido directamente.
+
+    Ahora, como **alumno**, retira la pertenencia:
+
+    ```sql
+    REVOKE consulta_demo FROM lector_demo;
+    ```
+
+    Repite la consulta como **lector_demo**: debe fallar por falta de permisos. Si queda una transacción fallida, pulsa **Rollback**. El usuario sigue existiendo y puede conectarse, pero ya no recibe el permiso del grupo.
+
+    Por último, como **alumno**, vuelve a incorporarlo:
+
+    ```sql
+    GRANT consulta_demo TO lector_demo;
+    ```
+
+    Comprueba que la consulta vuelve a funcionar desde **Pruebas - lector**.
+
+Si más adelante creamos otro usuario que necesite consultar esta tabla, bastará con incorporarlo a `consulta_demo`. No tendremos que repetir la concesión de `SELECT` para cada usuario.
+
+### Limpiar los objetos de la práctica
+
+!!! example practica "Pruébalo: Eliminar la tabla y el usuario de demostración"
+
+    Cierra los editores y desconecta **Pruebas - lector**. Si había cambios pendientes, revierte la transacción. Desde **pruebas con el usuario alumno**, ejecuta:
+
+    ```sql
+    -- Eliminar la tabla y los permisos asociados a ella.
+    DROP TABLE public.permisos_demo;
+
+    -- Retirar las otras concesiones explícitas de la práctica.
+    REVOKE USAGE ON SCHEMA public FROM lector_demo;
+    REVOKE CONNECT ON DATABASE pruebas FROM lector_demo;
+
+    -- Retirar la pertenencia al grupo.
+    REVOKE consulta_demo FROM lector_demo;
+
+    -- Eliminar el rol y el usuario una vez resueltas sus dependencias.
+    DROP ROLE consulta_demo;
+    DROP USER lector_demo;
+    ```
+
+    Después puedes eliminar de DBeaver la conexión **Pruebas - lector**, que ya no podrá utilizarse. Conserva tu conexión habitual con `alumno`.
+
+!!! question "Autoevaluación"
+
+    Un usuario puede conectarse a `pruebas`, pero recibe un error al consultar `permisos_demo`. ¿Es suficiente tener `CONNECT`? ¿Qué otros permisos necesita?
+
+    ??? success "Ver solución"
+
+        No. Necesita `USAGE` sobre el esquema que contiene la tabla y `SELECT` sobre la tabla. `CONNECT` permite conectarse a la base de datos, pero no concede por sí solo acceso a sus tablas.
+
+!!! question "Autoevaluación: permisos directos y roles"
+
+    Si retiramos a `lector_demo` del rol `consulta_demo`, ¿se elimina el usuario? ¿Podría seguir consultando la tabla si también tuviera `SELECT` concedido directamente?
+
+    ??? success "Ver solución"
+
+        El usuario no se elimina: solo pierde la pertenencia al rol y los permisos que recibía por esa vía. Si conserva una concesión directa de `SELECT`, puede seguir consultando la tabla. Para retirar un acceso hay que revisar todas las vías por las que lo obtiene.
+
+Consulta también la documentación sobre [pertenencia a roles](https://www.postgresql.org/docs/17/role-membership.html).
+
+Consulta la documentación de PostgreSQL 17 sobre [usuarios y roles](https://www.postgresql.org/docs/17/sql-createrole.html) y [concesión de privilegios](https://www.postgresql.org/docs/17/sql-grant.html).
 
 **Referencias de sintaxis**
 

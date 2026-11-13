@@ -81,7 +81,8 @@ nav:
     - 1. Introducción: 1_introducci.md
     - 2. Servidor PostgreSQL con Docker : entorno_postgresql.md
     - 3. Cliente PostgreSQL con Dbeaver: 2_client_dbeaver_installaci_i_confiuraci.md
-    - 4. Bases de datos de los apuntes:
+    - 4. Crear la base de pruebas: crear_pruebas.md
+    - 5. Bases de datos de los apuntes:
       - 📖 Presentación: bases_datos.md
       - 📱 Moviles: moviles.md
       - 🎮 Juegos: juegos.md

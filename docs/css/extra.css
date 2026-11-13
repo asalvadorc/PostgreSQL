@@ -1389,7 +1389,7 @@ body.table-zoom-open { overflow: hidden; }
     background: #0c4a6e;
     border-color: #38bdf8;
 }
-/* Referencias de sintaxis DDL: operación, sentencia y opciones. */
+/* Referencias de sintaxis DDL: sentencia y opciones. */
 .md-typeset .admonition.sintaxis {
     border: 1px solid var(--md-default-fg-color--lighter);
     background: var(--md-default-bg-color);
@@ -1415,15 +1415,36 @@ body.table-zoom-open { overflow: hidden; }
     border-bottom: 1px solid var(--md-default-fg-color--lighter);
     overflow-wrap: anywhere;
 }
-.md-typeset .sintaxis .syntax-table th:first-child {
-    width: 8rem;
-    white-space: nowrap;
+.md-typeset .sintaxis .syntax-table th:first-child { width: 50%; }
+.md-typeset .sintaxis .syntax-table th:nth-child(2) { width: 50%; }
+.md-typeset .sintaxis .syntax-table td:first-child code {
+    white-space: pre-wrap;
+    font-size: 0.85em;
+}
+
+/* Referencias de sintaxis: líneas completas y opciones debajo. */
+.md-typeset .sintaxis .syntax-completa {
+    table-layout: auto;
+}
+.md-typeset .sintaxis .syntax-completa th:first-child {
+    width: 100%;
+}
+.md-typeset .sintaxis .syntax-completa td:first-child code {
+    white-space: pre;
     overflow-wrap: normal;
     word-break: normal;
 }
-.md-typeset .sintaxis .syntax-table th:nth-child(2) { width: 43%; }
-.md-typeset .sintaxis .syntax-table th:nth-child(3) { width: auto; }
-.md-typeset .sintaxis .syntax-table td:nth-child(2) code {
-    white-space: pre-wrap;
-    font-size: 0.85em;
+/* Comentarios de los ejemplos: tono diferenciado y cursiva. */
+.md-typeset .highlight .c,
+.md-typeset .highlight .c1,
+.md-typeset .highlight .cm,
+.md-typeset .highlight .cs {
+    color: #718096;
+    font-style: italic;
+}
+[data-md-color-scheme="slate"] .md-typeset .highlight .c,
+[data-md-color-scheme="slate"] .md-typeset .highlight .c1,
+[data-md-color-scheme="slate"] .md-typeset .highlight .cm,
+[data-md-color-scheme="slate"] .md-typeset .highlight .cs {
+    color: #a8b4c5;
 }
