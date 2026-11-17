@@ -22,6 +22,8 @@ Desde la conexión a `postgres`, abre un editor SQL y ejecuta esta sentencia por
 CREATE DATABASE pruebas;
 ```
 
+Por ahora, ejecuta esta sentencia para preparar la base de datos de las prácticas. En el tema de **DDL**, en el apartado [Crear bases de datos](BD_PostgreSQL_DDL/crear_bases_datos.md), estudiaremos su sintaxis y sus opciones.
+
 
 ### Opción 2: en modo gráfico
 

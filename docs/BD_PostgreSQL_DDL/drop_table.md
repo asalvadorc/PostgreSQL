@@ -30,10 +30,13 @@ hide:
 
 !!! example practica "Pruébalo: Eliminar una tabla que ya no necesitamos"
 
-    Elimina únicamente `lineas_demo` y actualiza el navegador. Conserva `productos_demo` y `categorias_demo`: las utilizaremos después en los ejemplos de índices y vistas.
+    Crea una tabla auxiliar vacía y elimínala. Conserva `categorias` y `productos`, que utilizaremos después en los ejemplos de índices y vistas.
 
     ```sql
-    DROP TABLE lineas_demo;
+    CREATE TABLE tabla_borrado (codigo INTEGER);
+    DROP TABLE tabla_borrado;
     ```
+
+    Actualiza el navegador de DBeaver y comprueba que `tabla_borrado` ha desaparecido.
 
 Borra primero las tablas dependientes. `IF EXISTS` evita el error de objeto inexistente, pero no protege datos. `DROP TABLE ... CASCADE` elimina también objetos dependientes; no es equivalente a `ON DELETE CASCADE`, que actúa sobre filas. Usa `pruebas` para estos ejemplos.

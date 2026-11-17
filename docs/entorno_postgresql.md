@@ -2,7 +2,7 @@
 
 En este apartado prepararemos un **contenedor Docker con PostgreSQL**, el sistema gestor de bases de datos que utilizaremos durante el curso. Así podremos trabajar en nuestro propio ordenador sin instalar PostgreSQL directamente, con un entorno que será fácil de arrancar y detener.
 
-Utilizaremos **Docker Compose** para configurar y poner en marcha el servidor. Más adelante, en el tema de **DDL**, crearemos dentro de ese servidor las bases de datos **Moviles** y **Juegos**, junto con sus tablas y relaciones. Después insertaremos los datos en **DML** y realizaremos consultas en **DQL**.
+Utilizaremos **Docker Compose** para configurar y poner en marcha el servidor. Más adelante, en **DDL**, crearemos la base de datos **Juegos**, junto con sus tablas y relaciones, y en **DML** insertaremos sus datos. Al comenzar **DQL** prepararemos también **Moviles**, que utilizaremos en los ejemplos de consultas.
 
 ## 2.1 Instalación
 

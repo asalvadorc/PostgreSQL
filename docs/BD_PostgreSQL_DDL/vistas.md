@@ -1,8 +1,3 @@
----
-hide:
-  - toc
----
-
 # Vistas
 
 Una vista guarda una consulta, no una copia estática de sus filas. `CREATE VIEW` define la vista y `CREATE OR REPLACE VIEW` permite sustituir su consulta. `ALTER VIEW` puede cambiar su nombre y `DROP VIEW` elimina la vista sin borrar las tablas consultadas.
@@ -41,16 +36,16 @@ Una vista guarda una consulta, no una copia estática de sus filas. `CREATE VIEW
 
 !!! example practica "Pruébalo: Crear y consultar una vista"
 
-    En la misma base `pruebas`, crea una vista que muestre los productos junto con la descripción de su categoría. Utiliza las tablas `productos_demo` y `categorias_demo` de los ejemplos anteriores.
+    En la misma base `pruebas`, crea una vista que muestre las filas de `productos` junto con el nombre de la fila relacionada de `categorias`. Utiliza las tablas que has conservado de los ejemplos anteriores.
 
     ```sql
-    CREATE VIEW catalogo_demo AS
-    SELECT p.id_producto, p.nombre, c.descripcion AS categoria,
-           p.precio, p.stock
-    FROM productos_demo AS p
-    LEFT JOIN categorias_demo AS c ON c.id_categoria = p.id_categoria;
+    CREATE VIEW vista_tablas AS
+    SELECT t2.codigo, t2.num_variante, t2.descripcion,
+           t1.nombre AS nombre_relacionado, t2.precio, t2.stock
+    FROM productos AS t2
+    LEFT JOIN categorias AS t1 ON t1.codigo = t2.codigo_categoria;
 
-    SELECT * FROM catalogo_demo ORDER BY id_producto;
+    SELECT * FROM vista_tablas ORDER BY codigo, num_variante;
     ```
 
 La consulta estará vacía porque todavía no hemos insertado datos: eso se trabajará en DML. Aun así, puedes comprobar que la vista aparece en **Views** y revisar sus columnas. Cuando las tablas tengan datos, la vista mostrará sus valores actuales; no guarda una copia independiente.
@@ -60,7 +55,7 @@ La consulta estará vacía porque todavía no hemos insertado datos: eso se trab
     Elimina la vista y comprueba que desaparece de **Views**. Las dos tablas se conservan.
 
     ```sql
-    DROP VIEW catalogo_demo;
+    DROP VIEW vista_tablas;
     ```
 
 !!! example practica "Pruébalo: Limpiar las tablas utilizadas"
@@ -68,6 +63,33 @@ La consulta estará vacía porque todavía no hemos insertado datos: eso se trab
     Una vez terminados los ejemplos de índices y vistas, estas dos tablas ya no se necesitan. Elimina primero la tabla que contiene la clave ajena y después la tabla referenciada.
 
     ```sql
-    DROP TABLE productos_demo;
-    DROP TABLE categorias_demo;
+    DROP TABLE productos;
+    DROP TABLE categorias;
     ```
+
+<a id="ejercicios-juegos"></a>
+
+## Ejercicios: Crear vistas
+
+Conserva las tablas y los índices anteriores. Las vistas se crean con las tablas vacías; sus resultados se comprobarán cuando carguemos los datos en DML. La construcción de las consultas se desarrollará en DQL.
+
+### Ejercicio 16: Vista resumen_compras
+
+!!! ejercicio "Juegos"
+
+    Crea la vista `resumen_compras` con las bases sin descuentos, con descuento de líneas, con descuento general y el total con IVA. Calcula primero `SUM(cantidad * precio_unitario)`. Para el descuento de líneas, suma `cantidad * precio_unitario * (1 - COALESCE(descuento_linea, 0) / 100.0)`; después multiplica por `(1 - COALESCE(descuento, 0) / 100.0)` y, al final, por `(1 + COALESCE(iva, 0) / 100.0)`. La columna del importe final debe llamarse `total`.
+
+### Ejercicio 17: Vista resumen_vendedores
+
+!!! ejercicio "Juegos"
+
+    Crea `resumen_vendedores`: código y nombre del vendedor, total de unidades vendidas y base de sus compras tras los descuentos. Evita duplicar el importe de una compra al reunirla con sus líneas.
+
+### Ejercicio 18: Vista resumen_categorias
+
+!!! ejercicio "Juegos"
+
+    Crea `resumen_categorias`: categoría, unidades vendidas e importe de líneas tras aplicar solo `descuento_linea`.
+
+**Antes de continuar:** Comprueba que las tres vistas aparecen en DBeaver. No introduzcas datos de prueba en Juegos: sus tablas deben quedar vacías.
+

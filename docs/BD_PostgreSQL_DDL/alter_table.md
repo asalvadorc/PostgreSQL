@@ -1,8 +1,3 @@
----
-hide:
-  - toc
----
-
 # ALTER TABLE
 
 `ALTER TABLE` modifica la estructura de una tabla existente: permite añadir, eliminar o modificar columnas y restricciones.
@@ -29,16 +24,55 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. Para ca
 
 !!! example practica "Pruébalo: Modificar una tabla"
 
-    Ejecuta las sentencias una a una y observa los cambios en las columnas y restricciones de `productos_demo`.
+    Ejecuta las sentencias una a una y observa los cambios en las columnas y restricciones de `productos`.
 
     ```sql
-    ALTER TABLE productos_demo ADD COLUMN activo BOOLEAN DEFAULT TRUE;
-    ALTER TABLE productos_demo ALTER COLUMN nombre TYPE VARCHAR(250);
-    ALTER TABLE productos_demo ALTER COLUMN stock SET DEFAULT 1;
-    ALTER TABLE productos_demo ALTER COLUMN stock SET NOT NULL; -- Restricción de columna: NOT NULL
-    ALTER TABLE productos_demo ADD CONSTRAINT ck_demo_stock CHECK (stock >= 0); -- Restricción de tabla: CHECK
-    ALTER TABLE productos_demo RENAME COLUMN activo TO disponible;
-    ALTER TABLE productos_demo DROP COLUMN disponible;
-    ALTER TABLE productos_demo DROP CONSTRAINT ck_demo_stock; -- Elimina la restricción de tabla CHECK
+    ALTER TABLE productos ADD COLUMN activo BOOLEAN DEFAULT TRUE;
+    ALTER TABLE productos ALTER COLUMN descripcion TYPE VARCHAR(250);
+    ALTER TABLE productos ALTER COLUMN stock SET DEFAULT 1;
+    ALTER TABLE productos ALTER COLUMN stock SET NOT NULL; -- Restricción de columna: NOT NULL
+    ALTER TABLE productos ADD CONSTRAINT ck_productos_stock CHECK (stock >= 0); -- Restricción de tabla: CHECK
+    ALTER TABLE productos RENAME COLUMN activo TO disponible;
+    ALTER TABLE productos DROP COLUMN disponible;
+    ALTER TABLE productos DROP CONSTRAINT ck_productos_stock; -- Elimina la restricción de tabla CHECK
     ```
+
+
+<a id="ejercicios-juegos"></a>
+
+## Ejercicios: Completar la estructura
+
+Continúa con las ocho tablas ya creadas. Ahora modificarás su estructura con `ALTER TABLE`, sin borrar las tablas ni repetir los CREATE.
+
+### Ejercicio 9: Añadir alias
+
+!!! ejercicio "Juegos"
+
+    Añade a `vendedores` una columna `alias VARCHAR(40) NOT NULL UNIQUE`. La tabla todavía está vacía; explica qué habría que preparar si ya tuviera filas.
+
+### Ejercicio 10: Eliminar alias
+
+!!! ejercicio "Juegos"
+
+    Elimina la columna `alias`.
+
+### Ejercicio 11: Añadir la PK de categorias
+
+!!! ejercicio "Juegos"
+
+    Añade mediante `ALTER TABLE` la clave primaria de `categorias`, que debe estar formada por `id_categoria`.
+
+### Ejercicio 12: Completar productos y la relación reflexiva
+
+!!! ejercicio "Juegos"
+
+    En `productos`, añade la clave primaria sobre `id_producto` y la clave ajena `id_categoria` hacia `categorias(id_categoria)`. Completa también la relación reflexiva pendiente: `vendedores.id_jefe` debe referenciar a `vendedores.id_vendedor` y admitir nulos para los vendedores sin jefe.
+
+### Ejercicio 13: Añadir las FK de lineas_compra
+
+!!! ejercicio "Juegos"
+
+    Añade las FK de `lineas_compra`: hacia `compras` con `ON DELETE CASCADE`, y hacia `productos` con `NO ACTION`. Revisa que hay ocho PK y nueve FK.
+
+**Antes de continuar:** Comprueba que hay ocho PK y nueve FK. La columna temporal `alias` debe haber desaparecido. Conserva todas las tablas vacías para los ejercicios de índices y vistas.
 

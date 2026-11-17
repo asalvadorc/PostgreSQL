@@ -52,7 +52,7 @@ Cada subconsulta de SELECT devuelve un único agregado para el vendedor exterior
 
 ## 3.6 Vista auxiliar para los importes
 
-Para los ejercicios de importes utiliza `resumen_compras`, creada en el [ejercicio 16 de DDL](../BD_PostgreSQL_DDL/4_crear_juegos.md#44-indices-y-vistas). Si no realizaste aquel ejercicio, encontrarás su definición al inicio de las [soluciones de consultas avanzadas](exercicis_de_tot_el_tema_amb_els_resultats.md). Su columna `total` aplica descuentos e IVA; no es la base sin descuentos.
+Para los ejercicios de importes utiliza `resumen_compras`, creada en el [ejercicio 16 de DDL](../BD_PostgreSQL_DDL/4_crear_juegos.md#34-indices-y-vistas). Si no realizaste aquel ejercicio, encontrarás su definición al inicio de las [soluciones de consultas avanzadas](exercicis_de_tot_el_tema_amb_els_resultats.md). Su columna `total` aplica descuentos e IVA; no es la base sin descuentos.
 
 ```sql
 SELECT * FROM resumen_compras WHERE total=(SELECT MAX(total) FROM resumen_compras) ORDER BY id_compra;

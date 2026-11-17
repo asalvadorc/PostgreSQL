@@ -1,12 +1,14 @@
-# 3. Práctica guiada: crear Moviles
+# Introducción a DQL: preparar Moviles
 
-En esta práctica construiremos juntos la base de datos **Moviles**, paso a paso. Escribe y ejecuta las sentencias en el orden indicado, lee las explicaciones y comprueba cada resultado antes de continuar.
+En **DQL** aprenderemos a consultar datos mediante `SELECT`. Utilizaremos **Moviles** en los ejemplos y **Juegos** en los ejercicios. Antes de comenzar, vamos a preparar Moviles: crearemos su base de datos, sus tablas y cargaremos los datos que vamos a consultar.
+
+Sigue esta preparación paso a paso utilizando las sentencias DDL que ya conoces. Si ya tienes Moviles creada y con datos, comprueba su estructura y contenido antes de continuar; no repitas las creaciones ni la carga.
 
 Necesitas el [servidor PostgreSQL con Docker](../entorno_postgresql.md) en marcha y la conexión inicial a `postgres` en DBeaver. Ten a mano el [modelo E/R y relacional de Moviles](../moviles.md).
 
 La estructura es **PAISES (1) → (N) EMPRESAS (1) → (N) MOVILES**. Crearemos primero las tablas referenciadas y después las que contienen sus claves ajenas.
 
-## 3.1 Crear la base de datos y su conexión
+## Crear la base de datos y su conexión
 
 !!! example practica "Pruébalo: Crear la base de datos"
 
@@ -38,7 +40,7 @@ Pulsa **Probar conexión** y guarda la conexión como **Moviles**. Abre un nuevo
 
     Debe devolver **moviles**. A partir de ahora, ejecuta todas las sentencias de esta práctica en esa conexión, no en `postgres` ni en `pruebas`.
 
-## 3.2 Crear la tabla paises
+## Crear la tabla paises
 
 Empezamos por `paises` porque no depende de ninguna otra tabla. Cada país tendrá un código y un nombre.
 
@@ -58,7 +60,7 @@ Empezamos por `paises` porque no depende de ninguna otra tabla. Cada país tendr
 - `VARCHAR(100)` permite un nombre de hasta 100 caracteres.
 - `NOT NULL` obliga a indicar el nombre del país.
 
-## 3.3 Crear la tabla empresas
+## Crear la tabla empresas
 
 Cada empresa tendrá un código, un nombre, una sede y el país al que pertenece. Ahora podemos crearla porque `paises` ya existe.
 
@@ -81,7 +83,7 @@ La combinación de `NOT NULL` y `REFERENCES` exige que toda empresa pertenezca a
 
 `sede` no lleva `NOT NULL`, por lo que podrá quedar sin informar.
 
-## 3.4 Crear la tabla moviles
+## Crear la tabla moviles
 
 Por último creamos `moviles`, que necesita referenciar a una empresa. Guardaremos su modelo, fecha de lanzamiento y precio.
 
@@ -104,7 +106,7 @@ Por último creamos `moviles`, que necesita referenciar a una empresa. Guardarem
 - `modelo` es obligatorio, mientras que la fecha y el precio pueden ser nulos.
 - `id_empresa` es obligatorio y debe corresponder a una empresa existente. Así se representa la **participación total de moviles** en la relación **1:N** con empresas.
 
-## 3.5 Comprobar la estructura
+## Comprobar la estructura
 
 !!! example practica "Pruébalo: Revisar las tablas creadas"
 
@@ -117,7 +119,7 @@ Por último creamos `moviles`, que necesita referenciar a una empresa. Guardarem
 
     Deben aparecer **empresas**, **moviles** y **paises**. Comprueba en DBeaver que hay **tres claves primarias y dos claves ajenas**.
 
-Las tres tablas están **vacías**: `CREATE TABLE` define la estructura, pero no inserta filas. La carga de datos se realizará en el tema de **DML**.
+Las tres tablas están **vacías**: `CREATE TABLE` define la estructura, pero no inserta filas. Cargaremos sus datos a continuación para poder practicar las consultas.
 
 !!! question "Autoevaluación"
     Antes de continuar, explica por qué hemos seguido el orden `paises → empresas → moviles` y qué ocurriría si intentáramos crear `moviles` antes de `empresas`.
@@ -129,8 +131,26 @@ Las tres tablas están **vacías**: `CREATE TABLE` define la estructura, pero no
 
         Otra posibilidad sería crear primero las tablas sin las claves ajenas y añadir esas restricciones después con `ALTER TABLE`, cuando ya existan las tablas referenciadas.
 
-## 3.6 Guardar el trabajo
+## Cargar los datos de Moviles
 
-Guarda las tres sentencias `CREATE TABLE` en `01_moviles.sql` y una captura de las tablas y sus restricciones. La sentencia `CREATE DATABASE` se ejecuta por separado desde `postgres`; no la mezcles con la creación de tablas en la conexión `moviles`.
+Conéctate a `moviles` en DBeaver y comprueba:
 
-Continúa con [Crear Juegos](4_crear_juegos.md), donde aplicarás lo aprendido a una estructura más completa. No insertes datos todavía: lo haremos después en [DML](../BD_PostgreSQL_DML/1_introducci.md).
+```sql
+SELECT current_database();
+```
+
+Descarga [moviles-datos.sql](../recursos/postgresql/sql/moviles-datos.sql), ábrelo con esa conexión y ejecuta el archivo completo con **Alt+X**. Contiene únicamente inserciones, agrupadas en una transacción; no vuelve a crear las tablas.
+
+Ejecuta la carga una sola vez y verifica:
+
+```sql
+SELECT 'paises' AS tabla, COUNT(*) AS filas FROM paises
+UNION ALL SELECT 'empresas', COUNT(*) FROM empresas
+UNION ALL SELECT 'moviles', COUNT(*) FROM moviles;
+```
+
+Resultado: **4 países, 4 empresas y 8 móviles**.
+
+No vuelvas a ejecutar el archivo de datos si ya lo has cargado. A partir de ahora, realiza los ejemplos desde la conexión **Moviles**.
+
+Guarda las sentencias de preparación en `01_moviles.sql`. Después continúa con [La consulta SELECT](1_la_consulta_select.md).

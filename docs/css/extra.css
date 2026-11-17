@@ -1499,3 +1499,26 @@ body.table-zoom-open { overflow: hidden; }
 @media (max-width: 600px) {
     .md-typeset .connection-step { padding: 0.8rem; }
 }
+/* Ejercicios: lápiz y ámbar, distintos de ejemplos y autoevaluaciones. */
+.md-typeset .admonition.ejercicio {
+    border: 2px solid #b7791f;
+    border-radius: 8px;
+    background: rgba(217, 158, 32, 0.045);
+    margin: 1.2rem 0;
+}
+.md-typeset .admonition.ejercicio > .admonition-title {
+    background: rgba(217, 158, 32, 0.15);
+    font-weight: 700;
+}
+.md-typeset .admonition.ejercicio > .admonition-title::before {
+    background-color: #a16207;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E");
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.ejercicio {
+    border-color: #d6a645;
+    background: rgba(217, 158, 32, 0.06);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.ejercicio > .admonition-title::before {
+    background-color: #f0bf59;
+}

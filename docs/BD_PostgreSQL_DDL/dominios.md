@@ -55,3 +55,5 @@ En los CHECK de un dominio, `VALUE` representa el valor que se está validando. 
     DROP TABLE promociones_demo;
     DROP DOMAIN porcentaje_demo;
     ```
+
+La práctica que combina un dominio con un tipo enumerado se realizará en el [ejercicio 22 del apartado siguiente](tipos_enumerados.md#ejercicios-juegos). Conserva esa actividad para después de estudiar los tipos enumerados.

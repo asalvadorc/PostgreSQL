@@ -1,28 +1,8 @@
 # 1. DML: cargar y modificar los datos
 
-En DDL has creado **moviles** y **juegos**, con sus tablas vacías. Ahora utilizarás `INSERT`, `UPDATE` y `DELETE`. Cada alumno mantiene sus propios datos en el [servidor Docker local](../entorno_postgresql.md).
+En DDL has creado **juegos**, con sus tablas vacías. Ahora utilizarás `INSERT`, `UPDATE` y `DELETE`. Cada alumno mantiene sus propios datos en el [servidor Docker local](../entorno_postgresql.md).
 
-## 1.1 Cargar primero Moviles
-
-Conéctate a `moviles` en DBeaver y comprueba:
-
-```sql
-SELECT current_database();
-```
-
-Descarga [moviles-datos.sql](../recursos/postgresql/sql/moviles-datos.sql), ábrelo con esa conexión y ejecuta el archivo completo con **Alt+X**. Contiene únicamente inserciones, agrupadas en una transacción; no vuelve a crear las tablas.
-
-Ejecuta la carga una sola vez y verifica:
-
-```sql
-SELECT 'paises' AS tabla, COUNT(*) AS filas FROM paises
-UNION ALL SELECT 'empresas', COUNT(*) FROM empresas
-UNION ALL SELECT 'moviles', COUNT(*) FROM moviles;
-```
-
-Resultado: **4 países, 4 empresas y 8 móviles**.
-
-## 1.2 Cargar después Juegos
+## 1.1 Cargar Juegos
 
 Cambia a la conexión `juegos`. Comprueba `SELECT current_database();`, abre [juegos-datos.sql](../recursos/postgresql/sql/juegos-datos.sql) y ejecútalo completo con **Alt+X**.
 
@@ -48,7 +28,7 @@ UNION ALL SELECT 'lineas_compra', COUNT(*) FROM lineas_compra;
 | compras | 12 |
 | lineas_compra | 28 |
 
-## 1.3 Evitar cargas duplicadas
+## 1.2 Evitar cargas duplicadas
 
 Los archivos de datos se ejecutan sobre tablas vacías. Al ejecutarlos dos veces, las filas con claves generadas por secuencia pueden duplicarse y las líneas pueden fallar por su PK compuesta. Una transacción abortada no permite seguir ejecutando sentencias hasta `ROLLBACK`.
 
@@ -64,15 +44,9 @@ TRUNCATE lineas_compra, compras, jugadores, vendedores,
          productos, categorias, ciudades, provincias RESTART IDENTITY;
 ```
 
-Para restablecer solo Moviles, conectado a `moviles`:
-
-```sql
-TRUNCATE moviles, empresas, paises RESTART IDENTITY;
-```
-
 Estas sentencias eliminan los datos de las tablas indicadas. Después ejecuta únicamente el archivo `*-datos.sql` correspondiente. No uses `docker compose down -v`: borraría también las otras bases.
 
-## 1.4 Conservar los datos para DQL
+## 1.3 Conservar los datos para DQL
 
 Realiza los ejercicios de modificación dentro de una transacción y termina con `ROLLBACK` cuando quieras conservar el conjunto inicial. Así las consultas y los resultados del tema DQL seguirán siendo reproducibles. Las secuencias pueden avanzar aunque se reviertan las filas: no supongas que los códigos nuevos son consecutivos.
 

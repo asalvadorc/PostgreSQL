@@ -1,8 +1,3 @@
----
-hide:
-  - toc
----
-
 # Índices
 
 Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y trabajo adicional al modificar datos. PostgreSQL ya crea índices para PK y UNIQUE; no crea automáticamente uno para cada FK.
@@ -41,15 +36,36 @@ Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y traba
 
 !!! example practica "Pruébalo: Crear y eliminar índices"
 
-    Utiliza `productos_demo`, que has conservado en `pruebas`. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.
+    Utiliza `productos`, que has conservado en `pruebas`. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.
 
     ```sql
-    CREATE INDEX i_demo_productos_nombre ON productos_demo (nombre);
-    CREATE INDEX i_demo_productos_categoria_precio
-        ON productos_demo (id_categoria ASC, precio DESC);
+    CREATE INDEX i_productos_descripcion ON productos (descripcion);
+    CREATE INDEX i_productos_referencia_precio
+        ON productos (codigo_categoria ASC, precio DESC);
 
-    DROP INDEX i_demo_productos_nombre;
-    DROP INDEX i_demo_productos_categoria_precio;
+    DROP INDEX i_productos_descripcion;
+    DROP INDEX i_productos_referencia_precio;
     ```
 
 El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir un recorrido completo.
+
+<a id="ejercicios-juegos"></a>
+
+## Ejercicios: Crear índices
+
+Utiliza las tablas de Juegos que has completado en los ejercicios 1–13. Añade las sentencias a `02_juegos.sql`.
+
+### Ejercicio 14: Índice por nombre de jugador
+
+!!! ejercicio "Juegos"
+
+    Crea `i_jugadores_nombre` sobre `jugadores(nombre)`.
+
+### Ejercicio 15: Índice de vendedores
+
+!!! ejercicio "Juegos"
+
+    Crea `i_vendedores_cp_direccion` por `codigo_postal` ascendente y `direccion` descendente.
+
+**Antes de continuar:** Actualiza el nodo de índices de cada tabla en DBeaver y comprueba sus columnas y su orden.
+

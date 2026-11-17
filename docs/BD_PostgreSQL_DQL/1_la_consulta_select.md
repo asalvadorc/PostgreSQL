@@ -1,5 +1,7 @@
 # 1. La consulta SELECT
 
+Antes de ejecutar los ejemplos, completa la [introducción y preparación de Moviles](0_introducci.md). Utiliza su conexión en DBeaver para practicar las consultas.
+
 ![Resumen visual de las partes de la instrucción SELECT](sql_select_summary.png)
 
 Como el mismo nombre indica SQL (_Structured Query Language_), la consulta o

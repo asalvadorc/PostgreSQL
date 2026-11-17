@@ -1,6 +1,6 @@
 # Moviles
 
-Los ejemplos de este tema se basan en **Moviles**, una base de datos de fabricantes y modelos de teléfonos móviles, con tres tablas: `paises`, `empresas` y `moviles`.
+Los ejemplos del tema de DQL se basan en **Moviles**, una base de datos de fabricantes y modelos de teléfonos móviles, con tres tablas: `paises`, `empresas` y `moviles`.
 
 Las empresas, como Apple, Samsung, Xiaomi o Sony, fabrican distintos modelos de móviles. Los precios y las fechas de los datos de ejemplo son ficticios y sirven para practicar SQL.
 
@@ -33,7 +33,7 @@ La estructura forma una cadena de dos relaciones 1:N:
 ![Modelo relacional de Moviles: tablas paises, empresas y móviles, con sus datos y claves](moviles-tablas.png)
 
 <!--
-Crea las tablas en la [práctica DDL de Moviles](../BD_PostgreSQL_DDL/3_crear_moviles.md) y carga después sus [datos](../recursos/postgresql/sql/moviles-datos.sql) siguiendo el [tema DML](../BD_PostgreSQL_DML/1_introducci.md).
+Prepara la base de datos, sus tablas y datos en la [introducción a DQL](BD_PostgreSQL_DQL/0_introducci.md).
 
 
 

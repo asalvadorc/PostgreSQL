@@ -294,4 +294,4 @@ Consulta también la documentación sobre [pertenencia a roles](https://www.post
 
 Consulta la documentación de PostgreSQL 17 sobre [usuarios y roles](https://www.postgresql.org/docs/17/sql-createrole.html) y [concesión de privilegios](https://www.postgresql.org/docs/17/sql-grant.html).
 
-Continúa con la [práctica guiada de Moviles](3_crear_moviles.md) y después con la [práctica de Juegos](4_crear_juegos.md).
+Continúa con la [práctica de Juegos](4_crear_juegos.md), que se desarrolla por bloques a lo largo de los apartados de DDL.

@@ -1,28 +1,20 @@
-# 4. Práctica: crear Juegos
+# 3. Práctica: crear Juegos
 
-Después de la práctica guiada de Moviles, crearás la base de datos **Juegos** mediante una secuencia de ejercicios. Los ejercicios **1–13** construyen sus ocho tablas y añaden las restricciones por etapas; los **14–18** trabajan índices y vistas; los **19–22** se realizan en `pruebas` con objetos auxiliares.
+La práctica de **Juegos** se construye poco a poco a lo largo de los apartados de teoría. **No tienes que esperar al final para hacerla**: después de cada explicación, realiza el bloque de ejercicios correspondiente y conserva lo que hayas creado para el siguiente. Esta página reúne la preparación, los campos de referencia, el recorrido y la entrega.
 
 Consulta el [modelo E/R y relacional de Juegos](../juegos.md). Escribe las sentencias en `02_juegos.sql` y ejecútalas en el orden de los ejercicios. No crees antes todas las tablas con sus restricciones: precisamente irás incorporándolas mediante `CREATE` y `ALTER`.
 
+Si todavía no has comenzado, prepara la base y su conexión con las instrucciones siguientes y vuelve al apartado CREATE TABLE.
+
 Las tablas definitivas deben quedar **vacías**. La inserción de datos se realizará después, en DML; las vistas pueden definirse ahora aunque todavía no devuelvan filas.
 
-## 4.1 Crear la base de datos y su conexión
+## 3.1 Crear la base de datos y su conexión
 
-Desde la conexión a `postgres`, ejecuta por separado:
+El **ejercicio 0** consiste en crear `juegos` y su conexión. Se realiza en [Crear bases de datos](crear_bases_datos.md#crear-juegos-y-su-conexion), siguiendo los mismos pasos que con `pruebas`. Si ya lo has completado, **no repitas la creación**. Después continuarás con los ejercicios **1–22**, sin cambios en su numeración.
 
-```sql
-CREATE DATABASE juegos;
-```
+Abre un editor desde la conexión **Juegos** y comprueba que `SELECT current_database();` devuelve `juegos`. Usa esta conexión en los ejercicios 1–18. No ejecutes los CREATE TABLE sobre tablas que ya existen.
 
-Crea una conexión a `juegos` con `localhost`, puerto `5433`, usuario y contraseña `alumno`. Abre su editor y ejecuta:
-
-```sql
-SELECT current_database();
-```
-
-Debe devolver **juegos**. Usa esta conexión en los ejercicios 1–18. Si ya habías creado las tablas en una práctica anterior, utiliza una base vacía para repetir la secuencia; no ejecutes los CREATE TABLE sobre tablas que ya existen.
-
-## 4.2 Campos de referencia y pautas de trabajo
+## 3.2 Campos de referencia y pautas de trabajo
 
 Utiliza esta tabla para consultar nombres y tipos. **Las claves y demás restricciones se añaden cuando lo indique cada ejercicio**, no todas desde el principio.
 
@@ -45,61 +37,42 @@ Recuerda:
 - La FK de las líneas hacia las compras llevará `ON DELETE CASCADE`; las demás referencias conservarán `NO ACTION`, como indica el ejercicio 13.
 - Después de cada ejercicio, actualiza el navegador de DBeaver y revisa las columnas y restricciones que hayas añadido.
 
-## 4.3 Construcción progresiva
+## 3.3 Construcción progresiva
 
-**Ex_1.** Crea `categorias` con sus columnas, de momento sin restricciones. Usa SERIAL para el código, pero no añadas todavía la PK. La generación del código no sustituye a la restricción de clave primaria.
+Los enunciados están junto a la explicación de cada sentencia. Realiza los bloques en este orden, sin repetir los ejercicios que ya hayas completado:
 
-**Ex_2.** Crea `productos` sin restricciones, usando SERIAL para `id_producto`.
+| Después de estudiar | Ejercicios | Trabajo acumulado en Juegos |
+| --- | --- | --- |
+| [CREATE TABLE](tablas.md#ejercicios-juegos) | 1–2 | Crear `categorias` y `productos`, dejando pendientes sus claves. |
+| [Restricciones](restricciones.md#ejercicios-juegos) | 3–8 | Crear las otras seis tablas, con las claves que se indican. |
+| [ALTER TABLE](alter_table.md#ejercicios-juegos) | 9–13 | Modificar columnas y completar las claves pendientes. |
 
-**Ex_3.** Crea `provincias` con su clave primaria.
+!!! info "Una única práctica, varios momentos de trabajo"
+    Trabaja siempre sobre las mismas tablas de `juegos` y añade las sentencias al mismo archivo `02_juegos.sql`. No vuelvas a crear la base de datos ni elimines sus tablas entre bloques. Antes de añadir una FK, comprueba que la clave referenciada ya existe.
 
-**Ex_4.** Crea `ciudades`, con PK y FK hacia `provincias`.
+## 3.4 Índices y vistas
 
-**Ex_5.** Crea `vendedores`, con PK y FK hacia `ciudades`. Deja la FK reflexiva para el ejercicio 12.
+Continúa sobre la estructura que has completado:
 
-**Ex_6.** Crea `jugadores`, con PK y FK hacia `ciudades`.
-
-**Ex_7.** Crea `compras`, con PK y FK hacia `jugadores` y `vendedores`. Las dos referencias deben ser no nulas.
-
-**Ex_8.** Crea `lineas_compra`, con PK `(id_compra, num_linea)` e `id_producto` no nulo. Añadirás las dos FK en el ejercicio 13.
-
-**Ex_9.** Añade a `vendedores` una columna `alias VARCHAR(40) NOT NULL UNIQUE`. La tabla todavía está vacía; explica qué habría que preparar si ya tuviera filas.
-
-**Ex_10.** Elimina la columna `alias`.
-
-**Ex_11.** Añade la PK de `categorias`.
-
-**Ex_12.** Añade la PK de `productos`, su FK hacia `categorias` y la FK `vendedores.id_jefe` hacia `vendedores.id_vendedor`.
-
-**Ex_13.** Añade las FK de `lineas_compra`: hacia `compras` con `ON DELETE CASCADE`, y hacia `productos` con `NO ACTION`. Revisa que hay ocho PK y nueve FK.
-
-## 4.4 Índices y vistas
+| Después de estudiar | Ejercicios | Qué añadirás |
+| --- | --- | --- |
+| [Índices](indices.md#ejercicios-juegos) | 14–15 | Dos índices sobre jugadores y vendedores. |
+| [Vistas](vistas.md#ejercicios-juegos) | 16–18 | Resúmenes de compras, vendedores y categorías. |
 
 Las vistas pueden crearse con las tablas vacías. Sus consultas devolverán resultados cuando se carguen los datos en DML.
 
-**Ex_14.** Crea `i_jugadores_nombre` sobre `jugadores(nombre)`.
+## 3.5 Objetos auxiliares en pruebas
 
-**Ex_15.** Crea `i_vendedores_cp_direccion` por `codigo_postal` ascendente y `direccion` descendente.
+Cambia a **pruebas** para estos ejercicios. Guarda las sentencias en `03_objetos_pruebas.sql` y no cambies las secuencias ni las tablas definitivas de Juegos.
 
-**Ex_16.** Crea la vista `resumen_compras` con las bases sin descuentos, con descuento de líneas, con descuento general y el total con IVA. Calcula primero `SUM(cantidad * precio_unitario)`. Para el descuento de líneas, suma `cantidad * precio_unitario * (1 - COALESCE(descuento_linea, 0) / 100.0)`; después multiplica por `(1 - COALESCE(descuento, 0) / 100.0)` y, al final, por `(1 + COALESCE(iva, 0) / 100.0)`. La columna del importe final debe llamarse `total`.
+| Después de estudiar | Ejercicios | Qué practicarás |
+| --- | --- | --- |
+| [Secuencias](secuencias.md#ejercicios-juegos) | 19–20 | NEXTVAL explícito y generación de códigos mediante DEFAULT. |
+| [Dominios y tipos enumerados](tipos_enumerados.md#ejercicios-juegos) | 21–22 | SERIAL, CHECK y validaciones reutilizables. |
 
-**Ex_17.** Crea `resumen_vendedores`: código y nombre del vendedor, total de unidades vendidas y base de sus compras tras los descuentos. Evita duplicar el importe de una compra al reunirla con sus líneas.
+Elimina los objetos de demostración cuando lo indique cada ejercicio. Las inserciones de esta parte solo sirven para comprobar su funcionamiento en `pruebas`; la carga de datos de Juegos se realizará en DML.
 
-**Ex_18.** Crea `resumen_categorias`: categoría, unidades vendidas e importe de líneas tras aplicar solo `descuento_linea`.
-
-## 4.5 Objetos auxiliares en pruebas
-
-Realiza estos ejercicios en **pruebas**. No cambies las secuencias de las tablas definitivas de Juegos.
-
-**Ex_19.** Crea una secuencia que empiece en 1000 y avance de 5 en 5. Úsala como valor por defecto de `vendedores_demo.id_vendedor`. Inserta dos vendedores, comprueba los códigos y elimina la tabla y la secuencia en el orden adecuado.
-
-**Ex_20.** Crea `jugadores_demo` con una columna `INTEGER GENERATED BY DEFAULT AS IDENTITY`. Inserta un jugador omitiendo su código. Explica la diferencia entre PK, generación del código y UNIQUE.
-
-**Ex_21.** Crea `compras_demo` con código autonumérico, IVA obligatorio de 10 o 21 y descuento entre 0 y menos de 50. Comprueba una inserción válida y otra rechazada.
-
-**Ex_22.** Crea `productos_demo` con precio, stock y stock mínimo no negativos, un tipo enumerado para el estado (`Disponible`, `Agotado`, `En espera`) y un dominio de texto de 13 dígitos para un código de barras. Un control de formato no verifica el dígito de control ni permite deducir el país de fabricación. Añade una restricción de tabla `stock >= stock_minimo` y explica por qué en un inventario real puede ser útil permitir stock bajo mínimo. Elimina los objetos de prueba al terminar.
-
-## 4.6 Comprobar la estructura final
+## 3.6 Comprobar la estructura final
 
 Después de completar los ejercicios 1–13, en DBeaver revisa **Columns**, **Constraints** y **Foreign Keys** de cada tabla. También puedes consultar:
 
@@ -113,8 +86,10 @@ ORDER BY table_name, constraint_type, constraint_name;
 
 Deben existir **ocho claves primarias y nueve claves ajenas**. En `compras`, `id_jugador` e `id_vendedor` son no nulos; en `lineas_compra`, `id_producto` también. Las columnas que forman una clave primaria ya son no nulas.
 
-## 4.7 Entrega de DDL
+## 3.7 Entrega de DDL
 
-Comprueba que tienes **tres tablas vacías en moviles y ocho en juegos**. Entrega `01_moviles.sql`, `02_juegos.sql`, el `compose.yaml` utilizado y capturas de las restricciones. Explica la clave compuesta, la relación reflexiva y el orden de creación.
+Comprueba que tienes **ocho tablas vacías en juegos**. Entrega `02_juegos.sql`, `03_objetos_pruebas.sql`, el `compose.yaml` utilizado y capturas de las restricciones. Explica la clave compuesta, la relación reflexiva y el orden de creación.
 
-Después continúa con [DML: introducción y carga de datos](../BD_PostgreSQL_DML/1_introducci.md). Allí cargarás primero Moviles y después Juegos. No ejecutes todavía los archivos de datos ni el script combinado.
+Después continúa con [DML: introducción y carga de datos](../BD_PostgreSQL_DML/1_introducci.md). Allí cargarás los datos de Juegos. No ejecutes todavía los archivos de datos ni el script combinado.
+
+Secuencia adaptada a Juegos a partir de los [ejercicios progresivos de DDL sobre Factura](https://asalvadorc.github.io/BBDD_PostgreSQL_DDL/2_ddl/#2212-restriccions-de-camp-multiple). Se conservan los bloques 1–22 y se ajustan los nombres, las relaciones y los objetos de prueba al entorno de estos apuntes.

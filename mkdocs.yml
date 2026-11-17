@@ -84,8 +84,8 @@ nav:
     - 4. Crear la base de pruebas: crear_pruebas.md
     - 5. Bases de datos de los apuntes:
       - 📖 Presentación: bases_datos.md
-      - 📱 Moviles: moviles.md
       - 🎮 Juegos: juegos.md
+      - 📱 Moviles: moviles.md
   - DDL - Lenguaje de definición de datos:
       - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md
       - 2. Definición de Datos (DDL) en PostgreSQL:
@@ -106,14 +106,14 @@ nav:
               - Tipos enumerados: BD_PostgreSQL_DDL/tipos_enumerados.md
           - 2.4 Seguridad y control de acceso:
               - Usuarios y privilegios: BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md
-      - 3. Práctica guiada - Moviles: BD_PostgreSQL_DDL/3_crear_moviles.md
-      - 4. Práctica - Juegos: BD_PostgreSQL_DDL/4_crear_juegos.md
+      - 3. Práctica - Juegos: BD_PostgreSQL_DDL/4_crear_juegos.md
 #  - DML - Manipulación de Datos:
     #  - 1. Introducción y carga de datos: BD_PostgreSQL_DML/1_introducci.md
     #  - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md
     #  - Ejercicios de todo el tema: BD_PostgreSQL_DML/exercicis_de_tot_el_tema.md
 
 #  - DQL - Consultas (parte I):  
+    #- Introducción y preparación de Moviles: BD_PostgreSQL_DQL/0_introducci.md
     #- 1. La consulta SELECT: BD_PostgreSQL_DQL/1_la_consulta_select.md
     #- 2. Consulta básica: BD_PostgreSQL_DQL/2_consulta_bsica.md
     #- 3. Operadores y funciones de PostgreSQL:
