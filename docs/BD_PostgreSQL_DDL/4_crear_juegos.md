@@ -16,7 +16,7 @@ Abre un editor desde la conexión **Juegos** y comprueba que `SELECT current_dat
 
 ## 3.2 Campos de referencia y pautas de trabajo
 
-Utiliza esta tabla para consultar nombres y tipos. **Las claves y demás restricciones se añaden cuando lo indique cada ejercicio**, no todas desde el principio.
+Esta tabla reúne todos los campos y tipos como referencia general. También encontrarás los campos de cada tabla junto a su ejercicio de creación, para trabajar sin cambiar de página. **Las claves y demás restricciones se añaden cuando lo indique cada ejercicio**, no todas desde el principio.
 
 | Tabla | Campos y tipos |
 | --- | --- |

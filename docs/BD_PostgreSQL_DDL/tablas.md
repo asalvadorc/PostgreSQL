@@ -55,11 +55,29 @@ Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_d
 
 !!! ejercicio "Juegos"
 
-    Crea `categorias` con los campos y tipos de la [tabla de referencia](4_crear_juegos.md#32-campos-de-referencia-y-pautas-de-trabajo). Utiliza `SERIAL` en `id_categoria`, pero no añadas todavía la clave primaria ni otras restricciones explícitas.
+    **Campos de `categorias`**
+
+    | Campo | Tipo de dato |
+    | --- | --- |
+    | `id_categoria` | `SERIAL` |
+    | `descripcion` | `VARCHAR(100)` |
+
+    Crea `categorias` con los campos y tipos indicados arriba. Utiliza `SERIAL` en `id_categoria`, pero no añadas todavía la clave primaria ni otras restricciones explícitas.
 
 ### Ejercicio 2: Crear productos
 
 !!! ejercicio "Juegos"
+
+    **Campos de `productos`**
+
+    | Campo | Tipo de dato |
+    | --- | --- |
+    | `id_producto` | `SERIAL` |
+    | `nombre` | `VARCHAR(200)` |
+    | `precio` | `DECIMAL(10,2)` |
+    | `stock` | `INTEGER` |
+    | `stock_minimo` | `INTEGER` |
+    | `id_categoria` | `INTEGER` |
 
     Crea `productos` con todos sus campos. Utiliza `SERIAL` en `id_producto`, pero deja pendientes su clave primaria y su clave ajena hacia `categorias`. No añadas todavía restricciones de validación.
 
