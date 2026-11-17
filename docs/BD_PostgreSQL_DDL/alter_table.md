@@ -76,3 +76,7 @@ Continúa con las ocho tablas ya creadas. Ahora modificarás su estructura con `
 
 **Antes de continuar:** Comprueba que hay ocho PK y nueve FK. La columna temporal `alias` debe haber desaparecido. Conserva todas las tablas vacías para los ejercicios de índices y vistas.
 
+Al finalizar el ejercicio 13, actualiza la conexión **Juegos** y despliega las tablas y sus columnas. Esta imagen orientativa muestra la estructura completa, con las claves primarias y ajenas ya incorporadas. La PK de `lineas_compra` está formada por `id_compra` y `num_linea`:
+
+![Árbol completo de Juegos después del ejercicio 13, con las ocho tablas desplegadas, sus columnas y las claves primarias y ajenas](../juegos-arbol-ejercicio-13.png){ width="800" }
+

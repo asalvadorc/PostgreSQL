@@ -223,3 +223,7 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
 
 **Antes de continuar:** Debes tener ocho tablas, seis PK y cinco FK. Las PK de `categorias` y `productos`, la FK de `productos`, la relación reflexiva y las dos FK de `lineas_compra` siguen pendientes. Las completarás con ALTER TABLE.
 
+Actualiza la conexión **Juegos** y despliega **Bases de datos → juegos → Esquemas → public → Tablas**. Después del ejercicio 8 deben aparecer las ocho tablas, como en esta imagen orientativa. Todas están desplegadas para comprobar sus columnas y tipos de datos:
+
+![Árbol de DBeaver al terminar el ejercicio 8, con las ocho tablas de Juegos desplegadas y todos sus campos y tipos de datos](../juegos-arbol-ejercicio-8.png){ width="800" }
+

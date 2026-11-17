@@ -5,7 +5,7 @@ hide:
 
 # Esquemas
 
-Un **esquema** es un espacio dentro de una base de datos que organiza sus objetos, como tablas y vistas. En la configuración de estas prácticas, si no indicamos el esquema, se utiliza **`public` por defecto**: `CREATE TABLE productos_demo (...)` crea la misma tabla que `CREATE TABLE public.productos_demo (...)`.
+Un **esquema** es un espacio dentro de una base de datos que organiza sus objetos, como tablas y vistas. En la configuración de estas prácticas, si no indicamos el esquema, se utiliza **`public` por defecto**: `CREATE TABLE productos (...)` crea la misma tabla que `CREATE TABLE public.productos_demo (...)`.
 
 La organización es **servidor → base de datos → esquema → tabla**. Por ejemplo, en nuestro servidor tenemos la base de datos `pruebas`, que contiene el esquema `public`, donde crearemos `productos_demo`.
 

@@ -21,7 +21,7 @@
 
 Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.
 
-En los ejemplos crearemos **categorias** y **productos** dentro de la base de datos **pruebas**. Este esquema muestra la estructura que iremos construyendo: empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
+A continuación, para practicar la creación de tablas, crearemos **categorias** y **productos** dentro de la base de datos **pruebas**. Este esquema muestra la estructura que iremos construyendo: empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
 
 ![Esquema de las tablas categorias y productos que construiremos en la base de datos pruebas](../categorias-productos-relacion.png){ width="800" }
 
@@ -82,4 +82,8 @@ Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_d
     Crea `productos` con todos sus campos. Utiliza `SERIAL` en `id_producto`, pero deja pendientes su clave primaria y su clave ajena hacia `categorias`. No añadas todavía restricciones de validación.
 
 **Antes de continuar:** Al terminar deben existir `categorias` y `productos`, todavía sin PK ni FK. No las borres: continuarás con ellas después de estudiar las restricciones.
+
+Actualiza la conexión **Juegos** en DBeaver y despliega **Bases de datos → juegos → Esquemas → public → Tablas**. Abre las columnas de cada tabla para comprobar sus nombres y tipos. El árbol quedará como en esta imagen orientativa:
+
+![Árbol de DBeaver con las tablas categorias y productos de juegos y sus columnas, tras los ejercicios 1 y 2](../juegos-arbol-primeras-tablas.png){ width="600" }
 

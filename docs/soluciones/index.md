@@ -2,6 +2,10 @@
 
 Este apartado reúne los scripts de referencia. La guía general ofrece únicamente el archivo Docker Compose; los datos se descargan en el tema de DML.
 
+## Ejercicios progresivos de DDL
+
+- [Documento con las soluciones de los ejercicios 0–22 de Juegos](soluciones-ejercicios-ddl-juegos.docx): sentencias en orden, explicaciones, comprobaciones y limpieza de los objetos de prueba.
+
 ## Creación de tablas
 
 - [Estructura de Moviles](sql/moviles-estructura.sql): tres tablas, con claves y restricciones.
