@@ -1448,3 +1448,54 @@ body.table-zoom-open { overflow: hidden; }
 [data-md-color-scheme="slate"] .md-typeset .highlight .cs {
     color: #a8b4c5;
 }
+/* Pasos de conexión a DBeaver: texto, tabla y capturas alineados. */
+.md-typeset .connection-step {
+    margin: 1rem 0;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 8px;
+    background: var(--md-default-bg-color);
+}
+.md-typeset .connection-step h4 {
+    margin: 0 0 0.7rem;
+    color: var(--md-primary-fg-color);
+}
+.md-typeset .connection-step > :last-child { margin-bottom: 0; }
+.md-typeset .connection-step .md-typeset__scrollwrap,
+.md-typeset .connection-step .md-typeset__table {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.md-typeset .connection-step table:not([class]) {
+    display: table;
+    width: 100%;
+    min-width: 0;
+    table-layout: auto;
+    margin: 0;
+}
+.md-typeset .connection-step th,
+.md-typeset .connection-step td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.md-typeset .connection-step img.connection-capture {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0.8rem 0;
+}
+.md-typeset .connection-step img.connection-menu {
+    width: 275px;
+    max-width: 100%;
+    margin: 0.8rem 0;
+}
+.md-typeset .connection-step img.connection-tree {
+    width: 350px;
+    max-width: 100%;
+    margin: 0.8rem 0;
+}
+@media (max-width: 600px) {
+    .md-typeset .connection-step { padding: 0.8rem; }
+}

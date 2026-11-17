@@ -4,12 +4,6 @@ Los ejercicios de los distintos temas se basan en **Juegos**, una base de datos 
 
 Los jugadores realizan compras atendidas por vendedores. Cada compra incluye uno o varios productos, agrupados en categorías. Los jugadores y vendedores están asociados a ciudades, que pertenecen a provincias. Además, un vendedor puede supervisar a otros vendedores.
 
-## Datos de ejemplo
-
-Esta imagen muestra una selección de los datos que utilizaremos en las prácticas. Fíjate en cómo los identificadores relacionan las ocho tablas: una compra indica quién la realiza y quién la atiende, mientras que sus líneas detallan los productos adquiridos.
-
-![Datos de ejemplo de las ocho tablas de Juegos, con una compra y sus dos líneas](juegos-datos-ejemplo.png)
-
 ## Modelo E/R
 
 ![Modelo entidad-relación de Juegos](juegos_er.png)
@@ -69,3 +63,9 @@ Crea las tablas en la [práctica DDL de Juegos](../BD_PostgreSQL_DDL/4_crear_jue
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
 -->
+
+## Datos de ejemplo
+
+Esta imagen muestra una selección de los datos que utilizaremos en las prácticas. Fíjate en cómo los identificadores relacionan las ocho tablas: una compra indica quién la realiza y quién la atiende, mientras que sus líneas detallan los productos adquiridos.
+
+![Datos de ejemplo de las ocho tablas de Juegos, con una compra y sus dos líneas](juegos-datos-ejemplo.png)

@@ -8,41 +8,67 @@ Descarga [DBeaver Community](https://dbeaver.io/download/) para tu sistema opera
 
 ## 3.2 Conexión
 
-Comprueba que el contenedor de PostgreSQL está en marcha. En DBeaver, abre el desplegable de **Nueva conexión** y elige **PostgreSQL**:
+Comprueba que el contenedor de PostgreSQL está en marcha y sigue estos pasos en DBeaver.
 
-![Seleccionar PostgreSQL en el menú de nueva conexión de DBeaver](dbeaver-nueva-conexion.png)
+<div class="connection-step" markdown>
 
-Introduce estos datos:
+#### Paso 1. Crear una conexión PostgreSQL
 
-<div class="image-pair-grid" markdown>
+Abre el desplegable de **Nueva conexión** y selecciona **PostgreSQL**.
 
-<div markdown>
+![Seleccionar PostgreSQL en el menú de nueva conexión de DBeaver](dbeaver-nueva-conexion.png){ .connection-menu }
+
+</div>
+
+<div class="connection-step" markdown>
+
+#### Paso 2. Introducir los datos del servidor
+
+Completa los campos de la conexión con los valores definidos para nuestro contenedor:
 
 | Campo | Valor |
 | --- | --- |
 | Host | `localhost` |
 | Puerto | `5433` |
+| Base de datos | `postgres` |
 | Usuario | `alumno` |
 | Contraseña | `alumno` |
-| Base de datos inicial | `postgres` |
+
+La configuración debe quedar como en esta captura:
+
+![Configuración de la conexión PostgreSQL en DBeaver](BD_PostgreSQL_DQL/image-17.png){ .connection-capture }
+
+!!! warning "Selecciona Show all databases"
+    En esta misma configuración, marca **Show all databases** (Mostrar todas las bases de datos). Así podrás ver las bases de datos que vayamos creando: `pruebas`, `moviles` y `juegos`. Después de crear cada una, actualiza la conexión en el navegador de DBeaver para que aparezca.
 
 </div>
 
-<div class="image-panel" markdown>
+<div class="connection-step" markdown>
 
-![Configuración de la conexión PostgreSQL en DBeaver](BD_PostgreSQL_DQL/image-17.png)
+#### Paso 3. Probar y guardar la conexión
+
+Pulsa **Probar conexión**. Si DBeaver solicita descargar el controlador de PostgreSQL, acepta la descarga y vuelve a probar. Cuando la prueba sea correcta, guarda la conexión.
+
+![Prueba de conexión a PostgreSQL desde DBeaver](BD_PostgreSQL_DQL/image-15.png){ .connection-capture }
 
 </div>
 
+<div class="connection-step" markdown>
+
+#### Paso 4. Abrir la conexión y localizar postgres
+
+La conexión guardada aparece en el **Navegador de bases de datos**. Haz doble clic sobre ella para conectarte y despliega **Bases de Datos**.
+
+![Conexión establecida a localhost:5433 y base de datos postgres en el navegador de DBeaver](image-5.png){ .connection-tree }
+
+En la imagen se ve la conexión a `localhost:5433` y la base inicial `postgres`: DBeaver ha podido acceder al servidor del contenedor y mostrar sus bases de datos.
+
+Distingue los dos niveles:
+
+- **Entrada superior:** la conexión guardada en DBeaver.
+- **Entrada `postgres` dentro de Bases de Datos:** la base de datos del servidor. Más adelante aparecerán aquí las que vayamos creando.
+
 </div>
-
-!!! warning "Mostrar todas las bases de datos"
-    En la configuración de la conexión, marca **Show all databases** (Mostrar todas las bases de datos). Así podrás ver las bases de datos que vayamos creando durante el curso: `pruebas`, `moviles` y `juegos`.
-
-    Después de crear una base de datos, actualiza la conexión en el navegador de DBeaver para que aparezca.
-
-Pulsa **Probar conexión**, descarga el controlador si se solicita y guarda. 
-![alt text](BD_PostgreSQL_DQL/image-15.png)
 
 ## 3.3 Comprobación
 

@@ -1,10 +1,18 @@
 # 4. Crear la base de pruebas y su conexión
 
-Vamos a crear una base de datos llamada **pruebas** para realizar los ejemplos del tema y experimentar con las sentencias SQL. Así podremos crear, modificar y eliminar objetos sin afectar a las bases de datos **Moviles** y **Juegos**. También crearemos una conexión en DBeaver para trabajar directamente con ella.
+Vamos a crear una base de datos llamada **pruebas** para realizar los ejemplos de los apuntes y experimentar con las sentencias SQL. Será nuestro espacio de práctica para crear, modificar y eliminar objetos sin afectar a las bases de datos que utilizaremos más adelante en los ejercicios. También crearemos una conexión en DBeaver para trabajar directamente con ella.
+
+La imagen muestra cómo quedará el entorno al crear `pruebas`: estará junto a `postgres` en el mismo servidor PostgreSQL, dentro del contenedor que ya tenemos en marcha.
+
+![Cliente DBeaver conectado al servidor PostgreSQL en Docker con las bases de datos postgres y pruebas](cliente-servidor-postgresql-docker-pruebas.png)
 
 ## 4.1 Crear la base de datos
 
-La conexión que acabamos de configurar en DBeaver apunta a `postgres`. Puedes crear la base de datos **con una sentencia SQL o en modo gráfico**. Elige una de las dos opciones; no es necesario hacer ambas.
+Vamos a crear `pruebas` **dentro del servidor PostgreSQL que se ejecuta en nuestro contenedor Docker**. DBeaver será el cliente desde el que enviaremos la orden de creación.
+
+La conexión que acabamos de configurar utiliza la base inicial `postgres` para acceder al servidor. Desde esa conexión crearemos otra base de datos, `pruebas`, en el mismo servidor. **`postgres` y `pruebas` serán dos bases de datos independientes, al mismo nivel**: `pruebas` no se crea dentro de la base `postgres`, sino dentro del servidor PostgreSQL.
+
+Puedes crearla **con una sentencia SQL o en modo gráfico**. Elige una de las dos opciones; no es necesario hacer ambas.
 
 ### Opción 1: con una sentencia SQL
 
@@ -23,47 +31,70 @@ CREATE DATABASE pruebas;
 4. Confirma la creación y guarda los cambios si DBeaver lo solicita.
 5. Actualiza el nodo **Bases de datos / Databases** para comprobar que aparece `pruebas`.
 
-![alt text](BD_PostgreSQL_DDL/image-4.png)
+![Creación de la base de datos desde el modo gráfico de DBeaver](BD_PostgreSQL_DDL/image-4.png)
+
+Después de crearla por cualquiera de las dos opciones, actualiza **Bases de datos / Databases**. Debe aparecer `pruebas` junto a `postgres`:
+
+![La base de datos pruebas aparece junto a postgres en el navegador de DBeaver](pruebas-base-creada.png){ width="300" }
 
 ## 4.2 Crear la conexión a pruebas
 
-Crear la base de datos y crear una conexión son dos acciones distintas. **La base de datos `pruebas` se crea en el servidor PostgreSQL**; la conexión es la configuración que guarda **DBeaver** para acceder a ella.
+La base de datos **pruebas ya está creada**. Ahora guardaremos en DBeaver una conexión que acceda directamente a ella. Utilizaremos el mismo servidor y usuario de antes; solo cambiaremos la base de datos de destino, de `postgres` a `pruebas`.
 
-La conexión inicial apunta a `postgres`, por lo que crear `pruebas` no cambia automáticamente la base de datos de ese editor SQL. Aunque puedas verla al activar **Show all databases**, conviene guardar una conexión específica a `pruebas`: así abrirás los ejemplos del tema directamente en la base correcta y evitarás crear sus tablas por error en `postgres`.
+La base `postgres` se utiliza como punto de acceso inicial al servidor. Para los ejemplos conviene utilizar `pruebas`, donde podremos crear, modificar y eliminar tablas sin mezclar los ejercicios con esa base inicial. Cada editor SQL trabaja sobre una base de datos concreta: si lo abrimos desde la conexión a `postgres`, las tablas se crearán allí, aunque veamos `pruebas` en el navegador.
 
-Esta nueva conexión no crea otra base de datos ni otro contenedor: utiliza el mismo servidor, cambiando únicamente la base de datos a la que accede.
+Guardar una **conexión específica a pruebas** facilita abrir los editores directamente en la base correcta y reconocer dónde estamos trabajando. No es obligatorio crear otra conexión para acceder a ella, pero sí es una forma más clara de organizar las prácticas y evitar errores. La conexión no crea otro servidor ni otra base de datos: solo guarda los datos de acceso a la que ya hemos creado.
 
-Ahora crea una nueva conexión PostgreSQL en DBeaver:
+<div class="connection-step" markdown>
+
+#### Paso 1. Configurar una nueva conexión
+
+En la barra de herramientas de DBeaver, abre **Nueva conexión → PostgreSQL** e introduce estos datos:
 
 | Campo | Valor |
 | --- | --- |
 | Host | `localhost` |
 | Puerto | `5433` |
-| Base de datos | `pruebas` |
+| Base de datos | **`pruebas`** |
 | Usuario | `alumno` |
 | Contraseña | `alumno` |
 
-Abre un editor SQL desde esa conexión y ejecuta 
-    `SELECT current_database();`
-debe devolver `pruebas`. 
+La ventana de conexión debe tener `pruebas` en el campo **Database**:
 
-<div class="image-pair-grid" markdown>
+![Configuración de la conexión a la base de datos pruebas en DBeaver](image-6.png){ .connection-capture }
 
-<div class="image-panel" markdown>
-
-![Configuración de la conexión a pruebas en DBeaver](BD_PostgreSQL_DDL/image-5.png)
+Marca también **Show all databases** (Mostrar todas las bases de datos), que aparece sin marcar en la captura.
 
 </div>
 
-<div class="image-panel" markdown>
+<div class="connection-step" markdown>
 
-![Comprobación de la base de datos pruebas](BD_PostgreSQL_DDL/image-6.png)
+#### Paso 2. Probar y guardar
+
+Pulsa **Probar conexión** y, si la prueba es correcta, **Finalizar**.
+
+La nueva conexión aparecerá en el **Navegador de bases de datos**. Puedes renombrarla como **Pruebas** para reconocerla fácilmente. Conserva también la conexión inicial a `postgres`.
+
+![Conexión pruebas guardada en DBeaver, con la base de datos pruebas seleccionada](pruebas-conexion-guardada.png){ width="300" }
 
 </div>
 
+<div class="connection-step" markdown>
+
+#### Paso 3. Comprobar la base de datos del editor
+
+Haz clic derecho sobre la **nueva conexión a pruebas** y selecciona **Editor SQL → Nuevo script SQL**. Ejecuta esta consulta con **Ctrl + Intro**:
+
+```sql
+SELECT current_database();
+```
+
+El resultado debe ser **`pruebas`**, como en esta captura:
+
+![La consulta current_database devuelve pruebas](BD_PostgreSQL_DDL/image-6.png){ width="350" }
+
+Si el resultado es `postgres`, abre el editor desde la nueva conexión y revisa que su campo **Base de datos** sea `pruebas`. Cambiar solo el nombre de la conexión no cambia su destino.
+
 </div>
 
-Usa esta conexión para los ejemplos auxiliares de DDL.
-
-
-
+A partir de ahora, utiliza la conexión **Pruebas** para ejecutar los ejemplos de los apuntes.

@@ -19,3 +19,7 @@ En este curso utilizaremos **PostgreSQL** como **sistema gestor de bases de dato
 Para no tener que instalar PostgreSQL directamente en el ordenador, lo ejecutaremos dentro de un **contenedor Docker**. El contenedor proporciona un entorno preparado con PostgreSQL que podemos arrancar y detener cuando lo necesitemos. En el equipo solo necesitaremos tener Docker instalado.
 
 Utilizaremos **Docker Compose** para definir y arrancar ese contenedor, y **DBeaver** como cliente para conectarnos a PostgreSQL, crear las bases de datos y ejecutar nuestras sentencias SQL.
+
+DBeaver actuará como **cliente**: enviará las consultas SQL a PostgreSQL, el **servidor** que se ejecutará dentro del contenedor Docker, y mostrará sus resultados.
+
+![DBeaver envía consultas al servidor PostgreSQL en Docker y recibe sus resultados](cliente-servidor-postgresql-introduccion.png)
