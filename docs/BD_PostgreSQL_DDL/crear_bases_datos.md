@@ -27,7 +27,7 @@ Así tendremos dos espacios de trabajo: **`pruebas` para los ejemplos** y **`jue
 
 **Sigue los mismos pasos que utilizaste para crear `pruebas` en Inicio**, cambiando el nombre de la base de datos a `juegos`.
 
-### Ejercicio 0: Preparar Juegos y su conexión
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 0: Preparar Juegos y su conexión</span></span> {#ejercicio-0-preparar-juegos-y-su-conexion}
 
 !!! ejercicio "Juegos"
 

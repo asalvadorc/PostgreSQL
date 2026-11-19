@@ -44,31 +44,31 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. Para ca
 
 Continúa con las ocho tablas ya creadas. Ahora modificarás su estructura con `ALTER TABLE`, sin borrar las tablas ni repetir los CREATE.
 
-### Ejercicio 9: Añadir alias
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 9: Añadir alias</span></span> {#ejercicio-9-anadir-alias}
 
 !!! ejercicio "Juegos"
 
     Añade a `vendedores` una columna `alias VARCHAR(40) NOT NULL UNIQUE`. La tabla todavía está vacía; explica qué habría que preparar si ya tuviera filas.
 
-### Ejercicio 10: Eliminar alias
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 10: Eliminar alias</span></span> {#ejercicio-10-eliminar-alias}
 
 !!! ejercicio "Juegos"
 
     Elimina la columna `alias`.
 
-### Ejercicio 11: Añadir la PK de categorias
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 11: Añadir la PK de categorias</span></span> {#ejercicio-11-anadir-la-pk-de-categorias}
 
 !!! ejercicio "Juegos"
 
     Añade mediante `ALTER TABLE` la clave primaria de `categorias`, que debe estar formada por `id_categoria`.
 
-### Ejercicio 12: Completar productos y la relación reflexiva
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 12: Completar productos y la relación reflexiva</span></span> {#ejercicio-12-completar-productos-y-la-relacion-reflexiva}
 
 !!! ejercicio "Juegos"
 
     En `productos`, añade la clave primaria sobre `id_producto` y la clave ajena `id_categoria` hacia `categorias(id_categoria)`. Completa también la relación reflexiva pendiente: `vendedores.id_jefe` debe referenciar a `vendedores.id_vendedor` y admitir nulos para los vendedores sin jefe.
 
-### Ejercicio 13: Añadir las FK de lineas_compra
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 13: Añadir las FK de lineas_compra</span></span> {#ejercicio-13-anadir-las-fk-de-lineas_compra}
 
 !!! ejercicio "Juegos"
 

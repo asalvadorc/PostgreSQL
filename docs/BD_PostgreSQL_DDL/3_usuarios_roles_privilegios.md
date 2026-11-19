@@ -294,4 +294,4 @@ Consulta también la documentación sobre [pertenencia a roles](https://www.post
 
 Consulta la documentación de PostgreSQL 17 sobre [usuarios y roles](https://www.postgresql.org/docs/17/sql-createrole.html) y [concesión de privilegios](https://www.postgresql.org/docs/17/sql-grant.html).
 
-Continúa con la [práctica de Juegos](4_crear_juegos.md), que se desarrolla por bloques a lo largo de los apartados de DDL.
+Para completar el tema, revisa que has realizado los ejercicios de cada apartado. La construcción de Juegos empieza en los [ejercicios 1 y 2 de CREATE TABLE](tablas.md#ejercicios-juegos).

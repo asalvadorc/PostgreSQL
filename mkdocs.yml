@@ -106,7 +106,6 @@ nav:
               - Tipos enumerados: BD_PostgreSQL_DDL/tipos_enumerados.md
           - 2.4 Seguridad y control de acceso:
               - Usuarios y privilegios: BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md
-      - 3. Práctica - Juegos: BD_PostgreSQL_DDL/4_crear_juegos.md
 #  - DML - Manipulación de Datos:
     #  - 1. Introducción y carga de datos: BD_PostgreSQL_DML/1_introducci.md
     #  - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md

@@ -55,13 +55,13 @@ El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir
 
 Utiliza las tablas de Juegos que has completado en los ejercicios 1–13. Añade las sentencias a `02_juegos.sql`.
 
-### Ejercicio 14: Índice por nombre de jugador
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Índice por nombre de jugador</span></span> {#ejercicio-14-indice-por-nombre-de-jugador}
 
 !!! ejercicio "Juegos"
 
     Crea `i_jugadores_nombre` sobre `jugadores(nombre)`.
 
-### Ejercicio 15: Índice de vendedores
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 15: Índice de vendedores</span></span> {#ejercicio-15-indice-de-vendedores}
 
 !!! ejercicio "Juegos"
 

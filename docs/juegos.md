@@ -59,7 +59,7 @@ Los ejemplos incluyen videojuegos como Minecraft y Elden Ring, consolas, perifé
 
 El script incluye jugadores, vendedores y compras de distintos meses de 2024, productos con stock nulo y líneas con descuento nulo para practicar filtros, agrupaciones y `COALESCE`.
 
-Crea las tablas en la [práctica DDL de Juegos](../BD_PostgreSQL_DDL/4_crear_juegos.md) y carga después el [archivo de datos](../recursos/postgresql/sql/juegos-datos.sql) durante el [tema DML](../BD_PostgreSQL_DML/1_introducci.md).
+Crea las tablas mediante los [ejercicios progresivos de DDL](BD_PostgreSQL_DDL/tablas.md#ejercicios-juegos) y carga después el [archivo de datos](recursos/postgresql/sql/juegos-datos.sql) durante el [tema DML](BD_PostgreSQL_DML/1_introducci.md).
 
 Licenciado bajo la [Licencia Creative Commons Reconocimiento NoComercial CompartirIgual 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/)
 -->

@@ -49,9 +49,30 @@ A continuación, para practicar la creación de tablas, crearemos **categorias**
 
 ## Ejercicios: Crear las primeras tablas
 
-Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_datos.md#crear-juegos-y-su-conexion). Consulta los [campos de referencia](4_crear_juegos.md#32-campos-de-referencia-y-pautas-de-trabajo) y guarda las sentencias en `02_juegos.sql`.
+Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_datos.md#crear-juegos-y-su-conexion). Los campos y tipos necesarios aparecen en cada ejercicio. Guarda las sentencias en `02_juegos.sql`.
 
-### Ejercicio 1: Crear categorias
+??? info "Referencia general de campos y tipos de Juegos"
+
+    | Tabla | Campos y tipos |
+    | --- | --- |
+    | categorias | id_categoria SERIAL, descripcion VARCHAR(100). |
+    | productos | id_producto SERIAL, nombre VARCHAR(200), precio DECIMAL(10,2), stock INTEGER, stock_minimo INTEGER, id_categoria INTEGER. |
+    | provincias | id_provincia SERIAL, nombre VARCHAR(100). |
+    | ciudades | id_ciudad SERIAL, nombre VARCHAR(100), id_provincia INTEGER. |
+    | vendedores | id_vendedor SERIAL, nombre VARCHAR(150), direccion VARCHAR(200), codigo_postal VARCHAR(10), id_ciudad INTEGER, id_jefe INTEGER. |
+    | jugadores | id_jugador SERIAL, nombre VARCHAR(150), direccion VARCHAR(200), codigo_postal VARCHAR(10), id_ciudad INTEGER. |
+    | compras | id_compra SERIAL, fecha DATE, id_jugador INTEGER, id_vendedor INTEGER, iva DECIMAL(5,2), descuento DECIMAL(5,2). |
+    | lineas_compra | id_compra INTEGER, num_linea INTEGER, id_producto INTEGER, cantidad INTEGER, precio_unitario DECIMAL(10,2), descuento_linea DECIMAL(5,2). |
+
+    Recuerda:
+
+    - `SERIAL` genera códigos, pero no añade una PK por sí solo. Para las claves ajenas utiliza `INTEGER`.
+    - La PK de `lineas_compra` será `(id_compra, num_linea)`; no añadas otro código autonumérico.
+    - `vendedores.id_jefe` puede ser nulo y referencia a la propia tabla. Añadirás esa FK en el ejercicio 12.
+    - La FK de las líneas hacia las compras llevará `ON DELETE CASCADE`; las demás referencias conservarán `NO ACTION`, como indica el ejercicio 13.
+    - Después de cada ejercicio, actualiza el navegador de DBeaver y revisa las columnas y restricciones que hayas añadido.
+
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 1: Crear categorias</span></span> {#ejercicio-1-crear-categorias}
 
 !!! ejercicio "Juegos"
 
@@ -64,7 +85,7 @@ Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_d
 
     Crea `categorias` con los campos y tipos indicados arriba. Utiliza `SERIAL` en `id_categoria`, pero no añadas todavía la clave primaria ni otras restricciones explícitas.
 
-### Ejercicio 2: Crear productos
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 2: Crear productos</span></span> {#ejercicio-2-crear-productos}
 
 !!! ejercicio "Juegos"
 

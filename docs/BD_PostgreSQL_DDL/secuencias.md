@@ -69,13 +69,13 @@ Las filas reciben los códigos 1000 y 1005. La llamada posterior a `nextval()` g
 
 Estos ejercicios son independientes de las tablas definitivas de Juegos. Cambia a la conexión **Pruebas** y guarda las sentencias en `03_objetos_pruebas.sql`. Ejecuta las comprobaciones en el mismo editor y elimina solo los objetos de demostración.
 
-### Ejercicio 19: Utilizar NEXTVAL explícitamente
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 19: Utilizar NEXTVAL explícitamente</span></span> {#ejercicio-19-utilizar-nextval-explicitamente}
 
 !!! ejercicio "Pruebas"
 
     En `pruebas`, crea `vendedores_demo` con `id_vendedor INTEGER PRIMARY KEY` y `nombre VARCHAR(150)`. Crea una secuencia `seq_vendedores_demo` que empiece en 1000 y avance de 5 en 5. Inserta dos vendedores indicando **NEXTVAL explícitamente** como valor del código. Consulta los registros y utiliza `CURRVAL` para comprobar el último valor generado en la misma sesión. Elimina primero la tabla y después la secuencia.
 
-### Ejercicio 20: Utilizar NEXTVAL como DEFAULT
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 20: Utilizar NEXTVAL como DEFAULT</span></span> {#ejercicio-20-utilizar-nextval-como-default}
 
 !!! ejercicio "Pruebas"
 

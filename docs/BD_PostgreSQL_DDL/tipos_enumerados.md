@@ -53,13 +53,13 @@ No existe una operación directa para eliminar un único valor de un ENUM. Aquí
 
 Realiza estos ejercicios después de estudiar secuencias, dominios y tipos enumerados. Trabaja en **pruebas** y añade las sentencias a `03_objetos_pruebas.sql`.
 
-### Ejercicio 21: Generar códigos con SERIAL
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 21: Generar códigos con SERIAL</span></span> {#ejercicio-21-generar-codigos-con-serial}
 
 !!! ejercicio "Pruebas"
 
     En `pruebas`, crea `compras_demo` con `id_compra SERIAL PRIMARY KEY`, `fecha DATE`, `iva NUMERIC(5,2)` y `descuento NUMERIC(5,2)`. El IVA debe ser obligatorio y solo admitir 10 o 21; el descuento debe estar entre 0 y menos de 50 cuando se informe. Inserta una fila válida omitiendo el código y comprueba, por separado, una inserción rechazada por IVA y otra por descuento. Elimina la tabla al terminar y compara `SERIAL` con la secuencia definida manualmente.
 
-### Ejercicio 22: Combinar dominio, tipo y restricciones
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 22: Combinar dominio, tipo y restricciones</span></span> {#ejercicio-22-combinar-dominio-tipo-y-restricciones}
 
 !!! ejercicio "Pruebas"
 

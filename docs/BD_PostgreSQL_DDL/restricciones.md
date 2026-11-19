@@ -2,7 +2,7 @@
 
 Las restricciones definen las reglas que deben cumplir los datos de una tabla. En `CREATE TABLE` podemos declararlas sobre una columna o sobre varias columnas. Las claves ajenas permiten además mantener la coherencia entre tablas y representar la participación obligatoria en una relación.
 
-#### Restricciones de una columna
+## Restricciones de una columna
 
 Las restricciones de columna establecen las reglas que debe cumplir un campo: exigir un valor, evitar duplicados, identificar una fila o referenciar otra tabla. Se escriben después del tipo de dato y pueden recibir un nombre mediante `CONSTRAINT`.
 
@@ -52,7 +52,7 @@ Las restricciones de columna establecen las reglas que debe cumplir un campo: ex
 
     Crea primero `categorias`, porque `productos.codigo_categoria` referencia a su clave primaria. No borres estas tablas al terminar.
 
-#### Restricciones de varias columnas
+## Restricciones de varias columnas
 
 Las restricciones de tabla permiten definir claves que abarcan varias columnas y condiciones que relacionan distintos campos. Se incluyen dentro de `CREATE TABLE`, separadas de las definiciones de columna mediante comas.
 
@@ -104,7 +104,7 @@ En este ejemplo añadiremos `num_variante` a `productos`. Su clave primaria esta
 
 Un producto puede tener varias variantes, por ejemplo distintos colores. La pareja `(codigo, num_variante)` identifica cada variante: ninguno de sus campos admite nulos y la combinación no puede repetirse. `UNIQUE` impide repetir una descripción para un mismo `codigo_categoria` no nulo. Conserva ambas tablas para los siguientes ejemplos.
 
-#### Claves ajenas y participación
+## Claves ajenas y participación
 
 Las acciones de `ON DELETE` y `ON UPDATE` son:
 
@@ -127,7 +127,7 @@ En este ejemplo, se aplica `NO ACTION` por defecto: no podemos borrar una fila d
 
 Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1 y 2. Añade las sentencias a `02_juegos.sql`. No es necesario volver a crear `categorias` ni `productos`.
 
-### Ejercicio 3: Crear provincias
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 3: Crear provincias</span></span> {#ejercicio-3-crear-provincias}
 
 !!! ejercicio "Juegos"
 
@@ -140,7 +140,7 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
 
     Crea `provincias` con sus dos campos y define `id_provincia` como clave primaria.
 
-### Ejercicio 4: Crear ciudades
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 4: Crear ciudades</span></span> {#ejercicio-4-crear-ciudades}
 
 !!! ejercicio "Juegos"
 
@@ -154,7 +154,7 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
 
     Crea `ciudades`. Define `id_ciudad` como clave primaria y `id_provincia` como clave ajena hacia `provincias(id_provincia)`.
 
-### Ejercicio 5: Crear vendedores
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 5: Crear vendedores</span></span> {#ejercicio-5-crear-vendedores}
 
 !!! ejercicio "Juegos"
 
@@ -171,7 +171,7 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
 
     Crea `vendedores` con su clave primaria y la clave ajena `id_ciudad` hacia `ciudades(id_ciudad)`. Incluye la columna `id_jefe`, pero **deja pendiente su clave ajena reflexiva** hasta el ejercicio 12.
 
-### Ejercicio 6: Crear jugadores
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 6: Crear jugadores</span></span> {#ejercicio-6-crear-jugadores}
 
 !!! ejercicio "Juegos"
 
@@ -187,7 +187,7 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
 
     Crea `jugadores` con su clave primaria y la clave ajena `id_ciudad` hacia `ciudades(id_ciudad)`.
 
-### Ejercicio 7: Crear compras
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 7: Crear compras</span></span> {#ejercicio-7-crear-compras}
 
 !!! ejercicio "Juegos"
 
@@ -204,7 +204,7 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
 
     Crea `compras` con su clave primaria y las claves ajenas hacia `jugadores` y `vendedores`. Define `id_jugador` e `id_vendedor` como **NOT NULL**: toda compra debe tener un jugador y un vendedor.
 
-### Ejercicio 8: Crear lineas_compra
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 8: Crear lineas_compra</span></span> {#ejercicio-8-crear-lineas_compra}
 
 !!! ejercicio "Juegos"
 
