@@ -1,0 +1,15 @@
+name: aula-postgresql
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres_local
+    environment:
+      POSTGRES_USER: alumno
+      POSTGRES_PASSWORD: alumno
+      POSTGRES_DB: postgres
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - datos_postgres:/var/lib/postgresql/data
+volumes:
+  datos_postgres:

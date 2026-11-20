@@ -1,0 +1,258 @@
+# get_network_request response
+## Request http://127.0.0.1:8000/css/extra.css
+Status:  [success - 200]
+### Request Headers
+- sec-ch-ua-platform:"Windows"
+- referer:http://127.0.0.1:8000/BD_PostgreSQL_DQL/0_presentacion/
+- user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+- sec-ch-ua:"Chromium";v="146", "Not-A.Brand";v="24", "Google Chrome";v="146"
+- sec-ch-ua-mobile:?0
+- accept:text/css,*/*;q=0.1
+- accept-encoding:gzip, deflate, br, zstd
+- accept-language:es-ES,es;q=0.9
+- connection:keep-alive
+- host:127.0.0.1:8000
+- sec-fetch-dest:style
+- sec-fetch-mode:no-cors
+- sec-fetch-site:same-origin
+### Response Headers
+- content-length:7764
+- content-type:text/css
+- date:Tue, 31 Mar 2026 15:25:04 GMT
+- server:WSGIServer/0.2 CPython/3.13.5
+### Response Body
+/* =========================================================
+   TEMA SALMÓN RELAJADO - MODO CLARO (Para lectura cómoda)
+   ========================================================= */
+[data-md-color-scheme="default"] {
+  /* Colores Principales */
+  --md-primary-fg-color: #F7C30E;
+  --md-primary-fg-color--light: #F7C30E;
+  --md-primary-fg-color--dark: #F7C30E;
+  --md-accent-fg-color: #F7C30E;
+
+  /* Fondo de la web: Blanco muy limpio con un subtono cálido casi imperceptible */
+  --md-default-bg-color: #fcfbfb; 
+  /* Color del texto: Negro para máximo contraste */
+  --md-default-fg-color: #000000;
+  --md-default-fg-color--light: #666666;
+  --md-default-fg-color--lighter: #999999;
+
+  /* Fondos secundarios: grises muy claros y neutros */
+  --md-code-bg-color: #f7f5f4; 
+  --md-typeset-table-color: rgba(0, 0, 0, 0.02); 
+}
+
+/* =========================================================
+   TEMA SALMÓN RELAJADO - MODO OSCURO (SLATE)
+   ========================================================= */
+[data-md-color-scheme="slate"] {
+  /* Acentos configurados a #F7C30E */
+  --md-primary-fg-color: #F7C30E;
+  --md-primary-fg-color--light: #F7C30E;
+  --md-primary-fg-color--dark: #F7C30E;
+  --md-accent-fg-color: #F7C30E;
+  
+  /* Texto en blanco puro para modo oscuro */
+  --md-default-fg-color: #ffffff;
+  --md-default-fg-color--light: #ffffff;
+  --md-default-fg-color--lighter: #ffffff;
+  
+  --md-code-bg-color: #000000; /* Fondo negro puro para destacar el código */
+}
+
+/* =========================================================
+   ESTILOS AVANZADOS UI (Bordes, Degradados, Botones)
+   ========================================================= */
+
+/* Color principal para cabecera */
+.md-header, .md-tabs {
+  background: #F7C30E !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Base resets and typography */
+body, p, li, ul, ol, blockquote, pre, code, table {
+    font-size: 15px !important;  
+    line-height: 1.65;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+p {
+    text-align: justify;
+}
+
+/* Tarjetas y Admonitions (Avisos) Modernos pero visualmente tranquilos */
+.md-typeset .admonition {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-left-width: 4px; /* Mantener la barra de color por defecto de mkdocs */
+    box-shadow: none;
+    background-color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition {
+    background-color: #212529; /* Fondo gris oscuro adaptado a noche */
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Code blocks neutros */
+.md-typeset pre > code {
+    border-radius: 8px;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre > code {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Imágenes con marco sutil gris en lugar de sombras llamativas */
+.md-typeset img {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Sombra gris neutral y fina */
+    transition: transform 0.2s ease;
+    border: 4px solid #ffffff; 
+    padding: 0; 
+    background-color: transparent;
+}
+
+.md-typeset img:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12); /* Sombreado neutral al hacer hover, no de colores */
+}
+
+/* Old styles to keep compatibility */
+.wy-nav-content { max-width: 100%; padding: 2rem; } 
+.md-content { max-width: 100%; margin: 0 auto; }
+
+/* Colores de ayuda neutralizados */
+.rojo { color: #cc4d4d; font-weight: 600; }
+.azul { color: #4a86e8 !important; font-size: 16px; font-weight: 500; }
+.verde { color: #50a14f !important; font-weight: 500; }
+
+/* =========================================================
+   BOTONES FLOTANTES PARA EL MENÚ DE NAVEGACIÓN
+   ========================================================= */
+
+/* Transforma los enlaces del sidebar en botones flotantes */
+.md-nav--primary .md-nav__link, 
+.md-nav--secondary .md-nav__link {
+    display: flex;
+    margin: 6px 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #333333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* TEMA OSCURO para botones NO seleccionados */
+[data-md-color-scheme="slate"] .md-nav--primary .md-nav__link, 
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
+    background-color: #2b2d30; /* Gris oscuro para encajar con modo noche */
+    color: #ffffff !important; /* Texto blanco en reposo */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Efecto hover interactivo y suave */
+.md-nav--primary .md-nav__link:hover, 
+.md-nav--primary .md-nav__link:focus,
+.md-nav--secondary .md-nav__link:hover, 
+.md-nav--secondary .md-nav__link:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    background-color: var(--md-code-bg-color);
+}
+
+[data-md-color-scheme="slate"] .md-nav--primary .md-nav__link:hover, 
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link:hover {
+    background-color: #3c3f44; /* Hover visible en modo noche */
+}
+
+/* Destacar la página activa como botón rellenado */
+.md-nav__item--active > .md-nav__link {
+    background-color: var(--md-primary-fg-color) !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 12px rgba(247, 195, 14, 0.4) !important; /* Brillo #F7C30E */
+    border: none;
+    transform: translateY(-1px);
+}
+
+/* Evitar que el botón de expandir flechas se solape visualmente */
+.md-nav__icon {
+    margin-left: auto; /* Empuja el ícono al final derecha del "botón" */
+}
+
+/* =========================================================
+   TABLAS CON BORDES VISIBLES
+   ========================================================= */
+
+.md-typeset table {
+    border-collapse: collapse;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 8px;
+    overflow: hidden;
+    display: table; /* Asegura que no se comporte como block si no es necesario */
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.md-typeset th {
+    background-color: rgba(247, 195, 14, 0.1); /* Sutil toque del color primario */
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    font-weight: 700;
+}
+
+.md-typeset td {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Modo oscuro para tablas */
+[data-md-color-scheme="slate"] .md-typeset table {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset th {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset td {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* =========================================================
+   ILUMINACIÓN DE MENÚS SUPERIORES (TABS)
+   ========================================================= */
+
+.md-tabs__link {
+    transition: all 0.3s ease !important;
+    border-radius: 4px;
+    margin: 0 4px;
+    padding: 6px 12px !important;
+    opacity: 0.8;
+}
+
+/* Efecto al pasar el ratón (iluminación) */
+.md-tabs__link:hover {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    opacity: 1;
+    color: #000000 !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+    transform: translateY(-1px);
+}
+
+/* Página activa (iluminación permanente idéntica al hover) */
+.md-tabs__link--active {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    opacity: 1 !important;
+    color: #000000 !important;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7) !important;
+    transform: translateY(-1px);
+}
