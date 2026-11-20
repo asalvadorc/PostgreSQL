@@ -30,13 +30,12 @@ hide:
 
 !!! example practica "Pruébalo: Eliminar una tabla que ya no necesitamos"
 
-    Crea una tabla auxiliar vacía y elimínala. Conserva `categorias` y `productos`, que utilizaremos después en los ejemplos de índices y vistas.
+    Desde **pruebas**, elimina `familiares`, utilizada para practicar la clave compuesta. Conserva `departamentos` y `empleados`, porque los utilizaremos más adelante en los [ejemplos de índices](../BD_PostgreSQL_DQL/indices.md) y [vistas](../BD_PostgreSQL_DQL/vistas.md) del tema DQL.
 
     ```sql
-    CREATE TABLE tabla_borrado (codigo INTEGER);
-    DROP TABLE tabla_borrado;
+    DROP TABLE familiares;
     ```
 
-    Actualiza el navegador de DBeaver y comprueba que `tabla_borrado` ha desaparecido.
+    Actualiza el navegador de DBeaver y comprueba que `familiares` ha desaparecido.
 
 Borra primero las tablas dependientes. `IF EXISTS` evita el error de objeto inexistente, pero no protege datos. `DROP TABLE ... CASCADE` elimina también objetos dependientes; no es equivalente a `ON DELETE CASCADE`, que actúa sobre filas. Usa `pruebas` para estos ejemplos.

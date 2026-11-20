@@ -19,7 +19,7 @@ La numeración de los resultados de aprendizaje cambia entre **Bases de Datos (B
 * CE c) Se han seleccionado los tipos de datos adecuados.
 * CE d) Se han definido los campos clave en las tablas.
 * CE e) Se han implantado las restricciones reflejadas en el diseño lógico.
-* CE f) Se han creado vistas.
+* CE f) Se han creado vistas. Se trabaja en el [bloque de vistas de DQL](BD_PostgreSQL_DQL/vistas.md).
 * CE g) Se han creado los usuarios y se les han asignado privilegios. Véase [Usuarios y privilegios](BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md).
 * CE h) Se han utilizado asistentes, herramientas gráficas y los lenguajes de definición y control de datos.
 

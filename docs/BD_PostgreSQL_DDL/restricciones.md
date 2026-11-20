@@ -27,30 +27,30 @@ Las restricciones de columna establecen las reglas que debe cumplir un campo: ex
 - **CHECK**: exige que una expresión no sea falsa. Si el resultado es desconocido por un NULL, la fila puede aceptarse; añade `NOT NULL` si el dato es obligatorio.
 - **REFERENCES**: exige que el valor no nulo exista en una clave referenciada.
 
-!!! example practica "Pruébalo: Restricciones de columna en categorias y productos"
+!!! example practica "Pruébalo: Restricciones de columna en departamentos y empleados"
 
-    Desde la conexión a **pruebas**, vamos a recrear `categorias` y `productos` con restricciones. Como las tablas del apartado anterior están vacías, elimínalas primero; `DROP TABLE`, que estudiaremos más adelante, elimina su estructura.
+    Desde la conexión a **pruebas**, recrea las dos tablas con restricciones. Como las tablas del apartado anterior están vacías, elimínalas primero; `DROP TABLE`, que estudiaremos más adelante, elimina su estructura.
 
     ```sql
-    DROP TABLE productos;
-    DROP TABLE categorias;
+    DROP TABLE empleados;
+    DROP TABLE departamentos;
 
-    CREATE TABLE categorias (
+    CREATE TABLE departamentos (
         codigo INTEGER PRIMARY KEY, -- Restricción de columna: PRIMARY KEY
         nombre VARCHAR(100) NOT NULL UNIQUE -- Restricciones de columna: NOT NULL y UNIQUE
     );
 
-    CREATE TABLE productos (
+    CREATE TABLE empleados (
         codigo INTEGER PRIMARY KEY, -- Restricción de columna: PRIMARY KEY
-        descripcion VARCHAR(200) NOT NULL, -- Restricción de columna: NOT NULL
-        fecha DATE,
-        precio NUMERIC(10,2) CHECK (precio >= 0), -- Restricción de columna: CHECK
-        stock INTEGER DEFAULT 0,
-        codigo_categoria INTEGER REFERENCES categorias(codigo) -- Restricción de columna: REFERENCES
+        nombre VARCHAR(150) NOT NULL, -- Restricción de columna: NOT NULL
+        fecha_nacimiento DATE,
+        salario NUMERIC(10,2) DEFAULT 0 CHECK (salario >= 0), -- Restricción de columna: CHECK
+        correo VARCHAR(150) UNIQUE, -- Restricción de columna: UNIQUE
+        codigo_departamento INTEGER REFERENCES departamentos(codigo) -- Restricción de columna: REFERENCES
     );
     ```
 
-    Crea primero `categorias`, porque `productos.codigo_categoria` referencia a su clave primaria. No borres estas tablas al terminar.
+    Crea primero `departamentos`, porque `empleados.codigo_departamento` referencia a su clave primaria. Un departamento puede tener varios empleados. Conserva ambas tablas para los siguientes ejemplos.
 
 ## Restricciones de varias columnas
 
@@ -75,34 +75,31 @@ Las restricciones de tabla permiten definir claves que abarcan varias columnas y
 
 En una FK compuesta, el número y los tipos de las columnas deben ser compatibles con los de la clave referenciada.
 
-En este ejemplo añadiremos `num_variante` a `productos`. Su clave primaria estará formada por **dos columnas: `(codigo, num_variante)`**. Así podremos distinguir varias variantes de un mismo producto; lo que no podrá repetirse será la combinación de ambos valores.
+Para practicar una **clave primaria compuesta**, crearemos una tabla nueva: **familiares**. Guardará los familiares de cada empleado. Conservaremos `departamentos` y `empleados` tal como están; **no añadiremos ninguna columna a empleados**.
 
-![Categorías y productos con num_variante y clave primaria compuesta por codigo y num_variante](../categorias-productos-pk-compuesta.png){ width="800" }
+La PK de `familiares` será **`(codigo_empleado, nombre)`**. Un empleado puede tener varios familiares y el mismo nombre puede aparecer para distintos empleados; lo que no podrá repetirse será la combinación de código de empleado y nombre del familiar.
 
-!!! example practica "Pruébalo: Restricciones de tabla en productos"
+![Empleados y familiares con clave primaria compuesta por codigo_empleado y nombre en familiares](../empleados-familiares-pk-compuesta.png){ width="800" }
 
-    Conserva `categorias` y recrea únicamente `productos`, que sigue vacía. Ahora añade `num_variante` para distinguir variantes de un mismo producto y define las claves y comprobaciones como restricciones de tabla, separadas de las columnas.
+!!! example practica "Pruébalo: Familiares de un empleado"
+
+    Desde la conexión a **pruebas**, crea `familiares` después de haber creado `empleados`:
 
     ```sql
-    DROP TABLE productos;
-
-    CREATE TABLE productos (
-        codigo INTEGER,
-        num_variante INTEGER,
-        descripcion VARCHAR(200) NOT NULL, -- Restricción de columna: NOT NULL
-        fecha DATE,
-        precio NUMERIC(10,2),
-        stock INTEGER DEFAULT 0,
-        codigo_categoria INTEGER,
-        CONSTRAINT pk_productos PRIMARY KEY (codigo, num_variante), -- Restricción de tabla: PRIMARY KEY compuesta
-        CONSTRAINT uq_productos_descripcion UNIQUE (codigo_categoria, descripcion), -- Restricción de tabla: UNIQUE
-        CONSTRAINT ck_productos_precio CHECK (precio >= 0), -- Restricción de tabla: CHECK
-        CONSTRAINT fk_productos_categorias FOREIGN KEY (codigo_categoria) -- Restricción de tabla: FOREIGN KEY
-            REFERENCES categorias(codigo)
+    CREATE TABLE familiares (
+        codigo_empleado INTEGER,
+        nombre VARCHAR(100),
+        parentesco VARCHAR(30) NOT NULL, -- Restricción de columna: NOT NULL
+        fecha_nacimiento DATE,
+        CONSTRAINT pk_familiares PRIMARY KEY (codigo_empleado, nombre), -- Restricción de tabla: PRIMARY KEY compuesta
+        CONSTRAINT fk_familiares_empleados FOREIGN KEY (codigo_empleado) -- Restricción de tabla: FOREIGN KEY
+            REFERENCES empleados(codigo),
+        CONSTRAINT ck_familiares_parentesco -- Restricción de tabla: CHECK
+            CHECK (parentesco IN ('hijo', 'hija', 'conyuge', 'otro'))
     );
     ```
 
-Un producto puede tener varias variantes, por ejemplo distintos colores. La pareja `(codigo, num_variante)` identifica cada variante: ninguno de sus campos admite nulos y la combinación no puede repetirse. `UNIQUE` impide repetir una descripción para un mismo `codigo_categoria` no nulo. Conserva ambas tablas para los siguientes ejemplos.
+La PK compuesta obliga a informar `codigo_empleado` y `nombre`, y evita que se repita la pareja. La FK exige que cada familiar pertenezca a un empleado existente. `CHECK` limita los valores de parentesco. Las restricciones de tabla se escriben separadas de las columnas, aunque algunas, como `CHECK`, solo afecten a un campo.
 
 ## Claves ajenas y participación
 
@@ -116,9 +113,11 @@ Las acciones de `ON DELETE` y `ON UPDATE` son:
 | `SET NULL` | Asigna NULL a la referencia; requiere que las columnas afectadas admitan nulos. |
 | `SET DEFAULT` | Aplica su valor por defecto, que debe seguir cumpliendo la FK. |
 
-En las tablas que acabamos de crear en `pruebas`, `productos.codigo_categoria` referencia a `categorias.codigo`. Como admite nulos, una fila de `productos` puede no estar relacionada con ninguna fila de `categorias`: la clave ajena por sí sola no obliga a rellenarla. Si añadiéramos **NOT NULL** a esa columna, toda fila de `productos` tendría que referenciar una fila existente de `categorias`; así representaríamos su **participación total** en la relación.
+En las tablas de `pruebas`, `empleados.codigo_departamento` referencia a `departamentos.codigo`. Como admite nulos, un empleado puede estar sin departamento: la clave ajena por sí sola no obliga a rellenarla. Si añadiéramos **NOT NULL** a esa columna, todo empleado tendría que pertenecer a un departamento existente; así representaríamos su **participación total** en la relación.
 
-En este ejemplo, se aplica `NO ACTION` por defecto: no podemos borrar una fila de `categorias` mientras haya filas de `productos` que la referencien. Si hubiéramos definido la FK con `ON DELETE CASCADE`, borrar esa fila de `categorias` también eliminaría sus filas relacionadas de `productos`. La acción debe elegirse según el comportamiento que necesitemos.
+En `familiares`, en cambio, `codigo_empleado` ya es obligatorio porque forma parte de la PK compuesta: todo familiar debe pertenecer a un empleado existente.
+
+Se aplica `NO ACTION` por defecto: no podemos borrar un departamento mientras haya empleados que lo referencien. Si hubiéramos definido esa FK con `ON DELETE CASCADE`, borrar el departamento también intentaría borrar sus empleados; otras referencias, como las de `familiares`, podrían impedirlo. La acción debe elegirse teniendo en cuenta todas las relaciones.
 
 
 <a id="ejercicios-juegos"></a>

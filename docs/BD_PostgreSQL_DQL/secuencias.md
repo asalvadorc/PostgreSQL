@@ -1,5 +1,7 @@
 # Secuencias
 
+En este bloque de DQL estudiaremos este objeto y su uso en las consultas. Sus sentencias de creación, modificación y eliminación siguen perteneciendo a **DDL**.
+
 Una secuencia genera valores numéricos que podemos utilizar como identificadores. `CREATE SEQUENCE` define su inicio e incremento; `ALTER SEQUENCE` permite reiniciar el contador, y `DROP SEQUENCE` elimina la secuencia.
 
 !!! quote sintaxis "Sintaxis básica"
@@ -69,17 +71,17 @@ Las filas reciben los códigos 1000 y 1005. La llamada posterior a `nextval()` g
 
 Estos ejercicios son independientes de las tablas definitivas de Juegos. Cambia a la conexión **Pruebas** y guarda las sentencias en `03_objetos_pruebas.sql`. Ejecuta las comprobaciones en el mismo editor y elimina solo los objetos de demostración.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 19: Utilizar NEXTVAL explícitamente</span></span> {#ejercicio-19-utilizar-nextval-explicitamente}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 21: Utilizar NEXTVAL explícitamente</span></span> {#ejercicio-21-utilizar-nextval-explicitamente}
 
 !!! ejercicio "Pruebas"
 
     En `pruebas`, crea `vendedores_demo` con `id_vendedor INTEGER PRIMARY KEY` y `nombre VARCHAR(150)`. Crea una secuencia `seq_vendedores_demo` que empiece en 1000 y avance de 5 en 5. Inserta dos vendedores indicando **NEXTVAL explícitamente** como valor del código. Consulta los registros y utiliza `CURRVAL` para comprobar el último valor generado en la misma sesión. Elimina primero la tabla y después la secuencia.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 20: Utilizar NEXTVAL como DEFAULT</span></span> {#ejercicio-20-utilizar-nextval-como-default}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 22: Utilizar NEXTVAL como DEFAULT</span></span> {#ejercicio-22-utilizar-nextval-como-default}
 
 !!! ejercicio "Pruebas"
 
-    En `pruebas`, crea `seq_jugadores_demo`, con inicio 2000 e incremento 1, y una tabla `jugadores_demo` con código entero como PK y nombre. Define el código con **DEFAULT nextval(...)**. Inserta dos jugadores omitiendo el código y comprueba los valores generados. Explica la diferencia respecto al ejercicio 19 y elimina la tabla y la secuencia en el orden adecuado.
+    En `pruebas`, crea `seq_jugadores_demo`, con inicio 2000 e incremento 1, y una tabla `jugadores_demo` con código entero como PK y nombre. Define el código con **DEFAULT nextval(...)**. Inserta dos jugadores omitiendo el código y comprueba los valores generados. Explica la diferencia respecto al ejercicio 21 y elimina la tabla y la secuencia en el orden adecuado.
 
 **Antes de continuar:** Compara la llamada explícita a NEXTVAL con su uso como valor DEFAULT. Al terminar no deben quedar las tablas ni las secuencias de estos ejercicios.
 

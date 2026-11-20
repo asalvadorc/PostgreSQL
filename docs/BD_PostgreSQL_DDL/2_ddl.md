@@ -37,17 +37,16 @@ Los recuadros **Pruébalo** contienen las sentencias concretas que sí debes eje
 - [ALTER TABLE](alter_table.md)
 - [DROP TABLE](drop_table.md)
 
-## 2.3 Objetos de base de datos
+## 2.3 Dominios y tipos enumerados
 
-- [Índices](indices.md)
-- [Vistas](vistas.md)
-- [Secuencias](secuencias.md)
 - [Dominios](dominios.md)
 - [Tipos enumerados](tipos_enumerados.md)
 
-## 2.4 Seguridad y control de acceso
+## Otros contenidos del tema
 
 - [Usuarios y privilegios](3_usuarios_roles_privilegios.md)
+
+Los [índices](../BD_PostgreSQL_DQL/indices.md), las [vistas](../BD_PostgreSQL_DQL/vistas.md) y las [secuencias](../BD_PostgreSQL_DQL/secuencias.md) se estudiarán en un bloque específico de DQL.
 
 **Referencias de sintaxis**
 

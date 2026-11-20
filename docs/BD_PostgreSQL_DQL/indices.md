@@ -1,5 +1,7 @@
 # Índices
 
+En este bloque de DQL estudiaremos este objeto y su uso en las consultas. Sus sentencias de creación, modificación y eliminación siguen perteneciendo a **DDL**.
+
 Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y trabajo adicional al modificar datos. PostgreSQL ya crea índices para PK y UNIQUE; no crea automáticamente uno para cada FK.
 
 `CREATE INDEX` crea un índice sobre una o varias columnas; `ALTER INDEX` permite renombrarlo y `DROP INDEX` lo elimina sin borrar la tabla ni sus datos.
@@ -34,17 +36,19 @@ Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y traba
     - `CASCADE`: elimina también objetos dependientes.
 
 
+Para los ejemplos **Pruébalo**, utiliza `departamentos` y `empleados` de la conexión **Pruebas**, creadas en [Restricciones de DDL](../BD_PostgreSQL_DDL/restricciones.md#restricciones-de-una-columna). Si no las conservas, repite sus CREATE TABLE antes de continuar. Estos ejemplos se realizan en el orden **índices → vistas**.
+
 !!! example practica "Pruébalo: Crear y eliminar índices"
 
-    Utiliza `productos`, que has conservado en `pruebas`. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.
+    Utiliza `empleados`, que has conservado en **pruebas**. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.
 
     ```sql
-    CREATE INDEX i_productos_descripcion ON productos (descripcion);
-    CREATE INDEX i_productos_referencia_precio
-        ON productos (codigo_categoria ASC, precio DESC);
+    CREATE INDEX i_empleados_nombre ON empleados (nombre);
+    CREATE INDEX i_empleados_departamento_salario
+        ON empleados (codigo_departamento ASC, salario DESC);
 
-    DROP INDEX i_productos_descripcion;
-    DROP INDEX i_productos_referencia_precio;
+    DROP INDEX i_empleados_nombre;
+    DROP INDEX i_empleados_departamento_salario;
     ```
 
 El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir un recorrido completo.
@@ -53,15 +57,15 @@ El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir
 
 ## Ejercicios: Crear índices
 
-Utiliza las tablas de Juegos que has completado en los ejercicios 1–13. Añade las sentencias a `02_juegos.sql`.
+Utiliza las tablas de Juegos que has completado en los ejercicios 1–13 de DDL. Añade las sentencias a `02_juegos.sql`.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Índice por nombre de jugador</span></span> {#ejercicio-14-indice-por-nombre-de-jugador}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 16: Índice por nombre de jugador</span></span> {#ejercicio-16-indice-por-nombre-de-jugador}
 
 !!! ejercicio "Juegos"
 
     Crea `i_jugadores_nombre` sobre `jugadores(nombre)`.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 15: Índice de vendedores</span></span> {#ejercicio-15-indice-de-vendedores}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 17: Índice de vendedores</span></span> {#ejercicio-17-indice-de-vendedores}
 
 !!! ejercicio "Juegos"
 

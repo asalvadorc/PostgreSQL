@@ -23,3 +23,5 @@ La siguiente tabla resume los tipos de PostgreSQL que utilizaremos en las práct
 | BOOLEAN | Valores TRUE, FALSE o NULL. |
 
 Consulta los [tipos de PostgreSQL 17](https://www.postgresql.org/docs/17/datatype.html).
+
+Además de los tipos básicos, PostgreSQL permite definir [dominios](dominios.md), que reutilizan un tipo y sus restricciones, y [tipos enumerados](tipos_enumerados.md), que establecen una lista de valores permitidos. Los estudiaremos en el último bloque de DDL, después de la gestión de tablas.

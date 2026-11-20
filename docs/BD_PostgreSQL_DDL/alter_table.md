@@ -24,19 +24,18 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. Para ca
 
 !!! example practica "Pruébalo: Modificar una tabla"
 
-    Ejecuta las sentencias una a una y observa los cambios en las columnas y restricciones de `productos`.
+    Desde **pruebas**, ejecuta las sentencias una a una y observa los cambios en `empleados`.
 
     ```sql
-    ALTER TABLE productos ADD COLUMN activo BOOLEAN DEFAULT TRUE;
-    ALTER TABLE productos ALTER COLUMN descripcion TYPE VARCHAR(250);
-    ALTER TABLE productos ALTER COLUMN stock SET DEFAULT 1;
-    ALTER TABLE productos ALTER COLUMN stock SET NOT NULL; -- Restricción de columna: NOT NULL
-    ALTER TABLE productos ADD CONSTRAINT ck_productos_stock CHECK (stock >= 0); -- Restricción de tabla: CHECK
-    ALTER TABLE productos RENAME COLUMN activo TO disponible;
-    ALTER TABLE productos DROP COLUMN disponible;
-    ALTER TABLE productos DROP CONSTRAINT ck_productos_stock; -- Elimina la restricción de tabla CHECK
+    ALTER TABLE empleados ADD COLUMN activo BOOLEAN DEFAULT TRUE;
+    ALTER TABLE empleados ALTER COLUMN nombre TYPE VARCHAR(200);
+    ALTER TABLE empleados ALTER COLUMN salario SET DEFAULT 1200;
+    ALTER TABLE empleados ALTER COLUMN salario SET NOT NULL; -- Restricción de columna: NOT NULL
+    ALTER TABLE empleados ADD CONSTRAINT ck_empleados_salario_maximo CHECK (salario <= 10000); -- Restricción de tabla: CHECK
+    ALTER TABLE empleados RENAME COLUMN activo TO en_activo;
+    ALTER TABLE empleados DROP COLUMN en_activo;
+    ALTER TABLE empleados DROP CONSTRAINT ck_empleados_salario_maximo; -- Elimina la restricción de tabla CHECK
     ```
-
 
 <a id="ejercicios-juegos"></a>
 
@@ -74,7 +73,7 @@ Continúa con las ocho tablas ya creadas. Ahora modificarás su estructura con `
 
     Añade las FK de `lineas_compra`: hacia `compras` con `ON DELETE CASCADE`, y hacia `productos` con `NO ACTION`. Revisa que hay ocho PK y nueve FK.
 
-**Antes de continuar:** Comprueba que hay ocho PK y nueve FK. La columna temporal `alias` debe haber desaparecido. Conserva todas las tablas vacías para los ejercicios de índices y vistas.
+**Antes de continuar:** Comprueba que hay ocho PK y nueve FK. La columna temporal `alias` debe haber desaparecido. Conserva todas las tablas vacías para la carga de DML. Los ejercicios de índices y vistas se realizarán después, en DQL.
 
 Al finalizar el ejercicio 13, actualiza la conexión **Juegos** y despliega las tablas y sus columnas. Esta imagen orientativa muestra la estructura completa, con las claves primarias y ajenas ya incorporadas. La PK de `lineas_compra` está formada por `id_compra` y `num_linea`:
 

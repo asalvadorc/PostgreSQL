@@ -98,14 +98,12 @@ nav:
               - Restricciones: BD_PostgreSQL_DDL/restricciones.md
               - ALTER TABLE: BD_PostgreSQL_DDL/alter_table.md
               - DROP TABLE: BD_PostgreSQL_DDL/drop_table.md
-          - 2.3 Objetos de base de datos:
-              - Índices: BD_PostgreSQL_DDL/indices.md
-              - Vistas: BD_PostgreSQL_DDL/vistas.md
-              - Secuencias: BD_PostgreSQL_DDL/secuencias.md
+          - 2.3 Dominios y tipos enumerados:
               - Dominios: BD_PostgreSQL_DDL/dominios.md
               - Tipos enumerados: BD_PostgreSQL_DDL/tipos_enumerados.md
-          - 2.4 Seguridad y control de acceso:
-              - Usuarios y privilegios: BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md
+          # - 2.4 Seguridad y control de acceso:
+          #     - Usuarios y privilegios: BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md
+      - 3. Enunciados de todos los ejercicios: BD_PostgreSQL_DDL/enunciados_ejercicios.md
 #  - DML - Manipulación de Datos:
     #  - 1. Introducción y carga de datos: BD_PostgreSQL_DML/1_introducci.md
     #  - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md
@@ -128,6 +126,10 @@ nav:
       #- 10. La cláusula LIMIT .. OFFSET: BD_PostgreSQL_DQL/10_la_clusula_limit__offset.md  
       #- 11. Consulta de creación de tablas: BD_PostgreSQL_DQL/11_consulta_de_creaci_de_taules.md
       #- 12. Orden en el que se ejecuta una sentencia SQL: BD_PostgreSQL_DQL/12_ordre_amb_qu_sexecuta_una_sentncia_sql.md
+    #  - 13. Vistas, índices y secuencias:
+    #      - Índices: BD_PostgreSQL_DQL/indices.md
+    #      - Vistas: BD_PostgreSQL_DQL/vistas.md
+    #      - Secuencias: BD_PostgreSQL_DQL/secuencias.md
       # - Ejemplos de BDs: BD_PostgreSQL_DQL/ejemplos_bd.md   
 #  - DQL - Consultas avanzadas (parte II):
     #  - 1. Introducción: BD_PostgreSQL_DQL_Avancat/21_introducci.md

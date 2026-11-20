@@ -2,6 +2,8 @@
 
 En **DQL** aprenderemos a consultar datos mediante `SELECT`. Utilizaremos **Moviles** en los ejemplos y **Juegos** en los ejercicios. Antes de comenzar, vamos a preparar Moviles: crearemos su base de datos, sus tablas y cargaremos los datos que vamos a consultar.
 
+Después de estudiar las consultas, encontrarás el bloque **Vistas, índices y secuencias**, con los [índices](indices.md), las [vistas](vistas.md) y las [secuencias](secuencias.md), junto con sus ejercicios.
+
 Sigue esta preparación paso a paso utilizando las sentencias DDL que ya conoces. Si ya tienes Moviles creada y con datos, comprueba su estructura y contenido antes de continuar; no repitas las creaciones ni la carga.
 
 Necesitas el [servidor PostgreSQL con Docker](../entorno_postgresql.md) en marcha y la conexión inicial a `postgres` en DBeaver. Ten a mano el [modelo E/R y relacional de Moviles](../moviles.md).

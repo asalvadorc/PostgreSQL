@@ -1,5 +1,7 @@
 # Vistas
 
+En este bloque de DQL estudiaremos este objeto y su uso en las consultas. Sus sentencias de creación, modificación y eliminación siguen perteneciendo a **DDL**.
+
 Una vista guarda una consulta, no una copia estática de sus filas. `CREATE VIEW` define la vista y `CREATE OR REPLACE VIEW` permite sustituir su consulta. `ALTER VIEW` puede cambiar su nombre y `DROP VIEW` elimina la vista sin borrar las tablas consultadas.
 
 !!! quote sintaxis "Sintaxis básica"
@@ -34,62 +36,64 @@ Una vista guarda una consulta, no una copia estática de sus filas. `CREATE VIEW
 
 `ALTER VIEW` **no cambia la consulta**: para eso se usa `CREATE OR REPLACE VIEW`. La lista de columnas existente debe conservar nombres, orden y tipos. Para cambiar tipos o eliminar columnas puede ser necesario borrar y recrear la vista, revisando antes sus dependencias.
 
+Para los ejemplos **Pruébalo**, utiliza `departamentos` y `empleados` de la conexión **Pruebas**, creadas en [Restricciones de DDL](../BD_PostgreSQL_DDL/restricciones.md#restricciones-de-una-columna). Si no las conservas, repite sus CREATE TABLE antes de continuar. Estos ejemplos se realizan en el orden **índices → vistas**.
+
 !!! example practica "Pruébalo: Crear y consultar una vista"
 
-    En la misma base `pruebas`, crea una vista que muestre las filas de `productos` junto con el nombre de la fila relacionada de `categorias`. Utiliza las tablas que has conservado de los ejemplos anteriores.
+    En **pruebas**, crea una vista que muestre cada empleado junto al nombre de su departamento. Utiliza las tablas `empleados` y `departamentos` que has conservado.
 
     ```sql
-    CREATE VIEW vista_tablas AS
-    SELECT t2.codigo, t2.num_variante, t2.descripcion,
-           t1.nombre AS nombre_relacionado, t2.precio, t2.stock
-    FROM productos AS t2
-    LEFT JOIN categorias AS t1 ON t1.codigo = t2.codigo_categoria;
+    CREATE VIEW vista_empleados AS
+    SELECT e.codigo, e.nombre, e.fecha_nacimiento, e.salario,
+           d.nombre AS departamento
+    FROM empleados AS e
+    LEFT JOIN departamentos AS d ON d.codigo = e.codigo_departamento;
 
-    SELECT * FROM vista_tablas ORDER BY codigo, num_variante;
+    SELECT * FROM vista_empleados ORDER BY codigo;
     ```
 
-La consulta estará vacía porque todavía no hemos insertado datos: eso se trabajará en DML. Aun así, puedes comprobar que la vista aparece en **Views** y revisar sus columnas. Cuando las tablas tengan datos, la vista mostrará sus valores actuales; no guarda una copia independiente.
+La consulta estará vacía porque todavía no hemos insertado datos: eso se trabajará en DML. Comprueba que la vista aparece en **Views** y revisa sus columnas. Cuando las tablas tengan datos, mostrará sus valores actuales, sin guardar una copia independiente.
 
 !!! example practica "Pruébalo: Eliminar la vista"
 
     Elimina la vista y comprueba que desaparece de **Views**. Las dos tablas se conservan.
 
     ```sql
-    DROP VIEW vista_tablas;
+    DROP VIEW vista_empleados;
     ```
 
 !!! example practica "Pruébalo: Limpiar las tablas utilizadas"
 
-    Una vez terminados los ejemplos de índices y vistas, estas dos tablas ya no se necesitan. Elimina primero la tabla que contiene la clave ajena y después la tabla referenciada.
+    Una vez terminados los ejemplos de índices y vistas, elimina primero `empleados` y después `departamentos`. La tabla `familiares` se eliminó en el ejemplo de DROP TABLE de DDL; si todavía la conservas, elimínala antes de borrar `empleados`.
 
     ```sql
-    DROP TABLE productos;
-    DROP TABLE categorias;
+    DROP TABLE empleados;
+    DROP TABLE departamentos;
     ```
 
 <a id="ejercicios-juegos"></a>
 
 ## Ejercicios: Crear vistas
 
-Conserva las tablas y los índices anteriores. Las vistas se crean con las tablas vacías; sus resultados se comprobarán cuando carguemos los datos en DML. La construcción de las consultas se desarrollará en DQL.
+Utiliza las tablas de Juegos construidas en DDL y cargadas en DML. Crea las vistas y consulta sus resultados con los datos disponibles. Conserva los índices de los ejercicios 16–17.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 16: Vista resumen_compras</span></span> {#ejercicio-16-vista-resumen_compras}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 18: Vista resumen_compras</span></span> {#ejercicio-18-vista-resumen_compras}
 
 !!! ejercicio "Juegos"
 
     Crea la vista `resumen_compras` con las bases sin descuentos, con descuento de líneas, con descuento general y el total con IVA. Calcula primero `SUM(cantidad * precio_unitario)`. Para el descuento de líneas, suma `cantidad * precio_unitario * (1 - COALESCE(descuento_linea, 0) / 100.0)`; después multiplica por `(1 - COALESCE(descuento, 0) / 100.0)` y, al final, por `(1 + COALESCE(iva, 0) / 100.0)`. La columna del importe final debe llamarse `total`.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 17: Vista resumen_vendedores</span></span> {#ejercicio-17-vista-resumen_vendedores}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 19: Vista resumen_vendedores</span></span> {#ejercicio-19-vista-resumen_vendedores}
 
 !!! ejercicio "Juegos"
 
     Crea `resumen_vendedores`: código y nombre del vendedor, total de unidades vendidas y base de sus compras tras los descuentos. Evita duplicar el importe de una compra al reunirla con sus líneas.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 18: Vista resumen_categorias</span></span> {#ejercicio-18-vista-resumen_categorias}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 20: Vista resumen_categorias</span></span> {#ejercicio-20-vista-resumen_categorias}
 
 !!! ejercicio "Juegos"
 
     Crea `resumen_categorias`: categoría, unidades vendidas e importe de líneas tras aplicar solo `descuento_linea`.
 
-**Antes de continuar:** Comprueba que las tres vistas aparecen en DBeaver. No introduzcas datos de prueba en Juegos: sus tablas deben quedar vacías.
+**Antes de continuar:** Comprueba que las tres vistas aparecen en DBeaver y consulta sus resultados. Los datos deben proceder de la carga de DML; no los vuelvas a insertar.
 

@@ -21,29 +21,31 @@
 
 Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.
 
-A continuación, para practicar la creación de tablas, crearemos **categorias** y **productos** dentro de la base de datos **pruebas**. Este esquema muestra la estructura que iremos construyendo: empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
+A continuación, para practicar la creación de tablas, crearemos **departamentos** y **empleados** dentro de la base de datos **pruebas**. Un departamento puede tener varios empleados: la relación será **1:N**. Empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
 
-![Esquema de las tablas categorias y productos que construiremos en la base de datos pruebas](../categorias-productos-relacion.png){ width="800" }
+![Esquema de departamentos y empleados con una relación uno a muchos mediante codigo_departamento](../departamentos-empleados-relacion.png){ width="800" }
 
 !!! example practica "Pruébalo: Crear tablas sin restricciones"
 
-    Desde la conexión a **pruebas**, ejecuta estas sentencias y comprueba que aparecen `categorias` y `productos` en el navegador de DBeaver. Una categoría permitirá agrupar productos; por ahora solo definimos los nombres y tipos de las columnas, sin añadir restricciones. Estas tablas de ejemplo pertenecen a `pruebas` y son independientes de las que construiremos en `juegos`.
+    Desde la conexión a **pruebas**, ejecuta estas sentencias. Por ahora solo definimos los nombres y tipos de las columnas; todavía no añadimos claves ni otras restricciones.
 
     ```sql
-    CREATE TABLE categorias (
+    CREATE TABLE departamentos (
         codigo INTEGER,
         nombre VARCHAR(100)
     );
 
-    CREATE TABLE productos (
+    CREATE TABLE empleados (
         codigo INTEGER,
-        descripcion VARCHAR(200),
-        fecha DATE,
-        precio NUMERIC(10,2)
+        nombre VARCHAR(150),
+        fecha_nacimiento DATE,
+        salario NUMERIC(10,2),
+        correo VARCHAR(150),
+        codigo_departamento INTEGER
     );
     ```
 
-    Las dos tablas están vacías y todavía no tienen claves primarias, claves ajenas ni otras restricciones. Conserva ambas: en el siguiente apartado las recrearemos para incorporar restricciones.
+    Actualiza el navegador de DBeaver y comprueba que aparecen las dos tablas. Están vacías y todavía no tienen claves primarias ni ajenas. Conserva ambas: en el apartado siguiente las recrearemos para incorporar restricciones.
 
 <a id="ejercicios-juegos"></a>
 
