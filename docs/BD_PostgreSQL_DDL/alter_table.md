@@ -24,7 +24,7 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. Para ca
 
 !!! example practica "Pruébalo: Modificar una tabla"
 
-    Desde **pruebas**, ejecuta las sentencias una a una y observa los cambios en `empleados`.
+    Desde **empresa**, ejecuta las sentencias una a una y observa los cambios en `empleados`.
 
     ```sql
     ALTER TABLE empleados ADD COLUMN activo BOOLEAN DEFAULT TRUE;
@@ -36,6 +36,44 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. Para ca
     ALTER TABLE empleados DROP COLUMN en_activo;
     ALTER TABLE empleados DROP CONSTRAINT ck_empleados_salario_maximo; -- Elimina la restricción de tabla CHECK
     ```
+
+
+
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa después de modificar empleados: nombre varchar(200), salario obligatorio y sin la columna temporal](../img/empresa/06-alter-columnas.png){ width="800" }
+
+## Completar las relaciones de Empresa
+
+Ya tenemos las cinco tablas. Ahora incorporaremos los datos personales que faltan, exigiremos que cada empleado pertenezca a un departamento y añadiremos el supervisor y el director de departamento, como en el modelo relacional. Ejecuta este bloque después del ejemplo anterior, mientras las tablas siguen vacías.
+
+!!! example practica "Pruébalo: Completar Empresa con ALTER TABLE"
+
+    Desde **empresa**, ejecuta en este orden:
+
+    ```sql
+    ALTER TABLE empleados ADD COLUMN dni VARCHAR(9) NOT NULL UNIQUE; -- Restricciones de columna: NOT NULL y UNIQUE
+    ALTER TABLE empleados ADD COLUMN direccion VARCHAR(200);
+    ALTER TABLE empleados ADD COLUMN telefono VARCHAR(20);
+    ALTER TABLE empleados ALTER COLUMN codigo_departamento SET NOT NULL; -- Restricción de columna: NOT NULL
+    ALTER TABLE empleados ADD COLUMN codigo_supervisor INTEGER;
+    ALTER TABLE empleados ADD CONSTRAINT fk_empleados_supervisor -- Restricción de tabla: FOREIGN KEY reflexiva
+        FOREIGN KEY (codigo_supervisor) REFERENCES empleados(codigo);
+
+    ALTER TABLE departamentos ADD COLUMN codigo_director INTEGER NOT NULL UNIQUE; -- Restricciones de columna: NOT NULL y UNIQUE
+    ALTER TABLE departamentos ADD COLUMN fecha_inicio_direccion DATE NOT NULL; -- Restricción de columna: NOT NULL
+    ALTER TABLE departamentos ADD CONSTRAINT fk_departamentos_director -- Restricción de tabla: FOREIGN KEY
+        FOREIGN KEY (codigo_director) REFERENCES empleados(codigo);
+    ```
+
+    El supervisor puede ser nulo. El director es obligatorio y único: cada departamento tiene un director y un empleado dirige como máximo un departamento. La fecha indica cuándo empezó a dirigirlo.
+
+Departamentos y empleados se referencian mutuamente. Por eso hemos creado primero las tablas y añadido la FK del director al final. Al insertar datos en DML habrá que tener en cuenta esta dependencia: crear el departamento con su director y el empleado con su departamento requiere planificar la carga; no basta con elegir una tabla primero. Por ahora **conserva la estructura vacía**.
+
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Estructura completa de Empresa: cinco tablas, cinco PK y siete FK, incluido supervisor y director](../img/empresa/07-empresa-completa.png){ width="800" }
+
 
 <a id="ejercicios-juegos"></a>
 

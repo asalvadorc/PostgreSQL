@@ -7,7 +7,7 @@ hide:
 
 Un **esquema** es un espacio dentro de una base de datos que organiza sus objetos, como tablas y vistas. En la configuración de estas prácticas, si no indicamos el esquema, se utiliza **`public` por defecto**: `CREATE TABLE productos (...)` crea la misma tabla que `CREATE TABLE public.productos_demo (...)`.
 
-La organización es **servidor → base de datos → esquema → tabla**. Por ejemplo, en nuestro servidor tenemos la base de datos `pruebas`, que contiene el esquema `public`, donde crearemos `productos_demo`.
+La organización es **servidor → base de datos → esquema → tabla**. Por ejemplo, en nuestro servidor tenemos la base de datos `empresa`, que contiene el esquema `public`, donde crearemos `productos_demo`.
 
 La notación `[esquema.]nombre_tabla` indica que podemos escribir el esquema seguido de un punto o dejar solo el nombre de la tabla. En los ejemplos posteriores utilizaremos `public`, pero primero vamos a crear un esquema de demostración.
 
@@ -30,14 +30,14 @@ La notación `[esquema.]nombre_tabla` indica que podemos escribir el esquema seg
 
 !!! example practica "Pruébalo: Crear un esquema"
 
-    Desde la conexión a **pruebas**, con el usuario **alumno**, ejecuta:
+    Desde la conexión a **empresa**, con el usuario **alumno**, ejecuta:
 
     ```sql
     -- Crear un esquema cuyo propietario será el usuario alumno.
     CREATE SCHEMA laboratorio;
     ```
 
-    Actualiza el nodo **Esquemas / Schemas** de `pruebas` en DBeaver. Debe aparecer `laboratorio` junto a `public`. Si no lo ves, revisa los filtros de esquemas de la conexión.
+    Actualiza el nodo **Esquemas / Schemas** de `empresa` en DBeaver. Debe aparecer `laboratorio` junto a `public`. Si no lo ves, revisa los filtros de esquemas de la conexión.
 
     Este esquema permitiría organizar tablas con nombres como `laboratorio.productos_demo`. Para crearlas dentro de él tendríamos que indicar el prefijo `laboratorio.`; crearlo no hace que las nuevas tablas dejen de utilizar `public` por defecto.
 
@@ -49,3 +49,7 @@ La notación `[esquema.]nombre_tabla` indica que podemos escribir el esquema seg
     ```
 
     Actualiza de nuevo el nodo **Esquemas / Schemas** y comprueba que desaparece. `DROP SCHEMA` sin `CASCADE` solo permite eliminarlo si está vacío.
+
+Al terminar, actualiza **Esquemas**: `laboratorio` ya no debe aparecer. Todavía no hemos creado las tablas de Empresa.
+
+![Empresa con el esquema public vacío después de eliminar laboratorio](../img/empresa/00-esquemas.png){ width="800" }

@@ -40,7 +40,7 @@ Pulsa **Probar conexión** y guarda la conexión como **Moviles**. Abre un nuevo
     SELECT current_database();
     ```
 
-    Debe devolver **moviles**. A partir de ahora, ejecuta todas las sentencias de esta práctica en esa conexión, no en `postgres` ni en `pruebas`.
+    Debe devolver **moviles**. A partir de ahora, ejecuta todas las sentencias de esta práctica en esa conexión, no en `postgres` ni en `empresa`.
 
 ## Crear la tabla paises
 

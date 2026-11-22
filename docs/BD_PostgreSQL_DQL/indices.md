@@ -36,11 +36,11 @@ Un índice puede facilitar búsquedas y ordenaciones, a costa de espacio y traba
     - `CASCADE`: elimina también objetos dependientes.
 
 
-Para los ejemplos **Pruébalo**, utiliza `departamentos` y `empleados` de la conexión **Pruebas**, creadas en [Restricciones de DDL](../BD_PostgreSQL_DDL/restricciones.md#restricciones-de-una-columna). Si no las conservas, repite sus CREATE TABLE antes de continuar. Estos ejemplos se realizan en el orden **índices → vistas**.
+Para los ejemplos **Pruébalo**, utiliza `departamentos` y `empleados` de la conexión **Empresa**, creadas en [Restricciones de DDL](../BD_PostgreSQL_DDL/restricciones.md#restricciones-de-una-columna). Si no las conservas, repite sus CREATE TABLE antes de continuar. Estos ejemplos se realizan en el orden **índices → vistas**.
 
 !!! example practica "Pruébalo: Crear y eliminar índices"
 
-    Utiliza `empleados`, que has conservado en **pruebas**. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.
+    Utiliza `empleados`, que has conservado en **empresa**. Ejecuta primero los CREATE INDEX y comprueba los índices en DBeaver. Después ejecuta los DROP INDEX; la tabla seguirá existiendo.
 
     ```sql
     CREATE INDEX i_empleados_nombre ON empleados (nombre);

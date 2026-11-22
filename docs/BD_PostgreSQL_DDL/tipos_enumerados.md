@@ -47,23 +47,28 @@ No existe una operación directa para eliminar un único valor de un ENUM. Aquí
     DROP TYPE estado_producto_demo;
     ```
 
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa tras eliminar inventario_demo y su tipo enumerado: las cinco tablas originales se conservan](../img/empresa/07-empresa-completa.png){ width="800" }
+
+
 <a id="ejercicios-juegos"></a>
 
 ## Ejercicios: Combinar generación de códigos y validaciones
 
-Realiza estos ejercicios de ampliación después de estudiar CREATE TABLE, restricciones, dominios y tipos enumerados. Trabaja en **pruebas** y añade las sentencias a `03_objetos_pruebas.sql`.
+Realiza estos ejercicios de ampliación después de estudiar CREATE TABLE, restricciones, dominios y tipos enumerados. Trabaja en **empresa** y añade las sentencias a `03_objetos_empresa.sql`.
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Generar códigos con SERIAL</span></span> {#ejercicio-14-generar-codigos-con-serial}
 
-!!! ejercicio "Pruebas"
+!!! ejercicio "Empresa"
 
-    En `pruebas`, crea `compras_demo` con `id_compra SERIAL PRIMARY KEY`, `fecha DATE`, `iva NUMERIC(5,2)` y `descuento NUMERIC(5,2)`. El IVA debe ser obligatorio y solo admitir 10 o 21; el descuento debe estar entre 0 y menos de 50 cuando se informe. Inserta una fila válida omitiendo el código y comprueba, por separado, una inserción rechazada por IVA y otra por descuento. Elimina la tabla al terminar. La comparación de `SERIAL` con una secuencia definida manualmente se retomará en el [apartado de secuencias de DQL](../BD_PostgreSQL_DQL/secuencias.md).
+    En `empresa`, crea `compras_demo` con `id_compra SERIAL PRIMARY KEY`, `fecha DATE`, `iva NUMERIC(5,2)` y `descuento NUMERIC(5,2)`. El IVA debe ser obligatorio y solo admitir 10 o 21; el descuento debe estar entre 0 y menos de 50 cuando se informe. Inserta una fila válida omitiendo el código y comprueba, por separado, una inserción rechazada por IVA y otra por descuento. Elimina la tabla al terminar. La comparación de `SERIAL` con una secuencia definida manualmente se retomará en el [apartado de secuencias de DQL](../BD_PostgreSQL_DQL/secuencias.md).
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 15: Combinar dominio, tipo y restricciones</span></span> {#ejercicio-15-combinar-dominio-tipo-y-restricciones}
 
-!!! ejercicio "Pruebas"
+!!! ejercicio "Empresa"
 
-    En `pruebas`, crea un dominio `codigo_barras_demo` basado en `VARCHAR(13)` que solo admita textos formados por exactamente 13 dígitos, y un tipo enumerado `estado_producto_demo` con los valores `Disponible`, `Agotado` y `En espera`. Utilízalos en `productos_demo`, junto con código, nombre, precio, stock y stock mínimo. Exige valores no negativos para precio, stock y stock mínimo, y añade como **restricción de tabla con nombre** `stock >= stock_minimo`. Comprueba una fila válida y varias rechazadas, ejecutándolas por separado. El control de formato no verifica el dígito de control del código de barras ni indica el país de fabricación. Explica por qué en un inventario real puede ser útil permitir stock bajo mínimo. Elimina primero la tabla y después el tipo y el dominio.
+    En `empresa`, crea un dominio `codigo_barras_demo` basado en `VARCHAR(13)` que solo admita textos formados por exactamente 13 dígitos, y un tipo enumerado `estado_producto_demo` con los valores `Disponible`, `Agotado` y `En espera`. Utilízalos en `productos_demo`, junto con código, nombre, precio, stock y stock mínimo. Exige valores no negativos para precio, stock y stock mínimo, y añade como **restricción de tabla con nombre** `stock >= stock_minimo`. Comprueba una fila válida y varias rechazadas, ejecutándolas por separado. El control de formato no verifica el dígito de control del código de barras ni indica el país de fabricación. Explica por qué en un inventario real puede ser útil permitir stock bajo mínimo. Elimina primero la tabla y después el tipo y el dominio.
 
 **Antes de continuar:** Elimina los objetos de demostración en el orden adecuado, sin modificar la base de datos Juegos.
 

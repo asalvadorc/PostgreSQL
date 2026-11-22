@@ -21,13 +21,13 @@
 
 Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.
 
-A continuación, para practicar la creación de tablas, crearemos **departamentos** y **empleados** dentro de la base de datos **pruebas**. Un departamento puede tener varios empleados: la relación será **1:N**. Empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
+Vamos a comenzar la construcción progresiva de **Empresa**, presentada en la introducción. A continuación, para practicar la creación de tablas, crearemos **departamentos** y **empleados** dentro de la base de datos **empresa**. Un departamento puede tener varios empleados: la relación será **1:N**. Empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
 
 ![Esquema de departamentos y empleados con una relación uno a muchos mediante codigo_departamento](../departamentos-empleados-relacion.png){ width="800" }
 
 !!! example practica "Pruébalo: Crear tablas sin restricciones"
 
-    Desde la conexión a **pruebas**, ejecuta estas sentencias. Por ahora solo definimos los nombres y tipos de las columnas; todavía no añadimos claves ni otras restricciones.
+    Desde la conexión a **empresa**, ejecuta estas sentencias. Por ahora solo definimos los nombres y tipos de las columnas; todavía no añadimos claves ni otras restricciones.
 
     ```sql
     CREATE TABLE departamentos (
@@ -46,6 +46,11 @@ A continuación, para practicar la creación de tablas, crearemos **departamento
     ```
 
     Actualiza el navegador de DBeaver y comprueba que aparecen las dos tablas. Están vacías y todavía no tienen claves primarias ni ajenas. Conserva ambas: en el apartado siguiente las recrearemos para incorporar restricciones.
+
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Árbol de Empresa con departamentos y empleados sin restricciones](../img/empresa/01-sin-restricciones.png){ width="800" }
+
 
 <a id="ejercicios-juegos"></a>
 

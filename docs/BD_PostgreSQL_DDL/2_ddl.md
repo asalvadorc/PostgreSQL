@@ -2,14 +2,14 @@
 
 **DDL** (*Data Definition Language*) permite crear, modificar y eliminar bases de datos, tablas, restricciones y otros objetos. `CREATE` crea, `ALTER` modifica y `DROP` elimina. 
 
-!!! warning "Antes de empezar: conecta a pruebas y ejecuta los ejemplos"
-    Abre un editor SQL desde la conexión **Pruebas** de DBeaver. Comprueba que estás en la base correcta ejecutando:
+!!! warning "Antes de empezar: conecta a empresa y ejecuta los ejemplos"
+    Abre un editor SQL desde la conexión **Empresa** de DBeaver. Comprueba que estás en la base correcta ejecutando:
 
     ```sql
     SELECT current_database();
     ```
 
-    El resultado debe ser **pruebas**. **No te limites a leer los ejemplos: escribe y ejecuta cada sentencia**, observa el resultado y revisa los cambios en las tablas. Todos los ejemplos de este apartado se realizan en **pruebas**, siguiendo el orden en que aparecen.
+    El resultado debe ser **empresa**. **No te limites a leer los ejemplos: escribe y ejecuta cada sentencia**, observa el resultado y revisa los cambios en las tablas. Todos los ejemplos de este apartado se realizan en **empresa**, siguiendo el orden en que aparecen.
 
 **Cómo leer los bloques de sintaxis**
 

@@ -29,7 +29,7 @@ Las restricciones de columna establecen las reglas que debe cumplir un campo: ex
 
 !!! example practica "Pruébalo: Restricciones de columna en departamentos y empleados"
 
-    Desde la conexión a **pruebas**, recrea las dos tablas con restricciones. Como las tablas del apartado anterior están vacías, elimínalas primero; `DROP TABLE`, que estudiaremos más adelante, elimina su estructura.
+    Desde la conexión a **empresa**, recrea las dos tablas con restricciones. Como las tablas del apartado anterior están vacías, elimínalas primero; `DROP TABLE`, que estudiaremos más adelante, elimina su estructura.
 
     ```sql
     DROP TABLE empleados;
@@ -51,6 +51,34 @@ Las restricciones de columna establecen las reglas que debe cumplir un campo: ex
     ```
 
     Crea primero `departamentos`, porque `empleados.codigo_departamento` referencia a su clave primaria. Un departamento puede tener varios empleados. Conserva ambas tablas para los siguientes ejemplos.
+
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa después de añadir restricciones de columna: dos tablas, dos PK y una FK](../img/empresa/02-restricciones-columna.png){ width="800" }
+
+
+### Incorporar los proyectos de Empresa
+
+Un departamento controla varios proyectos y cada proyecto pertenece a un único departamento. Después de recrear las dos primeras tablas, añadimos la tercera tabla de Empresa.
+
+!!! example practica "Pruébalo: Crear proyectos con restricciones de columna"
+
+    En **empresa**, ejecuta:
+
+    ```sql
+    CREATE TABLE proyectos (
+        codigo INTEGER PRIMARY KEY, -- Restricción de columna: PRIMARY KEY
+        nombre VARCHAR(100) NOT NULL UNIQUE, -- Restricciones de columna: NOT NULL y UNIQUE
+        codigo_departamento INTEGER NOT NULL REFERENCES departamentos(codigo) -- Restricciones de columna: NOT NULL y REFERENCES
+    );
+    ```
+
+    Conserva `proyectos`: la utilizaremos al crear la relación N:M con empleados.
+
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa con departamentos, empleados y proyectos: tres PK y dos FK](../img/empresa/03-proyectos.png){ width="800" }
+
 
 ## Restricciones de varias columnas
 
@@ -83,7 +111,7 @@ La PK de `familiares` será **`(codigo_empleado, nombre)`**. Un empleado puede t
 
 !!! example practica "Pruébalo: Familiares de un empleado"
 
-    Desde la conexión a **pruebas**, crea `familiares` después de haber creado `empleados`:
+    Desde la conexión a **empresa**, crea `familiares` después de haber creado `empleados`:
 
     ```sql
     CREATE TABLE familiares (
@@ -101,6 +129,42 @@ La PK de `familiares` será **`(codigo_empleado, nombre)`**. Un empleado puede t
 
 La PK compuesta obliga a informar `codigo_empleado` y `nombre`, y evita que se repita la pareja. La FK exige que cada familiar pertenezca a un empleado existente. `CHECK` limita los valores de parentesco. Las restricciones de tabla se escriben separadas de las columnas, aunque algunas, como `CHECK`, solo afecten a un campo.
 
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa después de crear familiares con su PK compuesta: cuatro tablas y tres FK](../img/empresa/04-familiares.png){ width="800" }
+
+
+### Participación de empleados en proyectos
+
+En el modelo relacional, la relación N:M se transforma en **`trabaja`**. Cada fila indica cuántas horas semanales dedica un empleado a un proyecto. La pareja empleado–proyecto no puede repetirse.
+
+!!! example practica "Pruébalo: Crear la tabla trabaja"
+
+    En **empresa**, conserva las tablas anteriores y ejecuta:
+
+    ```sql
+    CREATE TABLE trabaja (
+        codigo_empleado INTEGER,
+        codigo_proyecto INTEGER,
+        horas NUMERIC(4,1) NOT NULL, -- Restricción de columna: NOT NULL
+        CONSTRAINT pk_trabaja PRIMARY KEY (codigo_empleado, codigo_proyecto), -- Restricción de tabla: PRIMARY KEY compuesta
+        CONSTRAINT fk_trabaja_empleados FOREIGN KEY (codigo_empleado) -- Restricción de tabla: FOREIGN KEY
+            REFERENCES empleados(codigo),
+        CONSTRAINT fk_trabaja_proyectos FOREIGN KEY (codigo_proyecto) -- Restricción de tabla: FOREIGN KEY
+            REFERENCES proyectos(codigo),
+        CONSTRAINT ck_trabaja_horas CHECK (horas > 0 AND horas <= 40) -- Restricción de tabla: CHECK
+    );
+    ```
+
+    Actualiza DBeaver: ya deben aparecer `departamentos`, `empleados`, `proyectos`, `familiares` y `trabaja`. Conserva las cinco tablas.
+
+La PK compuesta hace obligatorios ambos códigos y las FK garantizan que existan el empleado y el proyecto. La regla del modelo «todo proyecto tiene al menos un empleado» **no queda garantizada solo con estas claves**; requiere un control adicional que no implementaremos en estos ejemplos.
+
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa con la tabla trabaja y sus dos FK: cinco tablas y cinco FK](../img/empresa/05-trabaja.png){ width="800" }
+
+
 ## Claves ajenas y participación
 
 Las acciones de `ON DELETE` y `ON UPDATE` son:
@@ -113,7 +177,7 @@ Las acciones de `ON DELETE` y `ON UPDATE` son:
 | `SET NULL` | Asigna NULL a la referencia; requiere que las columnas afectadas admitan nulos. |
 | `SET DEFAULT` | Aplica su valor por defecto, que debe seguir cumpliendo la FK. |
 
-En las tablas de `pruebas`, `empleados.codigo_departamento` referencia a `departamentos.codigo`. Como admite nulos, un empleado puede estar sin departamento: la clave ajena por sí sola no obliga a rellenarla. Si añadiéramos **NOT NULL** a esa columna, todo empleado tendría que pertenecer a un departamento existente; así representaríamos su **participación total** en la relación.
+En las tablas de `empresa`, `empleados.codigo_departamento` referencia a `departamentos.codigo`. Como admite nulos, un empleado puede estar sin departamento: la clave ajena por sí sola no obliga a rellenarla. Si añadiéramos **NOT NULL** a esa columna, todo empleado tendría que pertenecer a un departamento existente; así representaríamos su **participación total** en la relación.
 
 En `familiares`, en cambio, `codigo_empleado` ya es obligatorio porque forma parte de la PK compuesta: todo familiar debe pertenecer a un empleado existente.
 

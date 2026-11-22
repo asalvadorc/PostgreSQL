@@ -2,7 +2,7 @@
 
 Aquí tienes reunidos los ejercicios de DDL, en el mismo orden y con la misma numeración que en los apartados del tema. No es una práctica adicional: son los mismos ejercicios.
 
-Realiza los ejercicios **0–13 en `juegos`** y los **14–15 en `pruebas`**. Conserva las tablas de Juegos para la carga de datos de DML.
+Realiza los ejercicios **0–13 en `juegos`** y los **14–15 en `empresa`**. Conserva las tablas de Juegos para la carga de datos de DML.
 
 
 ## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 0: Preparar Juegos y su conexión</span></span> {#ejercicio-0-preparar-juegos-y-su-conexion}
@@ -15,8 +15,8 @@ Realiza los ejercicios **0–13 en `juegos`** y los **14–15 en `pruebas`**. Co
         CREATE DATABASE juegos;
         ```
 
-    2. Actualiza **Bases de datos / Databases** y comprueba que aparece `juegos`. También puedes crearla en modo gráfico, como explicamos al [crear pruebas](../crear_pruebas.md#41-crear-la-base-de-datos): elige una de las dos opciones, no ambas.
-    3. Crea una **nueva conexión PostgreSQL** siguiendo los [mismos pasos de la conexión a pruebas](../crear_pruebas.md#42-crear-la-conexion-a-pruebas). Mantén `localhost`, puerto `5433`, usuario y contraseña `alumno`, pero escribe **juegos** en el campo **Base de datos**. Guarda la conexión como **Juegos**.
+    2. Actualiza **Bases de datos / Databases** y comprueba que aparece `juegos`. También puedes crearla en modo gráfico, como explicamos al [crear empresa](crear_bases_datos.md#crear-la-base-de-datos-empresa): elige una de las dos opciones, no ambas.
+    3. Crea una **nueva conexión PostgreSQL** siguiendo los [mismos pasos de la conexión a empresa](crear_bases_datos.md#crear-la-conexion-a-empresa). Mantén `localhost`, puerto `5433`, usuario y contraseña `alumno`, pero escribe **juegos** en el campo **Base de datos**. Guarda la conexión como **Juegos**.
     4. Abre un editor SQL desde esta nueva conexión y comprueba:
 
         ```sql
@@ -223,17 +223,17 @@ Realiza los ejercicios **0–13 en `juegos`** y los **14–15 en `pruebas`**. Co
 
 ## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Generar códigos con SERIAL</span></span> {#ejercicio-14-generar-codigos-con-serial}
 
-!!! ejercicio "Pruebas"
+!!! ejercicio "Empresa"
 
-    En `pruebas`, crea `compras_demo` con `id_compra SERIAL PRIMARY KEY`, `fecha DATE`, `iva NUMERIC(5,2)` y `descuento NUMERIC(5,2)`. El IVA debe ser obligatorio y solo admitir 10 o 21; el descuento debe estar entre 0 y menos de 50 cuando se informe. Inserta una fila válida omitiendo el código y comprueba, por separado, una inserción rechazada por IVA y otra por descuento. Elimina la tabla al terminar. La comparación de `SERIAL` con una secuencia definida manualmente se retomará en el [apartado de secuencias de DQL](../BD_PostgreSQL_DQL/secuencias.md).
+    En `empresa`, crea `compras_demo` con `id_compra SERIAL PRIMARY KEY`, `fecha DATE`, `iva NUMERIC(5,2)` y `descuento NUMERIC(5,2)`. El IVA debe ser obligatorio y solo admitir 10 o 21; el descuento debe estar entre 0 y menos de 50 cuando se informe. Inserta una fila válida omitiendo el código y comprueba, por separado, una inserción rechazada por IVA y otra por descuento. Elimina la tabla al terminar. La comparación de `SERIAL` con una secuencia definida manualmente se retomará en el [apartado de secuencias de DQL](../BD_PostgreSQL_DQL/secuencias.md).
 
 [Ver en el tema](tipos_enumerados.md#ejercicio-14-generar-codigos-con-serial)
 
 
 ## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 15: Combinar dominio, tipo y restricciones</span></span> {#ejercicio-15-combinar-dominio-tipo-y-restricciones}
 
-!!! ejercicio "Pruebas"
+!!! ejercicio "Empresa"
 
-    En `pruebas`, crea un dominio `codigo_barras_demo` basado en `VARCHAR(13)` que solo admita textos formados por exactamente 13 dígitos, y un tipo enumerado `estado_producto_demo` con los valores `Disponible`, `Agotado` y `En espera`. Utilízalos en `productos_demo`, junto con código, nombre, precio, stock y stock mínimo. Exige valores no negativos para precio, stock y stock mínimo, y añade como **restricción de tabla con nombre** `stock >= stock_minimo`. Comprueba una fila válida y varias rechazadas, ejecutándolas por separado. El control de formato no verifica el dígito de control del código de barras ni indica el país de fabricación. Explica por qué en un inventario real puede ser útil permitir stock bajo mínimo. Elimina primero la tabla y después el tipo y el dominio.
+    En `empresa`, crea un dominio `codigo_barras_demo` basado en `VARCHAR(13)` que solo admita textos formados por exactamente 13 dígitos, y un tipo enumerado `estado_producto_demo` con los valores `Disponible`, `Agotado` y `En espera`. Utilízalos en `productos_demo`, junto con código, nombre, precio, stock y stock mínimo. Exige valores no negativos para precio, stock y stock mínimo, y añade como **restricción de tabla con nombre** `stock >= stock_minimo`. Comprueba una fila válida y varias rechazadas, ejecutándolas por separado. El control de formato no verifica el dígito de control del código de barras ni indica el país de fabricación. Explica por qué en un inventario real puede ser útil permitir stock bajo mínimo. Elimina primero la tabla y después el tipo y el dominio.
 
 [Ver en el tema](tipos_enumerados.md#ejercicio-15-combinar-dominio-tipo-y-restricciones)

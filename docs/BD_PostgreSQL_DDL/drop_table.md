@@ -30,12 +30,22 @@ hide:
 
 !!! example practica "Pruébalo: Eliminar una tabla que ya no necesitamos"
 
-    Desde **pruebas**, elimina `familiares`, utilizada para practicar la clave compuesta. Conserva `departamentos` y `empleados`, porque los utilizaremos más adelante en los [ejemplos de índices](../BD_PostgreSQL_DQL/indices.md) y [vistas](../BD_PostgreSQL_DQL/vistas.md) del tema DQL.
+    En **empresa**, crea una tabla auxiliar y elimínala. Conserva las cinco tablas de Empresa: `departamentos`, `empleados`, `proyectos`, `familiares` y `trabaja`.
 
     ```sql
-    DROP TABLE familiares;
+    CREATE TABLE tabla_temporal_demo (
+        codigo INTEGER,
+        observacion VARCHAR(100)
+    );
+
+    DROP TABLE tabla_temporal_demo;
     ```
 
-    Actualiza el navegador de DBeaver y comprueba que `familiares` ha desaparecido.
+    Actualiza DBeaver y comprueba que solo ha desaparecido `tabla_temporal_demo`. Las tablas de Empresa se conservan para continuar trabajando con ellas.
 
-Borra primero las tablas dependientes. `IF EXISTS` evita el error de objeto inexistente, pero no protege datos. `DROP TABLE ... CASCADE` elimina también objetos dependientes; no es equivalente a `ON DELETE CASCADE`, que actúa sobre filas. Usa `pruebas` para estos ejemplos.
+Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
+
+![Empresa conserva sus cinco tablas después de eliminar tabla_temporal_demo](../img/empresa/07-empresa-completa.png){ width="800" }
+
+
+Borra primero las tablas dependientes. `IF EXISTS` evita el error de objeto inexistente, pero no protege datos. `DROP TABLE ... CASCADE` elimina también objetos dependientes; no es equivalente a `ON DELETE CASCADE`, que actúa sobre filas. Usa `empresa` para estos ejemplos.

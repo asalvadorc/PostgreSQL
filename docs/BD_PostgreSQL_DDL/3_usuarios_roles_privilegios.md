@@ -1,6 +1,6 @@
 # Usuarios y privilegios
 
-Para realizar los ejemplos, utiliza la [base de datos **pruebas** y su conexión](../crear_pruebas.md), con el usuario **alumno**. Las tablas y usuarios de esta página son independientes de los ejemplos anteriores.
+Para realizar los ejemplos, utiliza la [base de datos **empresa** y su conexión](crear_bases_datos.md#crear-empresa), con el usuario **alumno**. Las tablas y usuarios de esta página son independientes de los ejemplos anteriores.
 
 Hasta ahora hemos trabajado con `alumno`, el administrador de nuestro entorno. En una base de datos compartida, cada usuario debe disponer de los permisos que necesita: por ejemplo, una persona puede consultar una tabla sin poder modificarla.
 
@@ -78,7 +78,7 @@ En PostgreSQL ambos son roles: `CREATE ROLE consulta_demo NOLOGIN` crea el grupo
 
 !!! example practica "Pruébalo: Crear un usuario y conceder permisos"
 
-    Desde tu conexión a **pruebas**, con el usuario **alumno**, ejecuta las sentencias una a una. Utilizaremos una tabla independiente de los ejemplos anteriores.
+    Desde tu conexión a **empresa**, con el usuario **alumno**, ejecuta las sentencias una a una. Utilizaremos una tabla independiente de los ejemplos anteriores.
 
     ```sql
     -- Crear una tabla para comprobar los permisos.
@@ -90,8 +90,8 @@ En PostgreSQL ambos son roles: `CREATE ROLE consulta_demo NOLOGIN` crea el grupo
     -- Crear un usuario sin privilegios de administrador.
     CREATE USER lector_demo PASSWORD 'lector_demo';
 
-    -- Permitir la conexión a pruebas y el acceso al esquema public.
-    GRANT CONNECT ON DATABASE pruebas TO lector_demo;
+    -- Permitir la conexión a empresa y el acceso al esquema public.
+    GRANT CONNECT ON DATABASE empresa TO lector_demo;
     GRANT USAGE ON SCHEMA public TO lector_demo;
 
     -- Permitir únicamente la consulta de esta tabla.
@@ -112,10 +112,10 @@ PostgreSQL puede conceder algunos permisos a `PUBLIC`, que representa a todos lo
     | --- | --- |
     | Host | `localhost` |
     | Puerto | `5433` |
-    | Base de datos | `pruebas` |
+    | Base de datos | `empresa` |
     | Usuario | `lector_demo` |
     | Contraseña | `lector_demo` |
-    | Nombre de la conexión | `Pruebas - lector` |
+    | Nombre de la conexión | `Empresa - lector` |
 
     Abre **Editor SQL → Nuevo script SQL** desde esta nueva conexión y ejecuta:
 
@@ -124,7 +124,7 @@ PostgreSQL puede conceder algunos permisos a `PUBLIC`, que representa a todos lo
     SELECT * FROM public.permisos_demo;
     ```
 
-    La primera consulta debe mostrar `pruebas` y `lector_demo`. La segunda funciona, aunque no devuelve filas porque la tabla está vacía.
+    La primera consulta debe mostrar `empresa` y `lector_demo`. La segunda funciona, aunque no devuelve filas porque la tabla está vacía.
 
     Después ejecuta **por separado**:
 
@@ -138,13 +138,13 @@ PostgreSQL puede conceder algunos permisos a `PUBLIC`, que representa a todos lo
 
 !!! example practica "Pruébalo: Cambiar los permisos"
 
-    Vuelve al editor de **pruebas con el usuario alumno** y concede el permiso de borrado:
+    Vuelve al editor de **empresa con el usuario alumno** y concede el permiso de borrado:
 
     ```sql
     GRANT DELETE ON TABLE public.permisos_demo TO lector_demo;
     ```
 
-    Desde la conexión **Pruebas - lector**, repite:
+    Desde la conexión **Empresa - lector**, repite:
 
     ```sql
     DELETE FROM public.permisos_demo;
@@ -208,7 +208,7 @@ Fíjate en las dos formas de `GRANT`: **`GRANT SELECT ON TABLE ...` concede un p
 
 !!! example practica "Pruébalo: Compartir permisos mediante un rol"
 
-    Desde **pruebas con el usuario alumno**, ejecuta:
+    Desde **empresa con el usuario alumno**, ejecuta:
 
     ```sql
     -- Crear un rol que agrupará los permisos de consulta.
@@ -224,7 +224,7 @@ Fíjate en las dos formas de `GRANT`: **`GRANT SELECT ON TABLE ...` concede un p
     REVOKE SELECT ON TABLE public.permisos_demo FROM lector_demo;
     ```
 
-    Desde la conexión **Pruebas - lector**, ejecuta:
+    Desde la conexión **Empresa - lector**, ejecuta:
 
     ```sql
     SELECT * FROM public.permisos_demo;
@@ -246,7 +246,7 @@ Fíjate en las dos formas de `GRANT`: **`GRANT SELECT ON TABLE ...` concede un p
     GRANT consulta_demo TO lector_demo;
     ```
 
-    Comprueba que la consulta vuelve a funcionar desde **Pruebas - lector**.
+    Comprueba que la consulta vuelve a funcionar desde **Empresa - lector**.
 
 Si más adelante creamos otro usuario que necesite consultar esta tabla, bastará con incorporarlo a `consulta_demo`. No tendremos que repetir la concesión de `SELECT` para cada usuario.
 
@@ -254,7 +254,7 @@ Si más adelante creamos otro usuario que necesite consultar esta tabla, bastar�
 
 !!! example practica "Pruébalo: Eliminar la tabla y el usuario de demostración"
 
-    Cierra los editores y desconecta **Pruebas - lector**. Si había cambios pendientes, revierte la transacción. Desde **pruebas con el usuario alumno**, ejecuta:
+    Cierra los editores y desconecta **Empresa - lector**. Si había cambios pendientes, revierte la transacción. Desde **empresa con el usuario alumno**, ejecuta:
 
     ```sql
     -- Eliminar la tabla y los permisos asociados a ella.
@@ -262,7 +262,7 @@ Si más adelante creamos otro usuario que necesite consultar esta tabla, bastar�
 
     -- Retirar las otras concesiones explícitas de la práctica.
     REVOKE USAGE ON SCHEMA public FROM lector_demo;
-    REVOKE CONNECT ON DATABASE pruebas FROM lector_demo;
+    REVOKE CONNECT ON DATABASE empresa FROM lector_demo;
 
     -- Retirar la pertenencia al grupo.
     REVOKE consulta_demo FROM lector_demo;
@@ -272,11 +272,11 @@ Si más adelante creamos otro usuario que necesite consultar esta tabla, bastar�
     DROP USER lector_demo;
     ```
 
-    Después puedes eliminar de DBeaver la conexión **Pruebas - lector**, que ya no podrá utilizarse. Conserva tu conexión habitual con `alumno`.
+    Después puedes eliminar de DBeaver la conexión **Empresa - lector**, que ya no podrá utilizarse. Conserva tu conexión habitual con `alumno`.
 
 !!! question "Autoevaluación"
 
-    Un usuario puede conectarse a `pruebas`, pero recibe un error al consultar `permisos_demo`. ¿Es suficiente tener `CONNECT`? ¿Qué otros permisos necesita?
+    Un usuario puede conectarse a `empresa`, pero recibe un error al consultar `permisos_demo`. ¿Es suficiente tener `CONNECT`? ¿Qué otros permisos necesita?
 
     ??? success "Ver solución"
 

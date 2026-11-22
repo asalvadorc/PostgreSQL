@@ -39,7 +39,7 @@ La configuración debe quedar como en esta captura:
 ![Configuración de la conexión PostgreSQL en DBeaver](BD_PostgreSQL_DQL/image-17.png){ .connection-capture }
 
 !!! warning "Selecciona Show all databases"
-    En esta misma configuración, marca **Show all databases** (Mostrar todas las bases de datos). Así podrás ver las bases de datos que vayamos creando: `pruebas`, `moviles` y `juegos`. Después de crear cada una, actualiza la conexión en el navegador de DBeaver para que aparezca.
+    En esta misma configuración, marca **Show all databases** (Mostrar todas las bases de datos). Así podrás ver las bases de datos que vayamos creando: `empresa`, `moviles` y `juegos`. Después de crear cada una, actualiza la conexión en el navegador de DBeaver para que aparezca.
 
 </div>
 
@@ -80,7 +80,7 @@ SELECT current_database(), current_user;
 
 El resultado debe mostrar la base de datos `postgres` y el usuario `alumno`. Son los valores que configuramos en `compose.yaml` mediante `POSTGRES_DB` y `POSTGRES_USER`: PostgreSQL crea esa base de datos y ese usuario al iniciar el contenedor por primera vez con el volumen de datos vacío.
 
-El **nombre de la conexión** es solo una etiqueta para identificarla en DBeaver. Por ejemplo, si cambias su nombre de `postgres` a `Pruebas`, seguirá conectándose a `postgres`: renombrarla no crea una base de datos ni cambia su destino. La base a la que accede se indica en el campo **Base de datos** de la configuración de la conexión. Puedes comprobar cuál estás utilizando con `SELECT current_database();`.
+El **nombre de la conexión** es solo una etiqueta para identificarla en DBeaver. Por ejemplo, si cambias su nombre de `postgres` a `Empresa`, seguirá conectándose a `postgres`: renombrarla no crea una base de datos ni cambia su destino. La base a la que accede se indica en el campo **Base de datos** de la configuración de la conexión. Puedes comprobar cuál estás utilizando con `SELECT current_database();`.
 
 ![alt text](BD_PostgreSQL_DQL/image-16.png)
 

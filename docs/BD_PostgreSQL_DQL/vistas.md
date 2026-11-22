@@ -36,11 +36,11 @@ Una vista guarda una consulta, no una copia estática de sus filas. `CREATE VIEW
 
 `ALTER VIEW` **no cambia la consulta**: para eso se usa `CREATE OR REPLACE VIEW`. La lista de columnas existente debe conservar nombres, orden y tipos. Para cambiar tipos o eliminar columnas puede ser necesario borrar y recrear la vista, revisando antes sus dependencias.
 
-Para los ejemplos **Pruébalo**, utiliza `departamentos` y `empleados` de la conexión **Pruebas**, creadas en [Restricciones de DDL](../BD_PostgreSQL_DDL/restricciones.md#restricciones-de-una-columna). Si no las conservas, repite sus CREATE TABLE antes de continuar. Estos ejemplos se realizan en el orden **índices → vistas**.
+Para los ejemplos **Pruébalo**, utiliza `departamentos` y `empleados` de la conexión **Empresa**, creadas en [Restricciones de DDL](../BD_PostgreSQL_DDL/restricciones.md#restricciones-de-una-columna). Si no las conservas, repite sus CREATE TABLE antes de continuar. Estos ejemplos se realizan en el orden **índices → vistas**.
 
 !!! example practica "Pruébalo: Crear y consultar una vista"
 
-    En **pruebas**, crea una vista que muestre cada empleado junto al nombre de su departamento. Utiliza las tablas `empleados` y `departamentos` que has conservado.
+    En **empresa**, crea una vista que muestre cada empleado junto al nombre de su departamento. Utiliza las tablas `empleados` y `departamentos` que has conservado.
 
     ```sql
     CREATE VIEW vista_empleados AS
@@ -62,14 +62,7 @@ La consulta estará vacía porque todavía no hemos insertado datos: eso se trab
     DROP VIEW vista_empleados;
     ```
 
-!!! example practica "Pruébalo: Limpiar las tablas utilizadas"
-
-    Una vez terminados los ejemplos de índices y vistas, elimina primero `empleados` y después `departamentos`. La tabla `familiares` se eliminó en el ejemplo de DROP TABLE de DDL; si todavía la conservas, elimínala antes de borrar `empleados`.
-
-    ```sql
-    DROP TABLE empleados;
-    DROP TABLE departamentos;
-    ```
+Conserva las cinco tablas de Empresa creadas en DDL. Eliminar la vista no elimina sus tablas ni sus relaciones.
 
 <a id="ejercicios-juegos"></a>
 
