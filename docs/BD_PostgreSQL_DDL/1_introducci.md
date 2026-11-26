@@ -23,8 +23,8 @@ La construiremos por etapas:
 
 Retomamos las entidades y relaciones del modelo relacional con nombres SQL sin espacios ni guiones. Para mantener los ejemplos actuales, utilizaremos `codigo` como identificador de empleados, departamentos y proyectos, y `salario` para el sueldo. El DNI del empleado se incorporará como dato único. Al terminar tendremos **cinco tablas relacionadas**, que conservaremos para los ejemplos posteriores.
 
-Realiza **los ejercicios de cada apartado**: el ejercicio 0 prepara Juegos; los ejercicios 1–2 crean sus primeras tablas, los 3–8 incorporan restricciones y los 9–13 completan la estructura con ALTER TABLE. Los ejercicios 14–15 de dominios y tipos enumerados son de ampliación: hazlos después de estudiar CREATE TABLE y restricciones.
+Realiza **los ejercicios de cada apartado**: el ejercicio 0 prepara Juegos; los ejercicios 1–2 crean sus primeras tablas, los 3–8 incorporan restricciones y los 9–13 completan la estructura con ALTER TABLE. El ejercicio 14 de dominios y tipos enumerados es de ampliación: hazlo después de estudiar CREATE TABLE y restricciones.
 
-Los ejercicios 16–20 de índices y vistas y los 21–22 de secuencias se realizarán más adelante, en el nuevo bloque de **DQL**. Continúan la numeración de los ejercicios de DDL.
+Los ejercicios 15–19 de índices y vistas y los 20–21 de secuencias se realizarán más adelante, en el nuevo bloque de **DQL**. Continúan la numeración de los ejercicios de DDL.
 
 Los recuadros **Pruébalo** se ejecutan en `empresa`; los ejercicios de construcción de Juegos se realizan en `juegos`, salvo que indiquen expresamente `empresa`. Guarda la construcción de Empresa en `01_empresa.sql`, las sentencias de construcción de Juegos en `02_juegos.sql` y las de los objetos auxiliares en `03_objetos_empresa.sql`. Conserva las tablas de Juegos y déjalas vacías hasta la carga de datos en DML.

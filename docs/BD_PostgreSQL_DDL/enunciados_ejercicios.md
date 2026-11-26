@@ -2,7 +2,7 @@
 
 Aquí tienes reunidos los ejercicios de DDL, en el mismo orden y con la misma numeración que en los apartados del tema. No es una práctica adicional: son los mismos ejercicios.
 
-Realiza los ejercicios **0–13 en `juegos`** y los **14–15 en `empresa`**. Conserva las tablas de Juegos para la carga de datos de DML.
+Realiza los ejercicios **0–13 en `juegos`** y el **14 en `empresa`**. Conserva las tablas de Juegos para la carga de datos de DML.
 
 
 ## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 0: Preparar Juegos y su conexión</span></span> {#ejercicio-0-preparar-juegos-y-su-conexion}
@@ -221,19 +221,26 @@ Realiza los ejercicios **0–13 en `juegos`** y los **14–15 en `empresa`**. Co
 [Ver en el tema](alter_table.md#ejercicio-13-anadir-las-fk-de-lineas_compra)
 
 
-## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Generar códigos con SERIAL</span></span> {#ejercicio-14-generar-codigos-con-serial}
+## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Combinar dominio, tipo y restricciones</span></span> {#ejercicio-14-combinar-dominio-tipo-y-restricciones}
 
 !!! ejercicio "Empresa"
 
-    En `empresa`, crea `compras_demo` con `id_compra SERIAL PRIMARY KEY`, `fecha DATE`, `iva NUMERIC(5,2)` y `descuento NUMERIC(5,2)`. El IVA debe ser obligatorio y solo admitir 10 o 21; el descuento debe estar entre 0 y menos de 50 cuando se informe. Inserta una fila válida omitiendo el código y comprueba, por separado, una inserción rechazada por IVA y otra por descuento. Elimina la tabla al terminar. La comparación de `SERIAL` con una secuencia definida manualmente se retomará en el [apartado de secuencias de DQL](../BD_PostgreSQL_DQL/secuencias.md).
+    Trabaja en la base de datos **`empresa`** y realiza estos pasos:
 
-[Ver en el tema](tipos_enumerados.md#ejercicio-14-generar-codigos-con-serial)
+    1. **Crea el dominio `codigo_barras_demo`**, basado en `VARCHAR(13)`, para admitir únicamente textos formados por exactamente 13 dígitos.
 
+    2. **Crea el tipo enumerado `estado_producto_demo`**, con los valores `Disponible`, `Agotado` y `En espera`.
 
-## <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 15: Combinar dominio, tipo y restricciones</span></span> {#ejercicio-15-combinar-dominio-tipo-y-restricciones}
+    3. **Crea la tabla `productos_demo`** con código, nombre, precio, stock, stock mínimo, código de barras y estado. Utiliza el dominio y el tipo enumerado que acabas de definir.
 
-!!! ejercicio "Empresa"
+    4. **Añade las validaciones**: precio, stock y stock mínimo deben ser no negativos. Define además `stock >= stock_minimo` como **restricción de tabla con nombre**.
 
-    En `empresa`, crea un dominio `codigo_barras_demo` basado en `VARCHAR(13)` que solo admita textos formados por exactamente 13 dígitos, y un tipo enumerado `estado_producto_demo` con los valores `Disponible`, `Agotado` y `En espera`. Utilízalos en `productos_demo`, junto con código, nombre, precio, stock y stock mínimo. Exige valores no negativos para precio, stock y stock mínimo, y añade como **restricción de tabla con nombre** `stock >= stock_minimo`. Comprueba una fila válida y varias rechazadas, ejecutándolas por separado. El control de formato no verifica el dígito de control del código de barras ni indica el país de fabricación. Explica por qué en un inventario real puede ser útil permitir stock bajo mínimo. Elimina primero la tabla y después el tipo y el dominio.
+    5. **Comprueba las restricciones** insertando una fila válida y varias que deban rechazarse. Ejecuta las inserciones por separado.
 
-[Ver en el tema](tipos_enumerados.md#ejercicio-15-combinar-dominio-tipo-y-restricciones)
+    6. **Reflexiona**: explica por qué en un inventario real puede ser útil permitir que el stock esté por debajo del mínimo.
+
+    7. **Elimina los objetos de demostración**: primero la tabla y después el tipo enumerado y el dominio.
+
+    El dominio solo comprueba el formato de 13 dígitos: no verifica el dígito de control del código de barras ni indica el país de fabricación.
+
+[Ver en el tema](tipos_enumerados.md#ejercicio-14-combinar-dominio-tipo-y-restricciones)

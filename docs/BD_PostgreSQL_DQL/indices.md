@@ -59,13 +59,13 @@ El optimizador decide si utiliza un índice. Con tablas pequeñas puede preferir
 
 Utiliza las tablas de Juegos que has completado en los ejercicios 1–13 de DDL. Añade las sentencias a `02_juegos.sql`.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 16: Índice por nombre de jugador</span></span> {#ejercicio-16-indice-por-nombre-de-jugador}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 15: Índice por nombre de jugador</span></span> {#ejercicio-15-indice-por-nombre-de-jugador}
 
 !!! ejercicio "Juegos"
 
     Crea `i_jugadores_nombre` sobre `jugadores(nombre)`.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 17: Índice de vendedores</span></span> {#ejercicio-17-indice-de-vendedores}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 16: Índice de vendedores</span></span> {#ejercicio-16-indice-de-vendedores}
 
 !!! ejercicio "Juegos"
 

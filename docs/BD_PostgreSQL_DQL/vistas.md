@@ -68,21 +68,21 @@ Conserva las cinco tablas de Empresa creadas en DDL. Eliminar la vista no elimin
 
 ## Ejercicios: Crear vistas
 
-Utiliza las tablas de Juegos construidas en DDL y cargadas en DML. Crea las vistas y consulta sus resultados con los datos disponibles. Conserva los índices de los ejercicios 16–17.
+Utiliza las tablas de Juegos construidas en DDL y cargadas en DML. Crea las vistas y consulta sus resultados con los datos disponibles. Conserva los índices de los ejercicios 15–16.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 18: Vista resumen_compras</span></span> {#ejercicio-18-vista-resumen_compras}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 17: Vista resumen_compras</span></span> {#ejercicio-17-vista-resumen_compras}
 
 !!! ejercicio "Juegos"
 
     Crea la vista `resumen_compras` con las bases sin descuentos, con descuento de líneas, con descuento general y el total con IVA. Calcula primero `SUM(cantidad * precio_unitario)`. Para el descuento de líneas, suma `cantidad * precio_unitario * (1 - COALESCE(descuento_linea, 0) / 100.0)`; después multiplica por `(1 - COALESCE(descuento, 0) / 100.0)` y, al final, por `(1 + COALESCE(iva, 0) / 100.0)`. La columna del importe final debe llamarse `total`.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 19: Vista resumen_vendedores</span></span> {#ejercicio-19-vista-resumen_vendedores}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 18: Vista resumen_vendedores</span></span> {#ejercicio-18-vista-resumen_vendedores}
 
 !!! ejercicio "Juegos"
 
     Crea `resumen_vendedores`: código y nombre del vendedor, total de unidades vendidas y base de sus compras tras los descuentos. Evita duplicar el importe de una compra al reunirla con sus líneas.
 
-### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 20: Vista resumen_categorias</span></span> {#ejercicio-20-vista-resumen_categorias}
+### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 19: Vista resumen_categorias</span></span> {#ejercicio-19-vista-resumen_categorias}
 
 !!! ejercicio "Juegos"
 
