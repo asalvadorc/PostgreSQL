@@ -338,7 +338,7 @@ Realiza los ejercicios **0–13 en `juegos`** y el **14 en `empresa`**. Conserva
     - FK: id_compra → COMPRAS(id_compra)
     - FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span>
 
-    Define la FK hacia `compras` con **ON DELETE CASCADE**, para que al borrar una compra se borren sus líneas. La FK hacia `productos` debe usar **NO ACTION**. Al terminar, comprueba que Juegos tiene ocho PK y nueve FK.
+    Define la FK hacia `compras` con **ON DELETE CASCADE**, para que al borrar una compra se borren sus líneas. La FK hacia `productos` debe usar **ON DELETE NO ACTION**. Al terminar, comprueba que Juegos tiene ocho PK y nueve FK.
 
 [Ver en el tema](alter_table.md#ejercicio-13-anadir-las-fk-de-lineas_compra)
 

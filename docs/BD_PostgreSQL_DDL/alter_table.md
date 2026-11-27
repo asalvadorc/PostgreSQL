@@ -7,18 +7,31 @@
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>ALTER TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span></code><br/><code>    { <span class="ddl-option">ADD</span> | <span class="ddl-option">DROP</span> | <span class="ddl-option">ALTER</span> }</code><br/><code>    { <span class="ddl-option">COLUMN</span> <span class="ddl-field">columna</span> | <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">restriccion_de_tabla</span> } ...;</code></td></tr>
+    <tr><td><strong>Acciones sobre columnas</strong><br><br><code>ALTER TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span></code><br><code> { <span class="ddl-option">ADD COLUMN</span> <span class="ddl-field">columna</span> <span class="ddl-type">tipo [(tamaño)]</span></code><br><code>       [ <span class="ddl-default">DEFAULT</span> <span class="ddl-default">valor</span> ] [ <span class="ddl-constraint">restricciones_de_columna</span> ]</code><br><code> | <span class="ddl-option">ALTER COLUMN</span> <span class="ddl-field">columna</span> <span class="ddl-option">TYPE</span> <span class="ddl-type">tipo [(tamaño)]</span></code><br><code> | <span class="ddl-option">ALTER COLUMN</span> <span class="ddl-field">columna</span> { <span class="ddl-default">SET DEFAULT</span> <span class="ddl-default">valor</span> | <span class="ddl-default">DROP DEFAULT</span> }</code><br><code> | <span class="ddl-option">ALTER COLUMN</span> <span class="ddl-field">columna</span> { <span class="ddl-constraint">SET NOT NULL</span> | <span class="ddl-constraint">DROP NOT NULL</span> }</code><br><code> | <span class="ddl-option">RENAME COLUMN</span> <span class="ddl-field">columna</span> <span class="ddl-option">TO</span> <span class="ddl-field">nuevo_nombre</span></code><br><code> | <span class="ddl-option">DROP COLUMN</span> <span class="ddl-field">columna</span> };</code></td></tr>
+    <tr><td><strong>Acciones sobre restricciones de tabla</strong><br><br><code>ALTER TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span></code><br><code> { <span class="ddl-option">ADD</span> [ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre_restriccion</span> ] <span class="ddl-constraint">restriccion_de_tabla</span></code><br><code> | <span class="ddl-constraint">DROP CONSTRAINT</span> <span class="ddl-constraint">nombre_restriccion</span> };</code></td></tr>
+    <tr><td><strong>Cambiar el nombre de la tabla</strong><br><br><code>ALTER TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span></code><br><code>    <span class="ddl-option">RENAME TO</span> <span class="ddl-table">nuevo_nombre_tabla</span>;</code></td></tr>
     </tbody></table>
     </div>
 
-    **Opciones**
+    **Acciones sobre columnas**
 
-    - <code><span class="ddl-option">ADD</span></code>: añade una columna o una restricción.
-    - <code><span class="ddl-option">DROP</span></code>: elimina una columna o una restricción.
-    - <code><span class="ddl-option">ALTER</span></code>: modifica una propiedad de una columna o, en los casos permitidos, de una restricción.
-    - <code><span class="ddl-option">COLUMN</span></code>: actúa sobre una columna.
-    - <code><span class="ddl-constraint">CONSTRAINT</span></code>: actúa sobre una restricción de tabla.
-    - <code>...</code>: representa los detalles que necesita cada operación. Es un esquema general; no todas las combinaciones son válidas.
+    - <code><span class="ddl-option">ADD COLUMN</span></code>: añade una columna con su tipo y, opcionalmente, un valor por defecto y restricciones de columna.
+    - <code><span class="ddl-option">ALTER COLUMN ... TYPE</span></code>: cambia el tipo de dato o su tamaño.
+    - <code><span class="ddl-default">SET DEFAULT / DROP DEFAULT</span></code>: establece o elimina el valor por defecto de la columna.
+    - <code><span class="ddl-constraint">SET NOT NULL / DROP NOT NULL</span></code>: exige un valor en la columna o permite que admita nulos.
+    - <code><span class="ddl-option">RENAME COLUMN ... TO</span></code>: cambia el nombre de una columna.
+    - <code><span class="ddl-option">DROP COLUMN</span></code>: elimina una columna.
+
+    **Acciones sobre restricciones de tabla**
+
+    - <code><span class="ddl-constraint">ADD [CONSTRAINT nombre_restriccion]</span></code>: añade una restricción de tabla, como PRIMARY KEY, UNIQUE, FOREIGN KEY o CHECK. El nombre es opcional.
+    - <code><span class="ddl-constraint">DROP CONSTRAINT</span></code>: elimina una restricción por su nombre.
+
+    **Acciones sobre la tabla**
+
+    - <code><span class="ddl-option">RENAME TO</span></code>: cambia el nombre de la tabla.
+
+    Elige una alternativa del grupo correspondiente para cada sentencia. Los nombres de columnas y restricciones deben corresponder a los de la tabla.
 
 Antes de añadir una restricción, los datos existentes deben cumplirla. Para cambiar la definición de un `CHECK` o una clave ajena, se elimina la restricción y se crea de nuevo.
 
@@ -38,6 +51,36 @@ Antes de añadir una restricción, los datos existentes deben cumplirla. Para ca
     ```
 
 
+
+??? info "Las mismas operaciones agrupadas"
+
+    Puedes reunir varias acciones sobre **la misma tabla** en una sola sentencia `ALTER TABLE`, separándolas por comas. El punto y coma se escribe al terminar la sentencia.
+
+    Esta versión es una **alternativa al ejemplo anterior** y deja la tabla en el mismo estado final. Si ya ejecutaste las sentencias individuales, no vuelvas a ejecutar estos bloques sobre la misma tabla.
+
+    ```sql
+    ALTER TABLE empleados
+        ADD COLUMN activo BOOLEAN DEFAULT TRUE,
+        ALTER COLUMN nombre TYPE VARCHAR(200),
+        ALTER COLUMN salario SET DEFAULT 1200,
+        ALTER COLUMN salario SET NOT NULL, -- Restricción de columna: NOT NULL
+        ADD CONSTRAINT ck_empleados_salario_maximo
+            CHECK (salario <= 10000); -- Restricción de tabla: CHECK
+    ```
+
+    **RENAME se ejecuta en una sentencia independiente**, tanto para cambiar el nombre de una columna como el de una tabla:
+
+    ```sql
+    ALTER TABLE empleados RENAME COLUMN activo TO en_activo;
+    ```
+
+    Las dos eliminaciones también pueden agruparse:
+
+    ```sql
+    ALTER TABLE empleados
+        DROP COLUMN en_activo,
+        DROP CONSTRAINT ck_empleados_salario_maximo; -- Elimina la restricción de tabla CHECK
+    ```
 
 Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
 
@@ -140,7 +183,7 @@ Continúa con las ocho tablas ya creadas. Ahora modificarás su estructura con `
     - FK: id_compra → COMPRAS(id_compra)
     - FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span>
 
-    Define la FK hacia `compras` con **ON DELETE CASCADE**, para que al borrar una compra se borren sus líneas. La FK hacia `productos` debe usar **NO ACTION**. Al terminar, comprueba que Juegos tiene ocho PK y nueve FK.
+    Define la FK hacia `compras` con **ON DELETE CASCADE**, para que al borrar una compra se borren sus líneas. La FK hacia `productos` debe usar **ON DELETE NO ACTION**. Al terminar, comprueba que Juegos tiene ocho PK y nueve FK.
 
 **Antes de continuar:** Comprueba que hay ocho PK y nueve FK. La columna temporal `alias` debe haber desaparecido. Conserva todas las tablas vacías para la carga de DML. Los ejercicios de índices y vistas se realizarán después, en DQL.
 

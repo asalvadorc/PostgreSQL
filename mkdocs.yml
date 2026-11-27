@@ -95,8 +95,8 @@ nav:
           - Tipos de datos: BD_PostgreSQL_DDL/tipos_datos.md
           - CREATE TABLE: BD_PostgreSQL_DDL/tablas.md
           - Restricciones: BD_PostgreSQL_DDL/restricciones.md
-          - ALTER TABLE: BD_PostgreSQL_DDL/alter_table.md
           - DROP TABLE: BD_PostgreSQL_DDL/drop_table.md
+          - ALTER TABLE: BD_PostgreSQL_DDL/alter_table.md
       - 4. Dominios y tipos enumerados:
           - Dominios: BD_PostgreSQL_DDL/dominios.md
           - Tipos enumerados: BD_PostgreSQL_DDL/tipos_enumerados.md
