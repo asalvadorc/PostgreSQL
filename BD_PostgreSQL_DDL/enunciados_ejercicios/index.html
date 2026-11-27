@@ -1,0 +1,2299 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asalvadorc.github.io/PostgreSQL/BD_PostgreSQL_DDL/enunciados_ejercicios/">
+      
+      
+        <link rel="prev" href="../tipos_enumerados/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>5. Enunciados de todos los ejercicios - BD - PostgreSQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#enunciados-de-todos-los-ejercicios" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BD - PostgreSQL" class="md-header__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BD - PostgreSQL
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Enunciados de todos los ejercicios
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  🏠 Inicio
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DDL - Lenguaje de definición de datos
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BD - PostgreSQL" class="md-nav__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    BD - PostgreSQL
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 Inicio
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🏠 Inicio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RA_CE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA y CE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno_postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor PostgreSQL con Docker 
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2_client_dbeaver_installaci_i_confiuraci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Cliente PostgreSQL con Dbeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bases de Datos de los apuntes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Bases de Datos de los apuntes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bases_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../empresa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏢 Empresa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../juegos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎮 Juegos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../moviles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📱 Moviles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDL - Lenguaje de definición de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DDL - Lenguaje de definición de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Bases de datos y esquemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Bases de datos y esquemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crear_bases_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bases de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../esquemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Esquemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Gestión de tablas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Gestión de tablas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tipos_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CREATE TABLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../restricciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restricciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drop_table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DROP TABLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alter_table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ALTER TABLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dominios y tipos enumerados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Dominios y tipos enumerados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dominios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dominios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tipos_enumerados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos enumerados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Enunciados de todos los ejercicios
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Enunciados de todos los ejercicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-0-preparar-juegos-y-su-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 0: Preparar Juegos y su conexión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-1-crear-categorias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 1: Crear categorias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-2-crear-productos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 2: Crear productos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-3-crear-provincias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 3: Crear provincias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-4-crear-ciudades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 4: Crear ciudades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-5-crear-vendedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 5: Crear vendedores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-6-crear-jugadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 6: Crear jugadores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-7-crear-compras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 7: Crear compras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-8-crear-lineas_compra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 8: Crear lineas_compra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-9-anadir-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 9: Añadir alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-10-eliminar-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 10: Eliminar alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-11-anadir-la-pk-de-categorias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 11: Añadir la PK de categorias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-12-completar-productos-y-la-relacion-reflexiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 12: Completar productos y la relación reflexiva
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-13-anadir-las-fk-de-lineas_compra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 13: Añadir las FK de lineas_compra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-14-combinar-dominio-tipo-y-restricciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 14: Combinar dominio, tipo y restricciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-0-preparar-juegos-y-su-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 0: Preparar Juegos y su conexión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-1-crear-categorias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 1: Crear categorias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-2-crear-productos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 2: Crear productos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-3-crear-provincias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 3: Crear provincias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-4-crear-ciudades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 4: Crear ciudades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-5-crear-vendedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 5: Crear vendedores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-6-crear-jugadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 6: Crear jugadores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-7-crear-compras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 7: Crear compras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-8-crear-lineas_compra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 8: Crear lineas_compra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-9-anadir-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 9: Añadir alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-10-eliminar-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 10: Eliminar alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-11-anadir-la-pk-de-categorias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 11: Añadir la PK de categorias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-12-completar-productos-y-la-relacion-reflexiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 12: Completar productos y la relación reflexiva
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-13-anadir-las-fk-de-lineas_compra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 13: Añadir las FK de lineas_compra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-14-combinar-dominio-tipo-y-restricciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 14: Combinar dominio, tipo y restricciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="enunciados-de-todos-los-ejercicios">Enunciados de todos los ejercicios</h1>
+<p>Aquí tienes reunidos los ejercicios de DDL, en el mismo orden y con la misma numeración que en los apartados del tema. No es una práctica adicional: son los mismos ejercicios.</p>
+<p>Realiza los ejercicios <strong>0–13 en <code>juegos</code></strong> y el <strong>14 en <code>empresa</code></strong>. Conserva las tablas de Juegos para la carga de datos de DML.</p>
+<h2 id="ejercicio-0-preparar-juegos-y-su-conexion"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 0: Preparar Juegos y su conexión</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<ol>
+<li>
+<p>Desde la conexión a <strong>postgres</strong>, abre <strong>Editor SQL → Nuevo script SQL</strong> y ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">juegos</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Actualiza <strong>Bases de datos / Databases</strong> y comprueba que aparece <code>juegos</code>. También puedes crearla en modo gráfico, como explicamos al <a href="../crear_bases_datos/#crear-la-base-de-datos-empresa">crear empresa</a>: elige una de las dos opciones, no ambas.</p>
+</li>
+<li>Crea una <strong>nueva conexión PostgreSQL</strong> siguiendo los <a href="../crear_bases_datos/#crear-la-conexion-a-empresa">mismos pasos de la conexión a empresa</a>. Mantén <code>localhost</code>, puerto <code>5433</code>, usuario y contraseña <code>alumno</code>, pero escribe <strong>juegos</strong> en el campo <strong>Base de datos</strong>. Guarda la conexión como <strong>Juegos</strong>.</li>
+<li>
+<p>Abre un editor SQL desde esta nueva conexión y comprueba:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">current_database</span><span class="p">();</span>
+</code></pre></div>
+<p>El resultado debe ser <strong>juegos</strong>.</p>
+</li>
+</ol>
+</div>
+<p><a href="../crear_bases_datos/#ejercicio-0-preparar-juegos-y-su-conexion">Ver en el tema</a></p>
+<details class="info">
+<summary>Referencia general de campos y tipos de Juegos</summary>
+<table>
+<thead>
+<tr>
+<th>Tabla</th>
+<th>Campos y tipos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>categorias</td>
+<td>id_categoria SERIAL, descripcion VARCHAR(100).</td>
+</tr>
+<tr>
+<td>productos</td>
+<td>id_producto SERIAL, nombre VARCHAR(200), precio DECIMAL(10,2), stock INTEGER, stock_minimo INTEGER, id_categoria INTEGER.</td>
+</tr>
+<tr>
+<td>provincias</td>
+<td>id_provincia SERIAL, nombre VARCHAR(100).</td>
+</tr>
+<tr>
+<td>ciudades</td>
+<td>id_ciudad SERIAL, nombre VARCHAR(100), id_provincia INTEGER.</td>
+</tr>
+<tr>
+<td>vendedores</td>
+<td>id_vendedor SERIAL, nombre VARCHAR(150), direccion VARCHAR(200), codigo_postal VARCHAR(10), id_ciudad INTEGER, id_jefe INTEGER.</td>
+</tr>
+<tr>
+<td>jugadores</td>
+<td>id_jugador SERIAL, nombre VARCHAR(150), direccion VARCHAR(200), codigo_postal VARCHAR(10), id_ciudad INTEGER.</td>
+</tr>
+<tr>
+<td>compras</td>
+<td>id_compra SERIAL, fecha DATE, id_jugador INTEGER, id_vendedor INTEGER, iva DECIMAL(5,2), descuento DECIMAL(5,2).</td>
+</tr>
+<tr>
+<td>lineas_compra</td>
+<td>id_compra INTEGER, num_linea INTEGER, id_producto INTEGER, cantidad INTEGER, precio_unitario DECIMAL(10,2), descuento_linea DECIMAL(5,2).</td>
+</tr>
+</tbody>
+</table>
+<p>Recuerda:</p>
+<ul>
+<li><code>SERIAL</code> genera códigos, pero no añade una PK por sí solo. Para las claves ajenas utiliza <code>INTEGER</code>.</li>
+<li>La PK de <code>lineas_compra</code> será <code>(id_compra, num_linea)</code>; no añadas otro código autonumérico.</li>
+<li><code>vendedores.id_jefe</code> puede ser nulo y referencia a la propia tabla. Añadirás esa FK en el ejercicio 12.</li>
+<li>La FK de las líneas hacia las compras llevará <code>ON DELETE CASCADE</code>; las demás referencias conservarán <code>NO ACTION</code>, como indica el ejercicio 13.</li>
+<li>Después de cada ejercicio, actualiza el navegador de DBeaver y revisa las columnas y restricciones que hayas añadido.</li>
+</ul>
+</details>
+<h2 id="ejercicio-1-crear-categorias"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 1: Crear categorias</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, escribe y ejecuta una sentencia <code>CREATE TABLE</code> para crear <code>categorias</code>, donde se guardarán las categorías que clasifican los productos de la tienda.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>CATEGORIAS</strong> (<u>id_categoria</u>, descripcion)</p>
+<ul>
+<li>PK: (id_categoria)</li>
+</ul>
+<p>Define las columnas con los tipos indicados en la tabla siguiente. <code>SERIAL</code> generará automáticamente los códigos de <code>id_categoria</code>.</p>
+<p>Aunque el modelo indica una clave primaria, <strong>no la declares todavía ni añadas otras restricciones explícitas</strong>. En este ejercicio practicaremos la definición de columnas y tipos; incorporaremos la PK en el ejercicio 11.</p>
+<p><strong>Campos de <code>categorias</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_categoria</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>descripcion</code></td>
+<td><code>VARCHAR(100)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../tablas/#ejercicio-1-crear-categorias">Ver en el tema</a></p>
+<h2 id="ejercicio-2-crear-productos"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 2: Crear productos</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>productos</code> para guardar los artículos que vende la tienda. Utiliza los campos y tipos de la tabla siguiente.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>PRODUCTOS</strong> (<u>id_producto</u>, nombre, precio, stock, stock_minimo, <mark>id_categoria</mark>)</p>
+<ul>
+<li>PK: (id_producto)</li>
+<li>FK: id_categoria → CATEGORIAS(id_categoria)</li>
+</ul>
+<p>El modelo muestra las claves que tendrá la tabla al completar los ejercicios. <strong>Por ahora no declares la PK ni la FK, ni añadas otras restricciones de validación</strong>. <code>SERIAL</code> generará los códigos de <code>id_producto</code>; las claves se añadirán en el ejercicio 12.</p>
+<p><strong>Campos de <code>productos</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_producto</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(200)</code></td>
+</tr>
+<tr>
+<td><code>precio</code></td>
+<td><code>DECIMAL(10,2)</code></td>
+</tr>
+<tr>
+<td><code>stock</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>stock_minimo</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_categoria</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../tablas/#ejercicio-2-crear-productos">Ver en el tema</a></p>
+<h2 id="ejercicio-3-crear-provincias"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 3: Crear provincias</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>provincias</code> para registrar las provincias de las ciudades. Utiliza los campos y tipos de la tabla siguiente y define <code>id_provincia</code> como clave primaria.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>PROVINCIAS</strong> (<u>id_provincia</u>, nombre)</p>
+<ul>
+<li>PK: (id_provincia)</li>
+</ul>
+<p><strong>Campos de <code>provincias</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_provincia</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(100)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../restricciones/#ejercicio-3-crear-provincias">Ver en el tema</a></p>
+<h2 id="ejercicio-4-crear-ciudades"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 4: Crear ciudades</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>ciudades</code> para registrar las ciudades y la provincia a la que pertenece cada una. Define su clave primaria y la clave ajena hacia <code>provincias</code>, que ya debe existir.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>CIUDADES</strong> (<u>id_ciudad</u>, nombre, <mark>id_provincia</mark>)</p>
+<ul>
+<li>PK: (id_ciudad)</li>
+<li>FK: id_provincia → PROVINCIAS(id_provincia)</li>
+</ul>
+<p><strong>Campos de <code>ciudades</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_ciudad</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(100)</code></td>
+</tr>
+<tr>
+<td><code>id_provincia</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../restricciones/#ejercicio-4-crear-ciudades">Ver en el tema</a></p>
+<h2 id="ejercicio-5-crear-vendedores"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 5: Crear vendedores</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>vendedores</code> para guardar los datos de los vendedores y la ciudad a la que están asociados. Define la clave primaria y la clave ajena hacia <code>ciudades</code>.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>VENDEDORES</strong> (<u>id_vendedor</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>, <mark>id_jefe</mark>)</p>
+<ul>
+<li>PK: (id_vendedor)</li>
+<li>FK: id_ciudad → CIUDADES(id_ciudad)</li>
+<li>FK: id_jefe → VENDEDORES(id_vendedor)</li>
+</ul>
+<p>El modelo incluye la relación reflexiva con el jefe. Añade la columna <code>id_jefe</code>, pero <strong>deja pendiente su FK hasta el ejercicio 12</strong>. Por ahora solo debes crear la FK de <code>id_ciudad</code>.</p>
+<p><strong>Campos de <code>vendedores</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_vendedor</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(150)</code></td>
+</tr>
+<tr>
+<td><code>direccion</code></td>
+<td><code>VARCHAR(200)</code></td>
+</tr>
+<tr>
+<td><code>codigo_postal</code></td>
+<td><code>VARCHAR(10)</code></td>
+</tr>
+<tr>
+<td><code>id_ciudad</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_jefe</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../restricciones/#ejercicio-5-crear-vendedores">Ver en el tema</a></p>
+<h2 id="ejercicio-6-crear-jugadores"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 6: Crear jugadores</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>jugadores</code> para guardar los datos de los clientes de la tienda. Define la clave primaria y la clave ajena hacia <code>ciudades</code>, siguiendo el modelo y los tipos indicados.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>JUGADORES</strong> (<u>id_jugador</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>)</p>
+<ul>
+<li>PK: (id_jugador)</li>
+<li>FK: id_ciudad → CIUDADES(id_ciudad)</li>
+</ul>
+<p><strong>Campos de <code>jugadores</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_jugador</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(150)</code></td>
+</tr>
+<tr>
+<td><code>direccion</code></td>
+<td><code>VARCHAR(200)</code></td>
+</tr>
+<tr>
+<td><code>codigo_postal</code></td>
+<td><code>VARCHAR(10)</code></td>
+</tr>
+<tr>
+<td><code>id_ciudad</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../restricciones/#ejercicio-6-crear-jugadores">Ver en el tema</a></p>
+<h2 id="ejercicio-7-crear-compras"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 7: Crear compras</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>compras</code> para registrar la fecha, el jugador que compra y el vendedor que lo atiende, junto con el IVA y el descuento. Define la clave primaria y las dos claves ajenas del modelo.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>COMPRAS</strong> (<u>id_compra</u>, fecha, <mark>id_jugador</mark>, <mark>id_vendedor</mark>, iva, descuento)</p>
+<ul>
+<li>PK: (id_compra)</li>
+<li>FK: id_jugador → JUGADORES(id_jugador) <span class="tag-no-nulo">[no nulo]</span></li>
+<li>FK: id_vendedor → VENDEDORES(id_vendedor) <span class="tag-no-nulo">[no nulo]</span></li>
+</ul>
+<p>Define <code>id_jugador</code> e <code>id_vendedor</code> como <strong>NOT NULL</strong>: toda compra debe estar asociada a un jugador y a un vendedor existentes.</p>
+<p><strong>Campos de <code>compras</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_compra</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>fecha</code></td>
+<td><code>DATE</code></td>
+</tr>
+<tr>
+<td><code>id_jugador</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_vendedor</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>iva</code></td>
+<td><code>DECIMAL(5,2)</code></td>
+</tr>
+<tr>
+<td><code>descuento</code></td>
+<td><code>DECIMAL(5,2)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../restricciones/#ejercicio-7-crear-compras">Ver en el tema</a></p>
+<h2 id="ejercicio-8-crear-lineas_compra"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 8: Crear lineas_compra</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>lineas_compra</code> para detallar los productos de cada compra, sus cantidades, precios y descuentos. Una compra puede tener varias líneas, identificadas por su número dentro de esa compra.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>LINEAS_COMPRA</strong> (<u><mark>id_compra</mark>, num_linea</u>, <mark>id_producto</mark>, cantidad, precio_unitario, descuento_linea)</p>
+<ul>
+<li>PK: (id_compra, num_linea)</li>
+<li>FK: id_compra → COMPRAS(id_compra)</li>
+<li>FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span></li>
+</ul>
+<p>Declara la PK compuesta <code>(id_compra, num_linea)</code> como <strong>restricción de tabla</strong> y exige un valor en <code>id_producto</code>. El modelo muestra también las dos FK, pero <strong>no las añadas todavía</strong>: las incorporaremos en el ejercicio 13. No añadas otro código autonumérico.</p>
+<p><strong>Campos de <code>lineas_compra</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_compra</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>num_linea</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_producto</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>cantidad</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>precio_unitario</code></td>
+<td><code>DECIMAL(10,2)</code></td>
+</tr>
+<tr>
+<td><code>descuento_linea</code></td>
+<td><code>DECIMAL(5,2)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../restricciones/#ejercicio-8-crear-lineas_compra">Ver en el tema</a></p>
+<h2 id="ejercicio-9-anadir-alias"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 9: Añadir alias</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Añade a <code>vendedores</code> una columna <code>alias VARCHAR(40) NOT NULL UNIQUE</code>. La tabla todavía está vacía; explica qué habría que preparar si ya tuviera filas.</p>
+</div>
+<p><a href="../alter_table/#ejercicio-9-anadir-alias">Ver en el tema</a></p>
+<h2 id="ejercicio-10-eliminar-alias"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 10: Eliminar alias</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Elimina la columna <code>alias</code>.</p>
+</div>
+<p><a href="../alter_table/#ejercicio-10-eliminar-alias">Ver en el tema</a></p>
+<h2 id="ejercicio-11-anadir-la-pk-de-categorias"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 11: Añadir la PK de categorias</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, utiliza <code>ALTER TABLE</code> para añadir a <code>categorias</code> la clave primaria que dejamos pendiente en el ejercicio 1. No vuelvas a crear la tabla.</p>
+<p><strong>Modelo relacional que debe quedar</strong></p>
+<p><strong>CATEGORIAS</strong> (<u>id_categoria</u>, descripcion)</p>
+<ul>
+<li>PK: (id_categoria)</li>
+</ul>
+</div>
+<p><a href="../alter_table/#ejercicio-11-anadir-la-pk-de-categorias">Ver en el tema</a></p>
+<h2 id="ejercicio-12-completar-productos-y-la-relacion-reflexiva"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 12: Completar productos y la relación reflexiva</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, completa con <code>ALTER TABLE</code> las claves pendientes de <code>productos</code> y la relación reflexiva de <code>vendedores</code>. Conserva sus columnas y las restricciones que ya tienen.</p>
+<p><strong>Modelos relacionales que deben quedar</strong></p>
+<p><strong>PRODUCTOS</strong> (<u>id_producto</u>, nombre, precio, stock, stock_minimo, <mark>id_categoria</mark>)</p>
+<ul>
+<li>PK: (id_producto)</li>
+<li>FK: id_categoria → CATEGORIAS(id_categoria)</li>
+</ul>
+<p><strong>VENDEDORES</strong> (<u>id_vendedor</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>, <mark>id_jefe</mark>)</p>
+<ul>
+<li>PK: (id_vendedor)</li>
+<li>FK: id_ciudad → CIUDADES(id_ciudad)</li>
+<li>FK: id_jefe → VENDEDORES(id_vendedor)</li>
+</ul>
+<p>Añade la PK de <code>productos</code> y su FK hacia <code>categorias</code>. En <code>vendedores</code>, añade únicamente la FK de <code>id_jefe</code> hacia <code>id_vendedor</code>; la PK y la FK de <code>id_ciudad</code> ya existen. <code>id_jefe</code> debe admitir nulos para los vendedores sin jefe.</p>
+</div>
+<p><a href="../alter_table/#ejercicio-12-completar-productos-y-la-relacion-reflexiva">Ver en el tema</a></p>
+<h2 id="ejercicio-13-anadir-las-fk-de-lineas_compra"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 13: Añadir las FK de lineas_compra</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, utiliza <code>ALTER TABLE</code> para completar las dos claves ajenas de <code>lineas_compra</code>, pendientes desde el ejercicio 8. Conserva la PK compuesta y la obligatoriedad de <code>id_producto</code>.</p>
+<p><strong>Modelo relacional que debe quedar</strong></p>
+<p><strong>LINEAS_COMPRA</strong> (<u><mark>id_compra</mark>, num_linea</u>, <mark>id_producto</mark>, cantidad, precio_unitario, descuento_linea)</p>
+<ul>
+<li>PK: (id_compra, num_linea)</li>
+<li>FK: id_compra → COMPRAS(id_compra)</li>
+<li>FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span></li>
+</ul>
+<p>Define la FK hacia <code>compras</code> con <strong>ON DELETE CASCADE</strong>, para que al borrar una compra se borren sus líneas. La FK hacia <code>productos</code> debe usar <strong>ON DELETE NO ACTION</strong>. Al terminar, comprueba que Juegos tiene ocho PK y nueve FK.</p>
+</div>
+<p><a href="../alter_table/#ejercicio-13-anadir-las-fk-de-lineas_compra">Ver en el tema</a></p>
+<h2 id="ejercicio-14-combinar-dominio-tipo-y-restricciones"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 14: Combinar dominio, tipo y restricciones</span></span></h2>
+<div class="admonition ejercicio">
+<p class="admonition-title">Empresa</p>
+<p>En la conexión <strong>Empresa</strong>, crea los objetos auxiliares necesarios para definir esta tabla y comprobar sus restricciones. Al terminar, elimina solo esos objetos de demostración.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>PRODUCTOS_DEMO</strong> (<u>id_producto</u>, nombre, precio, stock, stock_minimo, codigo_barras, estado)</p>
+<ul>
+<li>PK: (id_producto)</li>
+</ul>
+<p>Realiza estos pasos:</p>
+<ol>
+<li>
+<p><strong>Crea el dominio <code>codigo_barras_demo</code></strong>, basado en <code>VARCHAR(13)</code>, para admitir únicamente textos formados por exactamente 13 dígitos.</p>
+</li>
+<li>
+<p><strong>Crea el tipo enumerado <code>estado_producto_demo</code></strong>, con los valores <code>Disponible</code>, <code>Agotado</code> y <code>En espera</code>.</p>
+</li>
+<li>
+<p><strong>Crea la tabla <code>productos_demo</code></strong> con los campos del modelo. Utiliza <code>SERIAL</code> en <code>id_producto</code> y decláralo como clave primaria. Aplica el dominio a <code>codigo_barras</code> y el tipo enumerado a <code>estado</code>.</p>
+</li>
+<li>
+<p><strong>Añade las validaciones</strong>: precio, stock y stock mínimo deben ser no negativos. Define además <code>stock &gt;= stock_minimo</code> como <strong>restricción de tabla con nombre</strong>.</p>
+</li>
+<li>
+<p><strong>Comprueba las restricciones</strong> insertando una fila válida y varias que deban rechazarse. Ejecuta las inserciones por separado.</p>
+</li>
+<li>
+<p><strong>Reflexiona</strong>: explica por qué en un inventario real puede ser útil permitir que el stock esté por debajo del mínimo.</p>
+</li>
+<li>
+<p><strong>Elimina los objetos de demostración</strong>: primero la tabla y después el tipo enumerado y el dominio.</p>
+</li>
+</ol>
+<p>El dominio solo comprueba el formato de 13 dígitos: no verifica el dígito de control del código de barras ni indica el país de fabricación.</p>
+</div>
+<p><a href="../tipos_enumerados/#ejercicio-14-combinar-dominio-tipo-y-restricciones">Ver en el tema</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../tipos_enumerados/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tipos enumerados">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Tipos enumerados
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 Alicia Salvador — <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"> Licencia CC BY-NC-ND 4.0 </a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.tabs.link", "content.tooltips", "content.action.edit", "content.action.view", "header.autohide"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/lightbox.js"></script>
+      
+    
+  </body>
+</html>

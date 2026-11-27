@@ -1,0 +1,2195 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asalvadorc.github.io/PostgreSQL/BD_PostgreSQL_DDL/restricciones/">
+      
+      
+        <link rel="prev" href="../tablas/">
+      
+      
+        <link rel="next" href="../drop_table/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Restricciones - BD - PostgreSQL</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#restricciones" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BD - PostgreSQL" class="md-header__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BD - PostgreSQL
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Restricciones
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  🏠 Inicio
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1_introducci/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  DDL - Lenguaje de definición de datos
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BD - PostgreSQL" class="md-nav__button md-logo" aria-label="BD - PostgreSQL" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    BD - PostgreSQL
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 Inicio
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🏠 Inicio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RA_CE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA y CE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno_postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor PostgreSQL con Docker 
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2_client_dbeaver_installaci_i_confiuraci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Cliente PostgreSQL con Dbeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bases de Datos de los apuntes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Bases de Datos de los apuntes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bases_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../empresa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏢 Empresa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../juegos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎮 Juegos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../moviles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📱 Moviles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDL - Lenguaje de definición de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DDL - Lenguaje de definición de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_introducci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Bases de datos y esquemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Bases de datos y esquemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crear_bases_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bases de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../esquemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Esquemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Gestión de tablas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Gestión de tablas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tipos_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CREATE TABLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restricciones
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restricciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restricciones-de-una-columna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricciones de una columna
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restricciones de una columna">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#incorporar-los-proyectos-de-empresa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incorporar los proyectos de Empresa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restricciones-de-varias-columnas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricciones de varias columnas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restricciones de varias columnas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#participacion-de-empleados-en-proyectos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Participación de empleados en proyectos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios-crear-tablas-con-restricciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios: Crear tablas con restricciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicios: Crear tablas con restricciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3-crear-provincias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 3: Crear provincias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4-crear-ciudades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 4: Crear ciudades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5-crear-vendedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 5: Crear vendedores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-6-crear-jugadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 6: Crear jugadores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-7-crear-compras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 7: Crear compras
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-8-crear-lineas_compra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 8: Crear lineas_compra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drop_table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DROP TABLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alter_table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ALTER TABLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dominios y tipos enumerados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Dominios y tipos enumerados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dominios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dominios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tipos_enumerados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tipos enumerados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enunciados_ejercicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Enunciados de todos los ejercicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restricciones-de-una-columna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricciones de una columna
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restricciones de una columna">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#incorporar-los-proyectos-de-empresa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incorporar los proyectos de Empresa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restricciones-de-varias-columnas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricciones de varias columnas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restricciones de varias columnas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#participacion-de-empleados-en-proyectos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Participación de empleados en proyectos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios-crear-tablas-con-restricciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios: Crear tablas con restricciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicios: Crear tablas con restricciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3-crear-provincias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 3: Crear provincias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4-crear-ciudades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 4: Crear ciudades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5-crear-vendedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 5: Crear vendedores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-6-crear-jugadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 6: Crear jugadores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-7-crear-compras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 7: Crear compras
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-8-crear-lineas_compra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝Ejercicio 8: Crear lineas_compra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="restricciones">Restricciones</h1>
+<p>Las restricciones definen las reglas que deben cumplir los datos de una tabla. En <code>CREATE TABLE</code> podemos declararlas sobre una columna o sobre varias columnas. Las claves ajenas permiten además mantener la coherencia entre tablas y representar la participación obligatoria en una relación.</p>
+<h2 id="restricciones-de-una-columna">Restricciones de una columna</h2>
+<p>Las restricciones de columna establecen las reglas que debe cumplir un campo: exigir un valor, evitar duplicados, identificar una fila o referenciar otra tabla. Se escriben después del tipo de dato y pueden recibir un nombre mediante <code>CONSTRAINT</code>.</p>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>[ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre</span> ]</code><br><code>{ <span class="ddl-constraint">PRIMARY KEY</span> | <span class="ddl-constraint">UNIQUE</span> | <span class="ddl-constraint">NOT NULL</span> | <span class="ddl-constraint">CHECK</span> (<span class="ddl-constraint">condicion</span>) | <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">tabla2</span> [(<span class="ddl-field">columna1</span>)] </code><br><code>    [ <span class="ddl-constraint">ON DELETE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ]</code><br><code>    [ <span class="ddl-constraint">ON UPDATE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ] }</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code><span class="ddl-constraint">CONSTRAINT</span></code>: asigna un nombre a la restricción.</li>
+<li><code><span class="ddl-constraint">PRIMARY KEY</span></code>: identifica la fila, sin duplicados ni nulos.</li>
+<li><code><span class="ddl-constraint">UNIQUE</span></code>: impide duplicados; en su comportamiento normal permite varios nulos.</li>
+<li><code><span class="ddl-constraint">NOT NULL</span></code>: exige un valor.</li>
+<li><code><span class="ddl-constraint">CHECK</span></code>: exige que una expresión no sea falsa. Si el resultado es desconocido por un NULL, la fila puede aceptarse; añade <code><span class="ddl-constraint">NOT NULL</span></code> si el dato es obligatorio.</li>
+<li><code><span class="ddl-constraint">REFERENCES</span></code>: indica la clave referenciada y exige que el valor no nulo exista en ella.</li>
+</ul>
+<p><strong>Acciones de la clave ajena</strong></p>
+<p>Las cláusulas <code><span class="ddl-constraint">ON DELETE</span></code> y <code><span class="ddl-constraint">ON UPDATE</span></code> se aplican únicamente a <code><span class="ddl-constraint">REFERENCES</span></code>: indican qué hacer con las filas que contienen la clave ajena cuando se borra la fila referenciada o se modifica su clave.</p>
+<ul>
+<li><code><span class="ddl-option">CASCADE</span></code>: al borrar, elimina también las filas que la referencian; al actualizar la clave referenciada, actualiza los valores de sus claves ajenas.</li>
+<li><code><span class="ddl-option">SET NULL</span></code>: pone la clave ajena a NULL; sus columnas deben admitir nulos.</li>
+<li><code><span class="ddl-option">SET DEFAULT</span></code>: asigna el valor por defecto; este debe seguir cumpliendo la clave ajena.</li>
+<li><code><span class="ddl-option">RESTRICT</span></code>: impide la operación si existen filas que la referencian; su comprobación no se puede aplazar.</li>
+<li><code><span class="ddl-option">NO ACTION</span></code>: rechaza la operación si al comprobar la restricción quedan referencias sin destino. Es la acción predeterminada cuando se omite la cláusula.</li>
+</ul>
+</div>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Restricciones de columna en departamentos y empleados</p>
+<p>Desde la conexión a <strong>empresa</strong>, recrea las dos tablas con restricciones. Como las tablas del apartado anterior están vacías, elimínalas primero; <code>DROP TABLE</code>, que estudiaremos más adelante, elimina su estructura.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">empleados</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">departamentos</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">departamentos</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">codigo</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: PRIMARY KEY</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="c1">-- Restricciones de columna: NOT NULL y UNIQUE</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">empleados</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">codigo</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: PRIMARY KEY</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: NOT NULL</span>
+<span class="w">    </span><span class="n">fecha_nacimiento</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">salario</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">salario</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="c1">-- Restricción de columna: CHECK</span>
+<span class="w">    </span><span class="n">correo</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: UNIQUE</span>
+<span class="w">    </span><span class="n">codigo_departamento</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">departamentos</span><span class="p">(</span><span class="n">codigo</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de columna: REFERENCES</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Crea primero <code>departamentos</code>, porque <code>empleados.codigo_departamento</code> referencia a su clave primaria. Un departamento puede tener varios empleados. Conserva ambas tablas para los siguientes ejemplos.</p>
+</div>
+<p>Actualiza la conexión <strong>Empresa</strong> y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:</p>
+<p><img alt="Empresa después de añadir restricciones de columna: dos tablas, dos PK y una FK" src="../../img/empresa/02-restricciones-columna.png" width="800" /></p>
+<h3 id="incorporar-los-proyectos-de-empresa">Incorporar los proyectos de Empresa</h3>
+<p>Un departamento controla varios proyectos y cada proyecto pertenece a un único departamento. Después de recrear las dos primeras tablas, añadimos la tercera tabla de Empresa.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear proyectos con restricciones de columna</p>
+<p>En <strong>empresa</strong>, ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">proyectos</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">codigo</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: PRIMARY KEY</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricciones de columna: NOT NULL y UNIQUE</span>
+<span class="w">    </span><span class="n">codigo_departamento</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">departamentos</span><span class="p">(</span><span class="n">codigo</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricciones de columna: NOT NULL y REFERENCES</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Conserva <code>proyectos</code>: la utilizaremos al crear la relación N:M con empleados.</p>
+</div>
+<p>Actualiza la conexión <strong>Empresa</strong> y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:</p>
+<p><img alt="Empresa con departamentos, empleados y proyectos: tres PK y dos FK" src="../../img/empresa/03-proyectos.png" width="800" /></p>
+<h2 id="restricciones-de-varias-columnas">Restricciones de varias columnas</h2>
+<p>Las restricciones de tabla permiten definir claves que abarcan varias columnas y condiciones que relacionan distintos campos. Se incluyen dentro de <code>CREATE TABLE</code>, separadas de las definiciones de columna mediante comas.</p>
+<div class="admonition note">
+<p class="admonition-title">¿Cuándo es obligatorio utilizar una restricción de tabla?</p>
+<p>Cuando una <strong>PRIMARY KEY</strong>, <strong>UNIQUE</strong> o <strong>FOREIGN KEY</strong> afecta a <strong>varias columnas</strong>, hay que declararla como restricción de tabla. Así la regla se aplica a la combinación de campos:</p>
+<ul>
+<li><code>PRIMARY KEY (codigo_empleado, nombre)</code>: identifica cada familiar mediante la combinación de empleado y nombre.</li>
+<li><code>UNIQUE (codigo_departamento, nombre)</code>: impide repetir la pareja, aunque cada valor por separado pueda repetirse.</li>
+<li><code>FOREIGN KEY (campo1, campo2) REFERENCES otra_tabla (clave1, clave2)</code>: referencia una clave formada por dos columnas.</li>
+</ul>
+<p>Para un <strong>CHECK que compara varias columnas</strong>, también lo declararemos a nivel de tabla, por ejemplo: <code>CHECK (stock &gt;= stock_minimo)</code>. PostgreSQL permite escribirlo en una columna, pero la forma de tabla expresa mejor que la condición relaciona varios campos.</p>
+<p>Si la regla afecta a una sola columna, normalmente puede declararse en esa columna o a nivel de tabla, salvo <code>NOT NULL</code>, que en PostgreSQL 17 debe declararse en la columna.</p>
+</div>
+<div class="admonition quote sintaxis">
+<p class="admonition-title">Sintaxis básica</p>
+<p><div class="syntax-table-wrap">
+<table class="syntax-table syntax-completa">
+<tbody>
+<tr><td><code>[ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre</span> ]</code><br/><code>{ { <span class="ddl-constraint">PRIMARY KEY</span> | <span class="ddl-constraint">UNIQUE</span> | <span class="ddl-constraint">FOREIGN KEY</span> } (<span class="ddl-field">columna1</span> [, <span class="ddl-field">columna2</span>, ...])</code><br/><code>    [ <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">tabla2</span> [ (<span class="ddl-field">columna_ref1</span> [, <span class="ddl-field">columna_ref2</span>, ...]) ] ]</code><br/><code>    [ <span class="ddl-constraint">ON DELETE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ]</code><br/><code>    [ <span class="ddl-constraint">ON UPDATE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ]</code><br/><code>| <span class="ddl-constraint">CHECK</span> (<span class="ddl-constraint">condicion</span>) }</code></td></tr>
+</tbody></table>
+</div></p>
+<p><strong>Opciones</strong></p>
+<ul>
+<li><code><span class="ddl-constraint">CONSTRAINT</span></code>: asigna un nombre a la restricción.</li>
+<li><code><span class="ddl-constraint">REFERENCES</span></code>: indica la tabla y las columnas referenciadas; se utiliza con <code><span class="ddl-constraint">FOREIGN KEY</span></code>.</li>
+<li><code><span class="ddl-constraint">ON DELETE</span> / <span class="ddl-constraint">ON UPDATE</span></code>: acciones de la clave ajena al borrar o actualizar la fila referenciada. Si se omiten, se aplica <code>NO ACTION</code>.</li>
+<li><code><span class="ddl-constraint">CHECK</span></code>: lleva su condición entre paréntesis, sin añadir otra lista de columnas.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">NOT NULL se declara en la columna</p>
+<p>En <strong>PostgreSQL 17</strong>, <code>NOT NULL</code> no se puede declarar como restricción de tabla. Debe escribirse en la definición de cada columna que sea obligatoria, por ejemplo: <code>nombre VARCHAR(100) NOT NULL</code>.</p>
+<p>No utilices <code>NOT NULL (nombre)</code> como una restricción separada al final de <code>CREATE TABLE</code>.</p>
+</div>
+<p><strong>La misma tabla con restricciones de columna y de tabla</strong></p>
+<p>Las dos definiciones siguientes crean <code>empleados</code> con las mismas reglas que en el ejemplo anterior. En la izquierda, las restricciones se escriben junto a cada columna; en la derecha, la PK, el UNIQUE, el CHECK y la FK se declaran al final de la tabla.</p>
+<div class="ddl-compare-wrap">
+<table class="ddl-compare">
+<thead><tr><th>Restricciones de columna</th><th>Restricciones de tabla</th></tr></thead>
+<tbody><tr><td><pre><code>CREATE TABLE <span class="ddl-table">empleados</span> (
+    <span class="ddl-field">codigo</span> <span class="ddl-type">INTEGER</span> <span class="ddl-constraint">PRIMARY KEY</span>,
+    <span class="ddl-field">nombre</span> <span class="ddl-type">VARCHAR(150)</span> <span class="ddl-constraint">NOT NULL</span>,
+    <span class="ddl-field">fecha_nacimiento</span> <span class="ddl-type">DATE</span>,
+    <span class="ddl-field">salario</span> <span class="ddl-type">NUMERIC(10,2)</span> <span class="ddl-default">DEFAULT 0</span>
+        <span class="ddl-constraint">CHECK</span> (<span class="ddl-field">salario</span> &gt;= 0),
+    <span class="ddl-field">correo</span> <span class="ddl-type">VARCHAR(150)</span> <span class="ddl-constraint">UNIQUE</span>,
+    <span class="ddl-field">codigo_departamento</span> <span class="ddl-type">INTEGER</span>
+        <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">departamentos</span>(<span class="ddl-field">codigo</span>)
+);</code></pre></td><td><pre><code>CREATE TABLE <span class="ddl-table">empleados</span> (
+    <span class="ddl-field">codigo</span> <span class="ddl-type">INTEGER</span>,
+    <span class="ddl-field">nombre</span> <span class="ddl-type">VARCHAR(150)</span> <span class="ddl-constraint">NOT NULL</span>,
+    <span class="ddl-field">fecha_nacimiento</span> <span class="ddl-type">DATE</span>,
+    <span class="ddl-field">salario</span> <span class="ddl-type">NUMERIC(10,2)</span> <span class="ddl-default">DEFAULT 0</span>,
+    <span class="ddl-field">correo</span> <span class="ddl-type">VARCHAR(150)</span>,
+    <span class="ddl-field">codigo_departamento</span> <span class="ddl-type">INTEGER</span>,
+    <span class="ddl-constraint">PRIMARY KEY</span> (<span class="ddl-field">codigo</span>),
+    <span class="ddl-constraint">CHECK</span> (<span class="ddl-field">salario</span> &gt;= 0),
+    <span class="ddl-constraint">UNIQUE</span> (<span class="ddl-field">correo</span>),
+    <span class="ddl-constraint">FOREIGN KEY</span> (<span class="ddl-field">codigo_departamento</span>)
+        <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">departamentos</span>(<span class="ddl-field">codigo</span>)
+);</code></pre></td></tr></tbody>
+</table>
+</div>
+
+<p>En ambas versiones, <strong><code>NOT NULL</code> permanece en la definición de <code>nombre</code></strong> y <code>DEFAULT</code> junto a <code>salario</code>. La FK exige que exista previamente <code>departamentos</code> con su clave primaria.</p>
+<p>Esta comparación es una referencia: <strong>no vuelvas a crear <code>empleados</code> si ya existe</strong>. Conserva las tablas que has construido y continúa con el ejemplo de Familiares.</p>
+<p>Para practicar una <strong>clave primaria compuesta</strong>, crearemos una tabla nueva: <strong>familiares</strong>. Guardará los familiares de cada empleado. Conservaremos <code>departamentos</code> y <code>empleados</code> tal como están; <strong>no añadiremos ninguna columna a empleados</strong>.</p>
+<p>La PK de <code>familiares</code> será <strong><code>(codigo_empleado, nombre)</code></strong>. Un empleado puede tener varios familiares y el mismo nombre puede aparecer para distintos empleados; lo que no podrá repetirse será la combinación de código de empleado y nombre del familiar.</p>
+<p><img alt="Empleados y familiares con clave primaria compuesta por codigo_empleado y nombre en familiares" src="../../empleados-familiares-pk-compuesta.png" width="800" /></p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Familiares de un empleado</p>
+<p>Desde la conexión a <strong>empresa</strong>, crea <code>familiares</code> después de haber creado <code>empleados</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">familiares</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">codigo_empleado</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="n">parentesco</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: NOT NULL</span>
+<span class="w">    </span><span class="n">fecha_nacimiento</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">pk_familiares</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">codigo_empleado</span><span class="p">,</span><span class="w"> </span><span class="n">nombre</span><span class="p">),</span><span class="w"> </span><span class="c1">-- Restricción de tabla: PRIMARY KEY compuesta</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_familiares_empleados</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">codigo_empleado</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de tabla: FOREIGN KEY</span>
+<span class="w">        </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">empleados</span><span class="p">(</span><span class="n">codigo</span><span class="p">),</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">ck_familiares_parentesco</span><span class="w"> </span><span class="c1">-- Restricción de tabla: CHECK</span>
+<span class="w">        </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">parentesco</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'hijo'</span><span class="p">,</span><span class="w"> </span><span class="s1">'hija'</span><span class="p">,</span><span class="w"> </span><span class="s1">'conyuge'</span><span class="p">,</span><span class="w"> </span><span class="s1">'otro'</span><span class="p">))</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<p>La PK compuesta obliga a informar <code>codigo_empleado</code> y <code>nombre</code>, y evita que se repita la pareja. La FK exige que cada familiar pertenezca a un empleado existente. <code>CHECK</code> limita los valores de parentesco. Las restricciones de tabla se escriben separadas de las columnas, aunque algunas, como <code>CHECK</code>, solo afecten a un campo.</p>
+<p>Actualiza la conexión <strong>Empresa</strong> y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:</p>
+<p><img alt="Empresa después de crear familiares con su PK compuesta: cuatro tablas y tres FK" src="../../img/empresa/04-familiares.png" width="800" /></p>
+<h3 id="participacion-de-empleados-en-proyectos">Participación de empleados en proyectos</h3>
+<p>En el modelo relacional, la relación N:M se transforma en <strong><code>trabaja</code></strong>. Cada fila indica cuántas horas semanales dedica un empleado a un proyecto. La pareja empleado–proyecto no puede repetirse.</p>
+<div class="admonition example practica">
+<p class="admonition-title">Pruébalo: Crear la tabla trabaja</p>
+<p>En <strong>empresa</strong>, conserva las tablas anteriores y ejecuta:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">trabaja</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">codigo_empleado</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">codigo_proyecto</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">horas</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Restricción de columna: NOT NULL</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">pk_trabaja</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">codigo_empleado</span><span class="p">,</span><span class="w"> </span><span class="n">codigo_proyecto</span><span class="p">),</span><span class="w"> </span><span class="c1">-- Restricción de tabla: PRIMARY KEY compuesta</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_trabaja_empleados</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">codigo_empleado</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de tabla: FOREIGN KEY</span>
+<span class="w">        </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">empleados</span><span class="p">(</span><span class="n">codigo</span><span class="p">),</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_trabaja_proyectos</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">codigo_proyecto</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de tabla: FOREIGN KEY</span>
+<span class="w">        </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">proyectos</span><span class="p">(</span><span class="n">codigo</span><span class="p">),</span>
+<span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">ck_trabaja_horas</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">horas</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">horas</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Restricción de tabla: CHECK</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Actualiza DBeaver: ya deben aparecer <code>departamentos</code>, <code>empleados</code>, <code>proyectos</code>, <code>familiares</code> y <code>trabaja</code>. Conserva las cinco tablas.</p>
+</div>
+<p>La PK compuesta hace obligatorios ambos códigos y las FK garantizan que existan el empleado y el proyecto. La regla del modelo «todo proyecto tiene al menos un empleado» <strong>no queda garantizada solo con estas claves</strong>; requiere un control adicional que no implementaremos en estos ejemplos.</p>
+<p>Actualiza la conexión <strong>Empresa</strong> y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:</p>
+<p><img alt="Empresa con la tabla trabaja y sus dos FK: cinco tablas y cinco FK" src="../../img/empresa/05-trabaja.png" width="800" /></p>
+<p><a id="ejercicios-juegos"></a></p>
+<h2 id="ejercicios-crear-tablas-con-restricciones">Ejercicios: Crear tablas con restricciones</h2>
+<p>Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1 y 2. Añade las sentencias a <code>juegos.sql</code>. No es necesario volver a crear <code>categorias</code> ni <code>productos</code>.</p>
+<h3 id="ejercicio-3-crear-provincias"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 3: Crear provincias</span></span></h3>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>provincias</code> para registrar las provincias de las ciudades. Utiliza los campos y tipos de la tabla siguiente y define <code>id_provincia</code> como clave primaria.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>PROVINCIAS</strong> (<u>id_provincia</u>, nombre)</p>
+<ul>
+<li>PK: (id_provincia)</li>
+</ul>
+<p><strong>Campos de <code>provincias</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_provincia</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(100)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="ejercicio-4-crear-ciudades"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 4: Crear ciudades</span></span></h3>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>ciudades</code> para registrar las ciudades y la provincia a la que pertenece cada una. Define su clave primaria y la clave ajena hacia <code>provincias</code>, que ya debe existir.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>CIUDADES</strong> (<u>id_ciudad</u>, nombre, <mark>id_provincia</mark>)</p>
+<ul>
+<li>PK: (id_ciudad)</li>
+<li>FK: id_provincia → PROVINCIAS(id_provincia)</li>
+</ul>
+<p><strong>Campos de <code>ciudades</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_ciudad</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(100)</code></td>
+</tr>
+<tr>
+<td><code>id_provincia</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="ejercicio-5-crear-vendedores"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 5: Crear vendedores</span></span></h3>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>vendedores</code> para guardar los datos de los vendedores y la ciudad a la que están asociados. Define la clave primaria y la clave ajena hacia <code>ciudades</code>.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>VENDEDORES</strong> (<u>id_vendedor</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>, <mark>id_jefe</mark>)</p>
+<ul>
+<li>PK: (id_vendedor)</li>
+<li>FK: id_ciudad → CIUDADES(id_ciudad)</li>
+<li>FK: id_jefe → VENDEDORES(id_vendedor)</li>
+</ul>
+<p>El modelo incluye la relación reflexiva con el jefe. Añade la columna <code>id_jefe</code>, pero <strong>deja pendiente su FK hasta el ejercicio 12</strong>. Por ahora solo debes crear la FK de <code>id_ciudad</code>.</p>
+<p><strong>Campos de <code>vendedores</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_vendedor</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(150)</code></td>
+</tr>
+<tr>
+<td><code>direccion</code></td>
+<td><code>VARCHAR(200)</code></td>
+</tr>
+<tr>
+<td><code>codigo_postal</code></td>
+<td><code>VARCHAR(10)</code></td>
+</tr>
+<tr>
+<td><code>id_ciudad</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_jefe</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="ejercicio-6-crear-jugadores"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 6: Crear jugadores</span></span></h3>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>jugadores</code> para guardar los datos de los clientes de la tienda. Define la clave primaria y la clave ajena hacia <code>ciudades</code>, siguiendo el modelo y los tipos indicados.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>JUGADORES</strong> (<u>id_jugador</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>)</p>
+<ul>
+<li>PK: (id_jugador)</li>
+<li>FK: id_ciudad → CIUDADES(id_ciudad)</li>
+</ul>
+<p><strong>Campos de <code>jugadores</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_jugador</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td><code>VARCHAR(150)</code></td>
+</tr>
+<tr>
+<td><code>direccion</code></td>
+<td><code>VARCHAR(200)</code></td>
+</tr>
+<tr>
+<td><code>codigo_postal</code></td>
+<td><code>VARCHAR(10)</code></td>
+</tr>
+<tr>
+<td><code>id_ciudad</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="ejercicio-7-crear-compras"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 7: Crear compras</span></span></h3>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>compras</code> para registrar la fecha, el jugador que compra y el vendedor que lo atiende, junto con el IVA y el descuento. Define la clave primaria y las dos claves ajenas del modelo.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>COMPRAS</strong> (<u>id_compra</u>, fecha, <mark>id_jugador</mark>, <mark>id_vendedor</mark>, iva, descuento)</p>
+<ul>
+<li>PK: (id_compra)</li>
+<li>FK: id_jugador → JUGADORES(id_jugador) <span class="tag-no-nulo">[no nulo]</span></li>
+<li>FK: id_vendedor → VENDEDORES(id_vendedor) <span class="tag-no-nulo">[no nulo]</span></li>
+</ul>
+<p>Define <code>id_jugador</code> e <code>id_vendedor</code> como <strong>NOT NULL</strong>: toda compra debe estar asociada a un jugador y a un vendedor existentes.</p>
+<p><strong>Campos de <code>compras</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_compra</code></td>
+<td><code>SERIAL</code></td>
+</tr>
+<tr>
+<td><code>fecha</code></td>
+<td><code>DATE</code></td>
+</tr>
+<tr>
+<td><code>id_jugador</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_vendedor</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>iva</code></td>
+<td><code>DECIMAL(5,2)</code></td>
+</tr>
+<tr>
+<td><code>descuento</code></td>
+<td><code>DECIMAL(5,2)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="ejercicio-8-crear-lineas_compra"><span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 8: Crear lineas_compra</span></span></h3>
+<div class="admonition ejercicio">
+<p class="admonition-title">Juegos</p>
+<p>Desde la conexión <strong>Juegos</strong>, crea <code>lineas_compra</code> para detallar los productos de cada compra, sus cantidades, precios y descuentos. Una compra puede tener varias líneas, identificadas por su número dentro de esa compra.</p>
+<p><strong>Modelo relacional</strong></p>
+<p><strong>LINEAS_COMPRA</strong> (<u><mark>id_compra</mark>, num_linea</u>, <mark>id_producto</mark>, cantidad, precio_unitario, descuento_linea)</p>
+<ul>
+<li>PK: (id_compra, num_linea)</li>
+<li>FK: id_compra → COMPRAS(id_compra)</li>
+<li>FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span></li>
+</ul>
+<p>Declara la PK compuesta <code>(id_compra, num_linea)</code> como <strong>restricción de tabla</strong> y exige un valor en <code>id_producto</code>. El modelo muestra también las dos FK, pero <strong>no las añadas todavía</strong>: las incorporaremos en el ejercicio 13. No añadas otro código autonumérico.</p>
+<p><strong>Campos de <code>lineas_compra</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo de dato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_compra</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>num_linea</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>id_producto</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>cantidad</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>precio_unitario</code></td>
+<td><code>DECIMAL(10,2)</code></td>
+</tr>
+<tr>
+<td><code>descuento_linea</code></td>
+<td><code>DECIMAL(5,2)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Antes de continuar:</strong> Debes tener ocho tablas, seis PK y cinco FK. Las PK de <code>categorias</code> y <code>productos</code>, la FK de <code>productos</code>, la relación reflexiva y las dos FK de <code>lineas_compra</code> siguen pendientes. Las completarás con ALTER TABLE.</p>
+<p>Actualiza la conexión <strong>Juegos</strong> y despliega <strong>Bases de datos → juegos → Esquemas → public → Tablas</strong>. Después del ejercicio 8 deben aparecer las ocho tablas, como en esta imagen orientativa. Todas están desplegadas para comprobar sus columnas y tipos de datos:</p>
+<p><img alt="Árbol de DBeaver al terminar el ejercicio 8, con las ocho tablas de Juegos desplegadas y todos sus campos y tipos de datos" src="../../juegos-arbol-ejercicio-8.png" width="800" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../tablas/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CREATE TABLE">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                CREATE TABLE
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../drop_table/" class="md-footer__link md-footer__link--next" aria-label="Next: DROP TABLE">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                DROP TABLE
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 Alicia Salvador — <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"> Licencia CC BY-NC-ND 4.0 </a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["toc.follow", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.tabs.link", "content.tooltips", "content.action.edit", "content.action.view", "header.autohide"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/lightbox.js"></script>
+      
+    
+  </body>
+</html>
