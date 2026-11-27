@@ -88,22 +88,21 @@ nav:
       - 📱 Moviles: moviles.md
   - DDL - Lenguaje de definición de datos:
       - 1. Introducción: BD_PostgreSQL_DDL/1_introducci.md
-      - 2. Definición de Datos (DDL) en PostgreSQL:
-          - 2.1 Bases de datos y esquemas:
-              - Crear bases de datos: BD_PostgreSQL_DDL/crear_bases_datos.md
-              - Esquemas: BD_PostgreSQL_DDL/esquemas.md
-          - 2.2 Gestión de tablas:
-              - Tipos de datos: BD_PostgreSQL_DDL/tipos_datos.md
-              - CREATE TABLE: BD_PostgreSQL_DDL/tablas.md
-              - Restricciones: BD_PostgreSQL_DDL/restricciones.md
-              - ALTER TABLE: BD_PostgreSQL_DDL/alter_table.md
-              - DROP TABLE: BD_PostgreSQL_DDL/drop_table.md
-          - 2.3 Dominios y tipos enumerados:
-              - Dominios: BD_PostgreSQL_DDL/dominios.md
-              - Tipos enumerados: BD_PostgreSQL_DDL/tipos_enumerados.md
-          # - 2.4 Seguridad y control de acceso:
-          #     - Usuarios y privilegios: BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md
-      - 3. Enunciados de todos los ejercicios: BD_PostgreSQL_DDL/enunciados_ejercicios.md
+      - 2. Bases de datos y esquemas:
+          - Bases de Datos: BD_PostgreSQL_DDL/crear_bases_datos.md
+          - Esquemas: BD_PostgreSQL_DDL/esquemas.md
+      - 3. Gestión de tablas:
+          - Tipos de datos: BD_PostgreSQL_DDL/tipos_datos.md
+          - CREATE TABLE: BD_PostgreSQL_DDL/tablas.md
+          - Restricciones: BD_PostgreSQL_DDL/restricciones.md
+          - ALTER TABLE: BD_PostgreSQL_DDL/alter_table.md
+          - DROP TABLE: BD_PostgreSQL_DDL/drop_table.md
+      - 4. Dominios y tipos enumerados:
+          - Dominios: BD_PostgreSQL_DDL/dominios.md
+          - Tipos enumerados: BD_PostgreSQL_DDL/tipos_enumerados.md
+      # - Seguridad y control de acceso:
+      #     - Usuarios y privilegios: BD_PostgreSQL_DDL/3_usuarios_roles_privilegios.md
+      - 5. Enunciados de todos los ejercicios: BD_PostgreSQL_DDL/enunciados_ejercicios.md
 #  - DML - Manipulación de Datos:
     #  - 1. Introducción y carga de datos: BD_PostgreSQL_DML/1_introducci.md
     #  - 2. Consultas de actualización (DML): BD_PostgreSQL_DML/2_consultes_dactualitzaci.md

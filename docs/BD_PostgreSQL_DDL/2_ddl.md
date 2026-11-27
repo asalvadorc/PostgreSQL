@@ -1,4 +1,4 @@
-# 2. Definición de Datos (DDL) en PostgreSQL
+# Contenidos de DDL
 
 **DDL** (*Data Definition Language*) permite crear, modificar y eliminar bases de datos, tablas, restricciones y otros objetos. `CREATE` crea, `ALTER` modifica y `DROP` elimina. 
 
@@ -24,12 +24,12 @@ Los bloques de **sintaxis** sirven como referencia: sustituye los nombres genér
 
 Los recuadros **Pruébalo** contienen las sentencias concretas que sí debes ejecutar, en el orden indicado.
 
-## 2.1 Bases de datos y esquemas
+## 2. Bases de datos y esquemas
 
 - [Crear bases de datos](crear_bases_datos.md)
 - [Esquemas](esquemas.md)
 
-## 2.2 Gestión de tablas
+## 3. Gestión de tablas
 
 - [Tipos de datos](tipos_datos.md)
 - [CREATE TABLE](tablas.md)
@@ -37,7 +37,7 @@ Los recuadros **Pruébalo** contienen las sentencias concretas que sí debes eje
 - [ALTER TABLE](alter_table.md)
 - [DROP TABLE](drop_table.md)
 
-## 2.3 Dominios y tipos enumerados
+## 4. Dominios y tipos enumerados
 
 - [Dominios](dominios.md)
 - [Tipos enumerados](tipos_enumerados.md)

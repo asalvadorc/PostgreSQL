@@ -7,19 +7,24 @@
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE TABLE [ IF NOT EXISTS ] [esquema.]nombre_tabla (</code><br><code>    columna tipo_dato [ DEFAULT expresion ] [ restricciones_de_columna ]</code><br><code>    [, ...]</code><br><code>    [, restricciones_de_tabla ... ]</code><br><code>);</code></td></tr>
+    <tr><td><code>CREATE TABLE <span class="ddl-table">tabla</span></code><br><code> ( <span class="ddl-field">campo1</span> <span class="ddl-type">tipo [(tamaño)]</span> <span class="ddl-default">[DEFAULT valor]</span> <span class="ddl-constraint">[restriccion1] [restriccion2]</span> [...]</code><br><code> [, <span class="ddl-field">campo2</span> <span class="ddl-type">tipo [(tamaño)]</span> <span class="ddl-default">[DEFAULT valor]</span> <span class="ddl-constraint">[restriccion1] [restriccion2]</span>[...]</code><br><code> [, ...]]</code><br><code> [, <span class="ddl-constraint">restriccion_multiple1</span> [, ...]] )</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `IF NOT EXISTS`: evita el error si la tabla ya existe; no modifica su estructura.
-    - `esquema.`: opcional; si se omite, en estas prácticas se utiliza `public` por defecto.
-    - `DEFAULT`: valor que se aplica si se omite la columna.
-    - `restricciones_de_columna`: reglas como `NOT NULL`, `PRIMARY KEY`, `UNIQUE`, `CHECK` o `REFERENCES`.
-    - `restricciones_de_tabla`: reglas sobre una o varias columnas, separadas de las definiciones de columna mediante comas.
+    - <code class="ddl-table">tabla</code>: nombre de la tabla que se va a crear.
+    - <code class="ddl-field">campo1</code>, <code class="ddl-field">campo2</code>: nombres de las columnas.
+    - <code class="ddl-type">tipo [(tamaño)]</code>: tipo de dato y, cuando corresponda, su tamaño o precisión.
+    - <code class="ddl-default">DEFAULT valor</code>: valor que se aplica si se omite la columna.
+    - <code class="ddl-constraint">restriccion1</code>, <code class="ddl-constraint">restriccion2</code>, etc.: restricciones de columna, como <code><span class="ddl-constraint">NOT NULL</span></code>, <code><span class="ddl-constraint">PRIMARY KEY</span></code>, <code><span class="ddl-constraint">UNIQUE</span></code>, <code><span class="ddl-constraint">CHECK</span></code> o <code><span class="ddl-constraint">REFERENCES</span></code>.
+    - <code class="ddl-constraint">restriccion_multiple1</code>: restricción de tabla, escrita después de las columnas y separada por comas.
 
-Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.
+!!! note "Apunte"
+
+    Los corchetes indican partes opcionales y `...` indica que pueden añadirse más columnas o restricciones.
+
+    Las columnas se separan por comas. Usa identificadores sin espacios, acentos ni comillas.
 
 Vamos a comenzar la construcción progresiva de **Empresa**, presentada en la introducción. A continuación, para practicar la creación de tablas, crearemos **departamentos** y **empleados** dentro de la base de datos **empresa**. Un departamento puede tener varios empleados: la relación será **1:N**. Empezaremos con tablas sin restricciones y, en el siguiente apartado, incorporaremos las claves y las reglas de validación.
 
@@ -45,7 +50,7 @@ Vamos a comenzar la construcción progresiva de **Empresa**, presentada en la in
     );
     ```
 
-    Actualiza el navegador de DBeaver y comprueba que aparecen las dos tablas. Están vacías y todavía no tienen claves primarias ni ajenas. Conserva ambas: en el apartado siguiente las recrearemos para incorporar restricciones.
+    Actualiza el navegador de DBeaver y comprueba que aparecen las dos tablas. Están vacías y todavía no tienen claves primarias ni ajenas. Conserva ambas: en el apartado siguiente las volveremos a crear para incorporar restricciones.
 
 Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientativa muestra el estado al terminar el ejemplo:
 
@@ -56,32 +61,23 @@ Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientati
 
 ## Ejercicios: Crear las primeras tablas
 
-Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_datos.md#crear-juegos-y-su-conexion). Los campos y tipos necesarios aparecen en cada ejercicio. Guarda las sentencias en `02_juegos.sql`.
-
-??? info "Referencia general de campos y tipos de Juegos"
-
-    | Tabla | Campos y tipos |
-    | --- | --- |
-    | categorias | id_categoria SERIAL, descripcion VARCHAR(100). |
-    | productos | id_producto SERIAL, nombre VARCHAR(200), precio DECIMAL(10,2), stock INTEGER, stock_minimo INTEGER, id_categoria INTEGER. |
-    | provincias | id_provincia SERIAL, nombre VARCHAR(100). |
-    | ciudades | id_ciudad SERIAL, nombre VARCHAR(100), id_provincia INTEGER. |
-    | vendedores | id_vendedor SERIAL, nombre VARCHAR(150), direccion VARCHAR(200), codigo_postal VARCHAR(10), id_ciudad INTEGER, id_jefe INTEGER. |
-    | jugadores | id_jugador SERIAL, nombre VARCHAR(150), direccion VARCHAR(200), codigo_postal VARCHAR(10), id_ciudad INTEGER. |
-    | compras | id_compra SERIAL, fecha DATE, id_jugador INTEGER, id_vendedor INTEGER, iva DECIMAL(5,2), descuento DECIMAL(5,2). |
-    | lineas_compra | id_compra INTEGER, num_linea INTEGER, id_producto INTEGER, cantidad INTEGER, precio_unitario DECIMAL(10,2), descuento_linea DECIMAL(5,2). |
-
-    Recuerda:
-
-    - `SERIAL` genera códigos, pero no añade una PK por sí solo. Para las claves ajenas utiliza `INTEGER`.
-    - La PK de `lineas_compra` será `(id_compra, num_linea)`; no añadas otro código autonumérico.
-    - `vendedores.id_jefe` puede ser nulo y referencia a la propia tabla. Añadirás esa FK en el ejercicio 12.
-    - La FK de las líneas hacia las compras llevará `ON DELETE CASCADE`; las demás referencias conservarán `NO ACTION`, como indica el ejercicio 13.
-    - Después de cada ejercicio, actualiza el navegador de DBeaver y revisa las columnas y restricciones que hayas añadido.
+Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_datos.md#crear-juegos-y-su-conexion). Los campos y tipos necesarios aparecen en cada ejercicio. Guarda las sentencias en `juegos.sql`.
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 1: Crear categorias</span></span> {#ejercicio-1-crear-categorias}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, escribe y ejecuta una sentencia `CREATE TABLE` para crear `categorias`, donde se guardarán las categorías que clasifican los productos de la tienda.
+
+    **Modelo relacional**
+
+    **CATEGORIAS** (<u>id_categoria</u>, descripcion)
+
+    - PK: (id_categoria)
+
+    Define las columnas con los tipos indicados en la tabla siguiente. `SERIAL` generará automáticamente los códigos de `id_categoria`.
+
+    Aunque el modelo indica una clave primaria, **no la declares todavía ni añadas otras restricciones explícitas**. En este ejercicio practicaremos la definición de columnas y tipos; incorporaremos la PK en el ejercicio 11.
 
     **Campos de `categorias`**
 
@@ -90,11 +86,21 @@ Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_d
     | `id_categoria` | `SERIAL` |
     | `descripcion` | `VARCHAR(100)` |
 
-    Crea `categorias` con los campos y tipos indicados arriba. Utiliza `SERIAL` en `id_categoria`, pero no añadas todavía la clave primaria ni otras restricciones explícitas.
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 2: Crear productos</span></span> {#ejercicio-2-crear-productos}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `productos` para guardar los artículos que vende la tienda. Utiliza los campos y tipos de la tabla siguiente.
+
+    **Modelo relacional**
+
+    **PRODUCTOS** (<u>id_producto</u>, nombre, precio, stock, stock_minimo, <mark>id_categoria</mark>)
+
+    - PK: (id_producto)
+    - FK: id_categoria → CATEGORIAS(id_categoria)
+
+    El modelo muestra las claves que tendrá la tabla al completar los ejercicios. **Por ahora no declares la PK ni la FK, ni añadas otras restricciones de validación**. `SERIAL` generará los códigos de `id_producto`; las claves se añadirán en el ejercicio 12.
 
     **Campos de `productos`**
 
@@ -106,8 +112,6 @@ Antes de empezar, completa [la creación de Juegos y su conexión](crear_bases_d
     | `stock` | `INTEGER` |
     | `stock_minimo` | `INTEGER` |
     | `id_categoria` | `INTEGER` |
-
-    Crea `productos` con todos sus campos. Utiliza `SERIAL` en `id_producto`, pero deja pendientes su clave primaria y su clave ajena hacia `categorias`. No añadas todavía restricciones de validación.
 
 **Antes de continuar:** Al terminar deben existir `categorias` y `productos`, todavía sin PK ni FK. No las borres: continuarás con ellas después de estudiar las restricciones.
 

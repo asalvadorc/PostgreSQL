@@ -12,31 +12,31 @@ Un dominio reutiliza un tipo de dato y sus restricciones en distintas columnas. 
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE DOMAIN [esquema.]nombre AS tipo_dato</code><br/><code>    [ DEFAULT expresion ]</code><br/><code>    [ NOT NULL ]</code><br/><code>    [ [ CONSTRAINT nombre_restriccion ] CHECK (condicion) ];</code></td></tr>
-    <tr><td><code>ALTER DOMAIN [esquema.]nombre</code><br/><code>    { SET DEFAULT expresion</code><br/><code>    | DROP DEFAULT</code><br/><code>    | SET NOT NULL</code><br/><code>    | DROP NOT NULL</code><br/><code>    | ADD [ CONSTRAINT nombre ] CHECK (condicion)</code><br/><code>    | DROP CONSTRAINT nombre };</code></td></tr>
-    <tr><td><code>DROP DOMAIN [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+    <tr><td><code>CREATE DOMAIN [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span> AS <span class="ddl-type">tipo_dato</span></code><br/><code>    [ <span class="ddl-default">DEFAULT</span> <span class="ddl-default">expresion</span> ]</code><br/><code>    [ <span class="ddl-constraint">NOT NULL</span> ]</code><br/><code>    [ [ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre_restriccion</span> ] <span class="ddl-constraint">CHECK</span> (<span class="ddl-constraint">condicion</span>) ];</code></td></tr>
+    <tr><td><code>ALTER DOMAIN [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span></code><br/><code>    { <span class="ddl-option">SET</span> <span class="ddl-default">DEFAULT</span> <span class="ddl-default">expresion</span></code><br/><code>    | <span class="ddl-option">DROP</span> <span class="ddl-default">DEFAULT</span></code><br/><code>    | <span class="ddl-option">SET</span> <span class="ddl-constraint">NOT NULL</span></code><br/><code>    | <span class="ddl-option">DROP</span> <span class="ddl-constraint">NOT NULL</span></code><br/><code>    | <span class="ddl-option">ADD</span> [ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre</span> ] <span class="ddl-constraint">CHECK</span> (<span class="ddl-constraint">condicion</span>)</code><br/><code>    | <span class="ddl-option">DROP</span> <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre</span> };</code></td></tr>
+    <tr><td><code>DROP DOMAIN [ <span class="ddl-option">IF EXISTS</span> ] [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span> [, ...]</code><br/><code>    [ <span class="ddl-option">CASCADE</span> | <span class="ddl-option">RESTRICT</span> ];</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    **`CREATE DOMAIN`**
+    **<code>CREATE DOMAIN</code>**
 
-    - `DEFAULT`: valor por defecto.
-    - `NOT NULL`: exige un valor.
-    - `CHECK`: comprueba una condición sobre `VALUE`.
-    - `CONSTRAINT`: asigna un nombre a la restricción.
+    - <code><span class="ddl-default">DEFAULT</span></code>: valor por defecto.
+    - <code><span class="ddl-constraint">NOT NULL</span></code>: exige un valor.
+    - <code><span class="ddl-constraint">CHECK</span></code>: comprueba una condición sobre <code><span class="ddl-option">VALUE</span></code>.
+    - <code><span class="ddl-constraint">CONSTRAINT</span></code>: asigna un nombre a la restricción.
 
-    **`ALTER DOMAIN`**
+    **<code>ALTER DOMAIN</code>**
 
-    - `SET / DROP`: establece o elimina el valor por defecto o la obligatoriedad.
-    - `ADD / DROP CONSTRAINT`: añade o elimina restricciones.
+    - <code><span class="ddl-option">SET</span> / <span class="ddl-option">DROP</span></code>: establece o elimina el valor por defecto o la obligatoriedad.
+    - <code><span class="ddl-option">ADD</span> / <span class="ddl-option">DROP</span> <span class="ddl-constraint">CONSTRAINT</span></code>: añade o elimina restricciones.
 
-    **`DROP DOMAIN`**
+    **<code>DROP DOMAIN</code>**
 
-    - `IF EXISTS`: evita el error si no existe.
-    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
-    - `CASCADE`: elimina también objetos dependientes.
+    - <code><span class="ddl-option">IF EXISTS</span></code>: evita el error si no existe.
+    - <code><span class="ddl-option">RESTRICT</span></code>: impide borrar si hay dependencias (por defecto).
+    - <code><span class="ddl-option">CASCADE</span></code>: elimina también objetos dependientes.
 
 
 En los CHECK de un dominio, `VALUE` representa el valor que se está validando. Los cambios deben ser compatibles con los datos de las columnas que ya lo utilizan.

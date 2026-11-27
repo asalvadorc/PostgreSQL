@@ -18,14 +18,14 @@ La notación `[esquema.]nombre_tabla` indica que podemos escribir el esquema seg
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE SCHEMA [ IF NOT EXISTS ] nombre_esquema</code><br/><code>    [ AUTHORIZATION nombre_usuario ];</code></td></tr>
+    <tr><td><code>CREATE SCHEMA [ <span class="ddl-option">IF NOT EXISTS</span> ] <span class="ddl-table">nombre_esquema</span></code><br/><code>    [ <span class="ddl-option">AUTHORIZATION</span> <span class="ddl-table">nombre_usuario</span> ];</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `IF NOT EXISTS`: evita el error si el esquema ya existe.
-    - `AUTHORIZATION`: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.
+    - <code><span class="ddl-option">IF NOT EXISTS</span></code>: evita el error si el esquema ya existe.
+    - <code><span class="ddl-option">AUTHORIZATION</span></code>: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.
 
 
 !!! example practica "Pruébalo: Crear un esquema"

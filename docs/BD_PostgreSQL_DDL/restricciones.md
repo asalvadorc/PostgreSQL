@@ -11,21 +11,28 @@ Las restricciones de columna establecen las reglas que debe cumplir un campo: ex
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>[ CONSTRAINT nombre ] { PRIMARY KEY | UNIQUE | NOT NULL | REFERENCES tabla2 [(columna1)] | CHECK (condicion) }</code></td></tr>
+    <tr><td><code>[ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre</span> ]</code><br><code>{ <span class="ddl-constraint">PRIMARY KEY</span> | <span class="ddl-constraint">UNIQUE</span> | <span class="ddl-constraint">NOT NULL</span> | <span class="ddl-constraint">CHECK</span> (<span class="ddl-constraint">condicion</span>) | <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">tabla2</span> [(<span class="ddl-field">columna1</span>)] </code><br><code>    [ <span class="ddl-constraint">ON DELETE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ]</code><br><code>    [ <span class="ddl-constraint">ON UPDATE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ] }</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `CONSTRAINT`: asigna un nombre a la restricción.
-    - `REFERENCES`: indica la clave referenciada.
+    - <code><span class="ddl-constraint">CONSTRAINT</span></code>: asigna un nombre a la restricción.
+    - <code><span class="ddl-constraint">PRIMARY KEY</span></code>: identifica la fila, sin duplicados ni nulos.
+    - <code><span class="ddl-constraint">UNIQUE</span></code>: impide duplicados; en su comportamiento normal permite varios nulos.
+    - <code><span class="ddl-constraint">NOT NULL</span></code>: exige un valor.
+    - <code><span class="ddl-constraint">CHECK</span></code>: exige que una expresión no sea falsa. Si el resultado es desconocido por un NULL, la fila puede aceptarse; añade <code><span class="ddl-constraint">NOT NULL</span></code> si el dato es obligatorio.
+    - <code><span class="ddl-constraint">REFERENCES</span></code>: indica la clave referenciada y exige que el valor no nulo exista en ella.
 
+    **Acciones de la clave ajena**
 
-- **PRIMARY KEY**: identifica la fila, sin duplicados ni nulos.
-- **NOT NULL**: exige un valor.
-- **UNIQUE**: impide duplicados; en su comportamiento normal permite varios nulos.
-- **CHECK**: exige que una expresión no sea falsa. Si el resultado es desconocido por un NULL, la fila puede aceptarse; añade `NOT NULL` si el dato es obligatorio.
-- **REFERENCES**: exige que el valor no nulo exista en una clave referenciada.
+    Las cláusulas <code><span class="ddl-constraint">ON DELETE</span></code> y <code><span class="ddl-constraint">ON UPDATE</span></code> se aplican únicamente a <code><span class="ddl-constraint">REFERENCES</span></code>: indican qué hacer con las filas que contienen la clave ajena cuando se borra la fila referenciada o se modifica su clave.
+
+    - <code><span class="ddl-option">CASCADE</span></code>: al borrar, elimina también las filas que la referencian; al actualizar la clave referenciada, actualiza los valores de sus claves ajenas.
+    - <code><span class="ddl-option">SET NULL</span></code>: pone la clave ajena a NULL; sus columnas deben admitir nulos.
+    - <code><span class="ddl-option">SET DEFAULT</span></code>: asigna el valor por defecto; este debe seguir cumpliendo la clave ajena.
+    - <code><span class="ddl-option">RESTRICT</span></code>: impide la operación si existen filas que la referencian; su comprobación no se puede aplazar.
+    - <code><span class="ddl-option">NO ACTION</span></code>: rechaza la operación si al comprobar la restricción quedan referencias sin destino. Es la acción predeterminada cuando se omite la cláusula.
 
 !!! example practica "Pruébalo: Restricciones de columna en departamentos y empleados"
 
@@ -84,24 +91,78 @@ Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientati
 
 Las restricciones de tabla permiten definir claves que abarcan varias columnas y condiciones que relacionan distintos campos. Se incluyen dentro de `CREATE TABLE`, separadas de las definiciones de columna mediante comas.
 
+!!! note "¿Cuándo es obligatorio utilizar una restricción de tabla?"
+
+    Cuando una **PRIMARY KEY**, **UNIQUE** o **FOREIGN KEY** afecta a **varias columnas**, hay que declararla como restricción de tabla. Así la regla se aplica a la combinación de campos:
+
+    - `PRIMARY KEY (codigo_empleado, nombre)`: identifica cada familiar mediante la combinación de empleado y nombre.
+    - `UNIQUE (codigo_departamento, nombre)`: impide repetir la pareja, aunque cada valor por separado pueda repetirse.
+    - `FOREIGN KEY (campo1, campo2) REFERENCES otra_tabla (clave1, clave2)`: referencia una clave formada por dos columnas.
+
+    Para un **CHECK que compara varias columnas**, también lo declararemos a nivel de tabla, por ejemplo: `CHECK (stock >= stock_minimo)`. PostgreSQL permite escribirlo en una columna, pero la forma de tabla expresa mejor que la condición relaciona varios campos.
+
+    Si la regla afecta a una sola columna, normalmente puede declararse en esa columna o a nivel de tabla, salvo `NOT NULL`, que en PostgreSQL 17 debe declararse en la columna.
+
 !!! quote sintaxis "Sintaxis básica"
 
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>[ CONSTRAINT nombre ]</code><br/><code>{ { PRIMARY KEY | UNIQUE | FOREIGN KEY } (columna1 [, columna2, ...])</code><br/><code>    [ REFERENCES tabla2 [ (columna_ref1 [, columna_ref2, ...]) ] ]</code><br/><code>    [ ON DELETE { CASCADE | SET NULL } ] [ ON UPDATE { CASCADE | SET NULL } ]</code><br/><code>| CHECK (condicion) }</code></td></tr>
+    <tr><td><code>[ <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">nombre</span> ]</code><br/><code>{ { <span class="ddl-constraint">PRIMARY KEY</span> | <span class="ddl-constraint">UNIQUE</span> | <span class="ddl-constraint">FOREIGN KEY</span> } (<span class="ddl-field">columna1</span> [, <span class="ddl-field">columna2</span>, ...])</code><br/><code>    [ <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">tabla2</span> [ (<span class="ddl-field">columna_ref1</span> [, <span class="ddl-field">columna_ref2</span>, ...]) ] ]</code><br/><code>    [ <span class="ddl-constraint">ON DELETE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ]</code><br/><code>    [ <span class="ddl-constraint">ON UPDATE</span> { <span class="ddl-option">CASCADE</span> | <span class="ddl-option">SET NULL</span> | <span class="ddl-option">SET DEFAULT</span> | <span class="ddl-option">RESTRICT</span> | <span class="ddl-option">NO ACTION</span> } ]</code><br/><code>| <span class="ddl-constraint">CHECK</span> (<span class="ddl-constraint">condicion</span>) }</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `CONSTRAINT`: asigna un nombre a la restricción.
-    - `REFERENCES`: indica la tabla y las columnas referenciadas; se utiliza con `FOREIGN KEY`.
-    - `ON DELETE / ON UPDATE`: acciones de la clave ajena al borrar o actualizar la fila referenciada. Si se omiten, se aplica `NO ACTION`.
-    - `CHECK`: lleva su condición entre paréntesis, sin añadir otra lista de columnas.
+    - <code><span class="ddl-constraint">CONSTRAINT</span></code>: asigna un nombre a la restricción.
+    - <code><span class="ddl-constraint">REFERENCES</span></code>: indica la tabla y las columnas referenciadas; se utiliza con <code><span class="ddl-constraint">FOREIGN KEY</span></code>.
+    - <code><span class="ddl-constraint">ON DELETE</span> / <span class="ddl-constraint">ON UPDATE</span></code>: acciones de la clave ajena al borrar o actualizar la fila referenciada. Si se omiten, se aplica <code>NO ACTION</code>.
+    - <code><span class="ddl-constraint">CHECK</span></code>: lleva su condición entre paréntesis, sin añadir otra lista de columnas.
 
 
-En una FK compuesta, el número y los tipos de las columnas deben ser compatibles con los de la clave referenciada.
+!!! warning "NOT NULL se declara en la columna"
+
+    En **PostgreSQL 17**, `NOT NULL` no se puede declarar como restricción de tabla. Debe escribirse en la definición de cada columna que sea obligatoria, por ejemplo: `nombre VARCHAR(100) NOT NULL`.
+
+    No utilices `NOT NULL (nombre)` como una restricción separada al final de `CREATE TABLE`.
+
+
+
+**La misma tabla con restricciones de columna y de tabla**
+
+Las dos definiciones siguientes crean `empleados` con las mismas reglas que en el ejemplo anterior. En la izquierda, las restricciones se escriben junto a cada columna; en la derecha, la PK, el UNIQUE, el CHECK y la FK se declaran al final de la tabla.
+
+<div class="ddl-compare-wrap">
+<table class="ddl-compare">
+<thead><tr><th>Restricciones de columna</th><th>Restricciones de tabla</th></tr></thead>
+<tbody><tr><td><pre><code>CREATE TABLE <span class="ddl-table">empleados</span> (
+    <span class="ddl-field">codigo</span> <span class="ddl-type">INTEGER</span> <span class="ddl-constraint">PRIMARY KEY</span>,
+    <span class="ddl-field">nombre</span> <span class="ddl-type">VARCHAR(150)</span> <span class="ddl-constraint">NOT NULL</span>,
+    <span class="ddl-field">fecha_nacimiento</span> <span class="ddl-type">DATE</span>,
+    <span class="ddl-field">salario</span> <span class="ddl-type">NUMERIC(10,2)</span> <span class="ddl-default">DEFAULT 0</span>
+        <span class="ddl-constraint">CHECK</span> (<span class="ddl-field">salario</span> &gt;= 0),
+    <span class="ddl-field">correo</span> <span class="ddl-type">VARCHAR(150)</span> <span class="ddl-constraint">UNIQUE</span>,
+    <span class="ddl-field">codigo_departamento</span> <span class="ddl-type">INTEGER</span>
+        <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">departamentos</span>(<span class="ddl-field">codigo</span>)
+);</code></pre></td><td><pre><code>CREATE TABLE <span class="ddl-table">empleados</span> (
+    <span class="ddl-field">codigo</span> <span class="ddl-type">INTEGER</span>,
+    <span class="ddl-field">nombre</span> <span class="ddl-type">VARCHAR(150)</span> <span class="ddl-constraint">NOT NULL</span>,
+    <span class="ddl-field">fecha_nacimiento</span> <span class="ddl-type">DATE</span>,
+    <span class="ddl-field">salario</span> <span class="ddl-type">NUMERIC(10,2)</span> <span class="ddl-default">DEFAULT 0</span>,
+    <span class="ddl-field">correo</span> <span class="ddl-type">VARCHAR(150)</span>,
+    <span class="ddl-field">codigo_departamento</span> <span class="ddl-type">INTEGER</span>,
+    <span class="ddl-constraint">PRIMARY KEY</span> (<span class="ddl-field">codigo</span>),
+    <span class="ddl-constraint">CHECK</span> (<span class="ddl-field">salario</span> &gt;= 0),
+    <span class="ddl-constraint">UNIQUE</span> (<span class="ddl-field">correo</span>),
+    <span class="ddl-constraint">FOREIGN KEY</span> (<span class="ddl-field">codigo_departamento</span>)
+        <span class="ddl-constraint">REFERENCES</span> <span class="ddl-table">departamentos</span>(<span class="ddl-field">codigo</span>)
+);</code></pre></td></tr></tbody>
+</table>
+</div>
+
+En ambas versiones, **`NOT NULL` permanece en la definición de `nombre`** y `DEFAULT` junto a `salario`. La FK exige que exista previamente `departamentos` con su clave primaria.
+
+Esta comparación es una referencia: **no vuelvas a crear `empleados` si ya existe**. Conserva las tablas que has construido y continúa con el ejemplo de Familiares.
 
 Para practicar una **clave primaria compuesta**, crearemos una tabla nueva: **familiares**. Guardará los familiares de cada empleado. Conservaremos `departamentos` y `empleados` tal como están; **no añadiremos ninguna columna a empleados**.
 
@@ -165,34 +226,23 @@ Actualiza la conexión **Empresa** y despliega las tablas. Esta imagen orientati
 ![Empresa con la tabla trabaja y sus dos FK: cinco tablas y cinco FK](../img/empresa/05-trabaja.png){ width="800" }
 
 
-## Claves ajenas y participación
-
-Las acciones de `ON DELETE` y `ON UPDATE` son:
-
-| Acción | Efecto sobre las filas que contienen la FK |
-| --- | --- |
-| `NO ACTION` | Rechaza la operación si al comprobar la restricción quedan referencias sin destino. Es la acción predeterminada. |
-| `RESTRICT` | Impide la operación si hay referencias; esta comprobación no se puede aplazar. |
-| `CASCADE` | Propaga el borrado o la actualización de la clave referenciada. |
-| `SET NULL` | Asigna NULL a la referencia; requiere que las columnas afectadas admitan nulos. |
-| `SET DEFAULT` | Aplica su valor por defecto, que debe seguir cumpliendo la FK. |
-
-En las tablas de `empresa`, `empleados.codigo_departamento` referencia a `departamentos.codigo`. Como admite nulos, un empleado puede estar sin departamento: la clave ajena por sí sola no obliga a rellenarla. Si añadiéramos **NOT NULL** a esa columna, todo empleado tendría que pertenecer a un departamento existente; así representaríamos su **participación total** en la relación.
-
-En `familiares`, en cambio, `codigo_empleado` ya es obligatorio porque forma parte de la PK compuesta: todo familiar debe pertenecer a un empleado existente.
-
-Se aplica `NO ACTION` por defecto: no podemos borrar un departamento mientras haya empleados que lo referencien. Si hubiéramos definido esa FK con `ON DELETE CASCADE`, borrar el departamento también intentaría borrar sus empleados; otras referencias, como las de `familiares`, podrían impedirlo. La acción debe elegirse teniendo en cuenta todas las relaciones.
-
-
 <a id="ejercicios-juegos"></a>
 
 ## Ejercicios: Crear tablas con restricciones
 
-Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1 y 2. Añade las sentencias a `02_juegos.sql`. No es necesario volver a crear `categorias` ni `productos`.
+Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1 y 2. Añade las sentencias a `juegos.sql`. No es necesario volver a crear `categorias` ni `productos`.
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 3: Crear provincias</span></span> {#ejercicio-3-crear-provincias}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `provincias` para registrar las provincias de las ciudades. Utiliza los campos y tipos de la tabla siguiente y define `id_provincia` como clave primaria.
+
+    **Modelo relacional**
+
+    **PROVINCIAS** (<u>id_provincia</u>, nombre)
+
+    - PK: (id_provincia)
 
     **Campos de `provincias`**
 
@@ -201,11 +251,18 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
     | `id_provincia` | `SERIAL` |
     | `nombre` | `VARCHAR(100)` |
 
-    Crea `provincias` con sus dos campos y define `id_provincia` como clave primaria.
-
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 4: Crear ciudades</span></span> {#ejercicio-4-crear-ciudades}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `ciudades` para registrar las ciudades y la provincia a la que pertenece cada una. Define su clave primaria y la clave ajena hacia `provincias`, que ya debe existir.
+
+    **Modelo relacional**
+
+    **CIUDADES** (<u>id_ciudad</u>, nombre, <mark>id_provincia</mark>)
+
+    - PK: (id_ciudad)
+    - FK: id_provincia → PROVINCIAS(id_provincia)
 
     **Campos de `ciudades`**
 
@@ -215,11 +272,21 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
     | `nombre` | `VARCHAR(100)` |
     | `id_provincia` | `INTEGER` |
 
-    Crea `ciudades`. Define `id_ciudad` como clave primaria y `id_provincia` como clave ajena hacia `provincias(id_provincia)`.
-
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 5: Crear vendedores</span></span> {#ejercicio-5-crear-vendedores}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `vendedores` para guardar los datos de los vendedores y la ciudad a la que están asociados. Define la clave primaria y la clave ajena hacia `ciudades`.
+
+    **Modelo relacional**
+
+    **VENDEDORES** (<u>id_vendedor</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>, <mark>id_jefe</mark>)
+
+    - PK: (id_vendedor)
+    - FK: id_ciudad → CIUDADES(id_ciudad)
+    - FK: id_jefe → VENDEDORES(id_vendedor)
+
+    El modelo incluye la relación reflexiva con el jefe. Añade la columna `id_jefe`, pero **deja pendiente su FK hasta el ejercicio 12**. Por ahora solo debes crear la FK de `id_ciudad`.
 
     **Campos de `vendedores`**
 
@@ -232,11 +299,18 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
     | `id_ciudad` | `INTEGER` |
     | `id_jefe` | `INTEGER` |
 
-    Crea `vendedores` con su clave primaria y la clave ajena `id_ciudad` hacia `ciudades(id_ciudad)`. Incluye la columna `id_jefe`, pero **deja pendiente su clave ajena reflexiva** hasta el ejercicio 12.
-
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 6: Crear jugadores</span></span> {#ejercicio-6-crear-jugadores}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `jugadores` para guardar los datos de los clientes de la tienda. Define la clave primaria y la clave ajena hacia `ciudades`, siguiendo el modelo y los tipos indicados.
+
+    **Modelo relacional**
+
+    **JUGADORES** (<u>id_jugador</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>)
+
+    - PK: (id_jugador)
+    - FK: id_ciudad → CIUDADES(id_ciudad)
 
     **Campos de `jugadores`**
 
@@ -248,11 +322,21 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
     | `codigo_postal` | `VARCHAR(10)` |
     | `id_ciudad` | `INTEGER` |
 
-    Crea `jugadores` con su clave primaria y la clave ajena `id_ciudad` hacia `ciudades(id_ciudad)`.
-
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 7: Crear compras</span></span> {#ejercicio-7-crear-compras}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `compras` para registrar la fecha, el jugador que compra y el vendedor que lo atiende, junto con el IVA y el descuento. Define la clave primaria y las dos claves ajenas del modelo.
+
+    **Modelo relacional**
+
+    **COMPRAS** (<u>id_compra</u>, fecha, <mark>id_jugador</mark>, <mark>id_vendedor</mark>, iva, descuento)
+
+    - PK: (id_compra)
+    - FK: id_jugador → JUGADORES(id_jugador) <span class="tag-no-nulo">[no nulo]</span>
+    - FK: id_vendedor → VENDEDORES(id_vendedor) <span class="tag-no-nulo">[no nulo]</span>
+
+    Define `id_jugador` e `id_vendedor` como **NOT NULL**: toda compra debe estar asociada a un jugador y a un vendedor existentes.
 
     **Campos de `compras`**
 
@@ -265,11 +349,21 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
     | `iva` | `DECIMAL(5,2)` |
     | `descuento` | `DECIMAL(5,2)` |
 
-    Crea `compras` con su clave primaria y las claves ajenas hacia `jugadores` y `vendedores`. Define `id_jugador` e `id_vendedor` como **NOT NULL**: toda compra debe tener un jugador y un vendedor.
-
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 8: Crear lineas_compra</span></span> {#ejercicio-8-crear-lineas_compra}
 
 !!! ejercicio "Juegos"
+
+    Desde la conexión **Juegos**, crea `lineas_compra` para detallar los productos de cada compra, sus cantidades, precios y descuentos. Una compra puede tener varias líneas, identificadas por su número dentro de esa compra.
+
+    **Modelo relacional**
+
+    **LINEAS_COMPRA** (<u><mark>id_compra</mark>, num_linea</u>, <mark>id_producto</mark>, cantidad, precio_unitario, descuento_linea)
+
+    - PK: (id_compra, num_linea)
+    - FK: id_compra → COMPRAS(id_compra)
+    - FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span>
+
+    Declara la PK compuesta `(id_compra, num_linea)` como **restricción de tabla** y exige un valor en `id_producto`. El modelo muestra también las dos FK, pero **no las añadas todavía**: las incorporaremos en el ejercicio 13. No añadas otro código autonumérico.
 
     **Campos de `lineas_compra`**
 
@@ -281,8 +375,6 @@ Continúa sobre la misma base de datos y conserva las tablas de los ejercicios 1
     | `cantidad` | `INTEGER` |
     | `precio_unitario` | `DECIMAL(10,2)` |
     | `descuento_linea` | `DECIMAL(5,2)` |
-
-    Crea `lineas_compra` con la clave primaria compuesta `(id_compra, num_linea)` y con `id_producto` obligatorio. **No añadas todavía ninguna de sus dos claves ajenas**: las incorporarás en el ejercicio 13. La PK compuesta debe declararse como restricción de tabla.
 
 **Antes de continuar:** Debes tener ocho tablas, seis PK y cinco FK. Las PK de `categorias` y `productos`, la FK de `productos`, la relación reflexiva y las dos FK de `lineas_compra` siguen pendientes. Las completarás con ALTER TABLE.
 

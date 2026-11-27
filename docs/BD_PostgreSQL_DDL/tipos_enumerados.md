@@ -7,28 +7,28 @@ Un tipo enumerado limita una columna a una lista de valores permitidos. `CREATE 
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE TYPE [esquema.]nombre AS ENUM ('valor1' [, ...]);</code></td></tr>
-    <tr><td><code>ALTER TYPE [esquema.]nombre ADD VALUE 'nuevo_valor';</code><br/><br/><br/><code>ALTER TYPE [esquema.]nombre</code><br/><code>    RENAME VALUE 'valor_existente' TO 'nuevo_valor';</code></td></tr>
-    <tr><td><code>DROP TYPE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+    <tr><td><code>CREATE TYPE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span> AS <span class="ddl-type">ENUM</span> (<span class="ddl-default">'valor1'</span> [, ...]);</code></td></tr>
+    <tr><td><code>ALTER TYPE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span> <span class="ddl-option">ADD</span> <span class="ddl-option">VALUE</span> <span class="ddl-default">'nuevo_valor'</span>;</code><br/><br/><br/><code>ALTER TYPE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span></code><br/><code>    <span class="ddl-option">RENAME</span> <span class="ddl-option">VALUE</span> <span class="ddl-default">'valor_existente'</span> <span class="ddl-option">TO</span> <span class="ddl-default">'nuevo_valor'</span>;</code></td></tr>
+    <tr><td><code>DROP TYPE [ <span class="ddl-option">IF EXISTS</span> ] [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span> [, ...]</code><br/><code>    [ <span class="ddl-option">CASCADE</span> | <span class="ddl-option">RESTRICT</span> ];</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    **`CREATE TYPE`**
+    **<code>CREATE TYPE</code>**
 
-    - `AS ENUM`: lista de valores permitidos entre comillas simples.
+    - <code>AS ENUM</code>: lista de valores permitidos entre comillas simples.
 
-    **`ALTER TYPE`**
+    **<code>ALTER TYPE</code>**
 
-    - `ADD VALUE`: añade un valor al final de la lista.
-    - `RENAME VALUE`: cambia un valor existente.
+    - <code><span class="ddl-option">ADD</span> <span class="ddl-option">VALUE</span></code>: añade un valor al final de la lista.
+    - <code><span class="ddl-option">RENAME</span> <span class="ddl-option">VALUE</span></code>: cambia un valor existente.
 
-    **`DROP TYPE`**
+    **<code>DROP TYPE</code>**
 
-    - `IF EXISTS`: evita el error si no existe.
-    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
-    - `CASCADE`: elimina también objetos dependientes.
+    - <code><span class="ddl-option">IF EXISTS</span></code>: evita el error si no existe.
+    - <code><span class="ddl-option">RESTRICT</span></code>: impide borrar si hay dependencias (por defecto).
+    - <code><span class="ddl-option">CASCADE</span></code>: elimina también objetos dependientes.
 
 
 No existe una operación directa para eliminar un único valor de un ENUM. Aquí utilizaremos los tipos enumerados para limitar los valores admitidos por una columna.
@@ -62,13 +62,21 @@ Realiza este ejercicio de ampliación después de estudiar CREATE TABLE, restric
 
 !!! ejercicio "Empresa"
 
-    Trabaja en la base de datos **`empresa`** y realiza estos pasos:
+    En la conexión **Empresa**, crea los objetos auxiliares necesarios para definir esta tabla y comprobar sus restricciones. Al terminar, elimina solo esos objetos de demostración.
+
+    **Modelo relacional**
+
+    **PRODUCTOS_DEMO** (<u>id_producto</u>, nombre, precio, stock, stock_minimo, codigo_barras, estado)
+
+    - PK: (id_producto)
+
+    Realiza estos pasos:
 
     1. **Crea el dominio `codigo_barras_demo`**, basado en `VARCHAR(13)`, para admitir únicamente textos formados por exactamente 13 dígitos.
 
     2. **Crea el tipo enumerado `estado_producto_demo`**, con los valores `Disponible`, `Agotado` y `En espera`.
 
-    3. **Crea la tabla `productos_demo`** con código, nombre, precio, stock, stock mínimo, código de barras y estado. Utiliza el dominio y el tipo enumerado que acabas de definir.
+    3. **Crea la tabla `productos_demo`** con los campos del modelo. Utiliza `SERIAL` en `id_producto` y decláralo como clave primaria. Aplica el dominio a `codigo_barras` y el tipo enumerado a `estado`.
 
     4. **Añade las validaciones**: precio, stock y stock mínimo deben ser no negativos. Define además `stock >= stock_minimo` como **restricción de tabla con nombre**.
 

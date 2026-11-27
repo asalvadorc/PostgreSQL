@@ -7,18 +7,18 @@
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>ALTER TABLE [esquema.]tabla</code><br/><code>    { ADD | DROP | ALTER }</code><br/><code>    { COLUMN columna | CONSTRAINT restriccion_de_tabla } ...;</code></td></tr>
+    <tr><td><code>ALTER TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span></code><br/><code>    { <span class="ddl-option">ADD</span> | <span class="ddl-option">DROP</span> | <span class="ddl-option">ALTER</span> }</code><br/><code>    { <span class="ddl-option">COLUMN</span> <span class="ddl-field">columna</span> | <span class="ddl-constraint">CONSTRAINT</span> <span class="ddl-constraint">restriccion_de_tabla</span> } ...;</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `ADD`: añade una columna o una restricción.
-    - `DROP`: elimina una columna o una restricción.
-    - `ALTER`: modifica una propiedad de una columna o, en los casos permitidos, de una restricción.
-    - `COLUMN`: actúa sobre una columna.
-    - `CONSTRAINT`: actúa sobre una restricción de tabla.
-    - `...`: representa los detalles que necesita cada operación. Es un esquema general; no todas las combinaciones son válidas.
+    - <code><span class="ddl-option">ADD</span></code>: añade una columna o una restricción.
+    - <code><span class="ddl-option">DROP</span></code>: elimina una columna o una restricción.
+    - <code><span class="ddl-option">ALTER</span></code>: modifica una propiedad de una columna o, en los casos permitidos, de una restricción.
+    - <code><span class="ddl-option">COLUMN</span></code>: actúa sobre una columna.
+    - <code><span class="ddl-constraint">CONSTRAINT</span></code>: actúa sobre una restricción de tabla.
+    - <code>...</code>: representa los detalles que necesita cada operación. Es un esquema general; no todas las combinaciones son válidas.
 
 Antes de añadir una restricción, los datos existentes deben cumplirla. Para cambiar la definición de un `CHECK` o una clave ajena, se elimina la restricción y se crea de nuevo.
 
@@ -97,19 +97,50 @@ Continúa con las ocho tablas ya creadas. Ahora modificarás su estructura con `
 
 !!! ejercicio "Juegos"
 
-    Añade mediante `ALTER TABLE` la clave primaria de `categorias`, que debe estar formada por `id_categoria`.
+    Desde la conexión **Juegos**, utiliza `ALTER TABLE` para añadir a `categorias` la clave primaria que dejamos pendiente en el ejercicio 1. No vuelvas a crear la tabla.
+
+    **Modelo relacional que debe quedar**
+
+    **CATEGORIAS** (<u>id_categoria</u>, descripcion)
+
+    - PK: (id_categoria)
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 12: Completar productos y la relación reflexiva</span></span> {#ejercicio-12-completar-productos-y-la-relacion-reflexiva}
 
 !!! ejercicio "Juegos"
 
-    En `productos`, añade la clave primaria sobre `id_producto` y la clave ajena `id_categoria` hacia `categorias(id_categoria)`. Completa también la relación reflexiva pendiente: `vendedores.id_jefe` debe referenciar a `vendedores.id_vendedor` y admitir nulos para los vendedores sin jefe.
+    Desde la conexión **Juegos**, completa con `ALTER TABLE` las claves pendientes de `productos` y la relación reflexiva de `vendedores`. Conserva sus columnas y las restricciones que ya tienen.
+
+    **Modelos relacionales que deben quedar**
+
+    **PRODUCTOS** (<u>id_producto</u>, nombre, precio, stock, stock_minimo, <mark>id_categoria</mark>)
+
+    - PK: (id_producto)
+    - FK: id_categoria → CATEGORIAS(id_categoria)
+
+    **VENDEDORES** (<u>id_vendedor</u>, nombre, direccion, codigo_postal, <mark>id_ciudad</mark>, <mark>id_jefe</mark>)
+
+    - PK: (id_vendedor)
+    - FK: id_ciudad → CIUDADES(id_ciudad)
+    - FK: id_jefe → VENDEDORES(id_vendedor)
+
+    Añade la PK de `productos` y su FK hacia `categorias`. En `vendedores`, añade únicamente la FK de `id_jefe` hacia `id_vendedor`; la PK y la FK de `id_ciudad` ya existen. `id_jefe` debe admitir nulos para los vendedores sin jefe.
 
 ### <span class="exercise-title"><span class="exercise-icon">📝</span><span>Ejercicio 13: Añadir las FK de lineas_compra</span></span> {#ejercicio-13-anadir-las-fk-de-lineas_compra}
 
 !!! ejercicio "Juegos"
 
-    Añade las FK de `lineas_compra`: hacia `compras` con `ON DELETE CASCADE`, y hacia `productos` con `NO ACTION`. Revisa que hay ocho PK y nueve FK.
+    Desde la conexión **Juegos**, utiliza `ALTER TABLE` para completar las dos claves ajenas de `lineas_compra`, pendientes desde el ejercicio 8. Conserva la PK compuesta y la obligatoriedad de `id_producto`.
+
+    **Modelo relacional que debe quedar**
+
+    **LINEAS_COMPRA** (<u><mark>id_compra</mark>, num_linea</u>, <mark>id_producto</mark>, cantidad, precio_unitario, descuento_linea)
+
+    - PK: (id_compra, num_linea)
+    - FK: id_compra → COMPRAS(id_compra)
+    - FK: id_producto → PRODUCTOS(id_producto) <span class="tag-no-nulo">[no nulo]</span>
+
+    Define la FK hacia `compras` con **ON DELETE CASCADE**, para que al borrar una compra se borren sus líneas. La FK hacia `productos` debe usar **NO ACTION**. Al terminar, comprueba que Juegos tiene ocho PK y nueve FK.
 
 **Antes de continuar:** Comprueba que hay ocho PK y nueve FK. La columna temporal `alias` debe haber desaparecido. Conserva todas las tablas vacías para la carga de DML. Los ejercicios de índices y vistas se realizarán después, en DQL.
 

@@ -1,4 +1,4 @@
-# Crear bases de datos
+# Bases de Datos
 
 Una **base de datos** contiene los esquemas y objetos con los que trabajaremos. `CREATE DATABASE` crea una base de datos nueva dentro del servidor PostgreSQL; después debemos conectarnos a ella para crear sus tablas.
 
@@ -7,14 +7,14 @@ Una **base de datos** contiene los esquemas y objetos con los que trabajaremos. 
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE DATABASE nombre_bd</code><br/><code>    [ OWNER nombre_usuario ];</code></td></tr>
+    <tr><td><code>CREATE DATABASE <span class="ddl-table">nombre_bd</span></code><br/><code>    [ <span class="ddl-option">OWNER</span> <span class="ddl-table">nombre_usuario</span> ];</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `nombre_bd`: nombre de la nueva base de datos.
-    - `OWNER`: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.
+    - <code><span class="ddl-table">nombre_bd</span></code>: nombre de la nueva base de datos.
+    - <code><span class="ddl-option">OWNER</span></code>: indica su propietario; si se omite, será el usuario que ejecuta la sentencia.
 
 
 Primero crearemos **`empresa` y su conexión**, como ejemplo guiado. Después crearás **`juegos`**, como ejercicio 0. Ambas bases de datos estarán en el servidor PostgreSQL que preparamos en Inicio.

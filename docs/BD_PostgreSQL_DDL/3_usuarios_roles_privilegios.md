@@ -13,35 +13,35 @@ En PostgreSQL los permisos se asignan a **roles**. Un rol que puede iniciar sesi
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE USER nombre PASSWORD 'contraseña';</code></td></tr>
-    <tr><td><code>ALTER USER nombre PASSWORD 'nueva_contraseña';</code></td></tr>
-    <tr><td><code>GRANT privilegio [, ...]</code><br/><code>    ON TABLE [esquema.]tabla TO usuario;</code></td></tr>
-    <tr><td><code>REVOKE privilegio [, ...]</code><br/><code>    ON TABLE [esquema.]tabla FROM usuario;</code></td></tr>
-    <tr><td><code>DROP USER nombre;</code></td></tr>
+    <tr><td><code>CREATE USER <span class="ddl-table">nombre</span> PASSWORD <span class="ddl-default">'contraseña'</span>;</code></td></tr>
+    <tr><td><code>ALTER USER <span class="ddl-table">nombre</span> PASSWORD <span class="ddl-default">'nueva_contraseña'</span>;</code></td></tr>
+    <tr><td><code>GRANT <span class="ddl-option">privilegio</span> [, ...]</code><br/><code>    ON TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span> <span class="ddl-option">TO</span> <span class="ddl-table">usuario</span>;</code></td></tr>
+    <tr><td><code>REVOKE <span class="ddl-option">privilegio</span> [, ...]</code><br/><code>    ON TABLE [<span class="ddl-table">esquema</span>.]<span class="ddl-table">tabla</span> <span class="ddl-option">FROM</span> <span class="ddl-table">usuario</span>;</code></td></tr>
+    <tr><td><code>DROP USER <span class="ddl-table">nombre</span>;</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    **`CREATE USER`**
+    **<code>CREATE USER</code>**
 
-    - `CREATE USER`: crea un rol con permiso para iniciar sesión.
-    - `PASSWORD`: establece su contraseña.
+    - <code>CREATE USER</code>: crea un rol con permiso para iniciar sesión.
+    - <code>PASSWORD</code>: establece su contraseña.
 
-    **`ALTER USER`**
+    **<code>ALTER USER</code>**
 
-    - `PASSWORD`: cambia la contraseña.
+    - <code>PASSWORD</code>: cambia la contraseña.
 
-    **`GRANT privilegio`**
+    **<code>GRANT <span class="ddl-option">privilegio</span></code>**
 
-    - `TO`: usuario que recibe los permisos.
-    - Para una tabla: `SELECT`, `INSERT`, `UPDATE` y `DELETE`, entre otros.
+    - <code><span class="ddl-option">TO</span></code>: usuario que recibe los permisos.
+    - Para una tabla: <code><span class="ddl-option">SELECT</span></code>, <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code>, entre otros.
 
-    **`REVOKE privilegio`**
+    **<code>REVOKE <span class="ddl-option">privilegio</span></code>**
 
-    - `FROM`: usuario al que se retira el permiso concedido.
+    - <code><span class="ddl-option">FROM</span></code>: usuario al que se retira el permiso concedido.
 
-    **`DROP USER`**
+    **<code>DROP USER</code>**
 
     - Antes deben eliminarse o reasignarse sus objetos y retirarse sus permisos en las bases de datos correspondientes.
 
@@ -173,33 +173,33 @@ Ahora sustituiremos el permiso de consulta concedido directamente a `lector_demo
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>CREATE ROLE nombre_rol NOLOGIN;</code></td></tr>
-    <tr><td><code>GRANT SELECT ON TABLE tabla TO nombre_rol;</code></td></tr>
-    <tr><td><code>GRANT nombre_rol TO usuario;</code></td></tr>
-    <tr><td><code>REVOKE nombre_rol FROM usuario;</code></td></tr>
-    <tr><td><code>DROP ROLE nombre_rol;</code></td></tr>
+    <tr><td><code>CREATE ROLE <span class="ddl-table">nombre_rol</span> <span class="ddl-option">NOLOGIN</span>;</code></td></tr>
+    <tr><td><code>GRANT <span class="ddl-option">SELECT</span> ON TABLE <span class="ddl-table">tabla</span> <span class="ddl-option">TO</span> <span class="ddl-table">nombre_rol</span>;</code></td></tr>
+    <tr><td><code>GRANT <span class="ddl-table">nombre_rol</span> <span class="ddl-option">TO</span> <span class="ddl-table">usuario</span>;</code></td></tr>
+    <tr><td><code>REVOKE <span class="ddl-table">nombre_rol</span> <span class="ddl-option">FROM</span> <span class="ddl-table">usuario</span>;</code></td></tr>
+    <tr><td><code>DROP ROLE <span class="ddl-table">nombre_rol</span>;</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    **`CREATE ROLE`**
+    **<code>CREATE ROLE</code>**
 
-    - `NOLOGIN`: impide iniciar sesión con el rol; es el valor predeterminado de `CREATE ROLE`.
+    - <code><span class="ddl-option">NOLOGIN</span></code>: impide iniciar sesión con el rol; es el valor predeterminado de <code>CREATE ROLE</code>.
 
-    **`GRANT SELECT`**
+    **<code>GRANT <span class="ddl-option">SELECT</span></code>**
 
     - Concede el permiso al grupo.
 
-    **`GRANT nombre_rol`**
+    **<code>GRANT <span class="ddl-table">nombre_rol</span></code>**
 
-    - Incorpora el usuario al rol; no lleva `ON TABLE`.
+    - Incorpora el usuario al rol; no lleva <code>ON TABLE</code>.
 
-    **`REVOKE nombre_rol`**
+    **<code>REVOKE <span class="ddl-table">nombre_rol</span></code>**
 
     - Retira la pertenencia, sin eliminar el usuario ni el rol.
 
-    **`DROP ROLE`**
+    **<code>DROP ROLE</code>**
 
     - Antes deben retirarse sus permisos y resolverse sus dependencias.
 

@@ -12,15 +12,15 @@ hide:
     <div class="syntax-table-wrap">
     <table class="syntax-table syntax-completa">
     <tbody>
-    <tr><td><code>DROP TABLE [ IF EXISTS ] [esquema.]nombre [, ...]</code><br/><code>    [ CASCADE | RESTRICT ];</code></td></tr>
+    <tr><td><code>DROP TABLE [ <span class="ddl-option">IF EXISTS</span> ] [<span class="ddl-table">esquema</span>.]<span class="ddl-table">nombre</span> [, ...]</code><br/><code>    [ <span class="ddl-option">CASCADE</span> | <span class="ddl-option">RESTRICT</span> ];</code></td></tr>
     </tbody></table>
     </div>
 
     **Opciones**
 
-    - `IF EXISTS`: evita el error si no existe.
-    - `RESTRICT`: impide borrar si hay dependencias (por defecto).
-    - `CASCADE`: elimina también objetos dependientes.
+    - <code><span class="ddl-option">IF EXISTS</span></code>: evita el error si no existe.
+    - <code><span class="ddl-option">RESTRICT</span></code>: impide borrar si hay dependencias (por defecto).
+    - <code><span class="ddl-option">CASCADE</span></code>: elimina también objetos dependientes.
 
 
 - `IF EXISTS`: si la tabla no existe, emite un aviso en lugar de un error.

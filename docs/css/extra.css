@@ -1394,6 +1394,10 @@ body.table-zoom-open { overflow: hidden; }
     border: 1px solid var(--md-default-fg-color--lighter);
     background: var(--md-default-bg-color);
 }
+.md-typeset .sintaxis code {
+    background: transparent;
+    box-shadow: none;
+}
 .md-typeset .sintaxis .syntax-table-wrap {
     overflow-x: auto;
     margin: 1em 0;
@@ -1522,3 +1526,29 @@ body.table-zoom-open { overflow: hidden; }
 [data-md-color-scheme="slate"] .md-typeset .admonition.ejercicio > .admonition-title::before {
     background-color: #f0bf59;
 }
+
+/* Colores semánticos de la sintaxis DDL y sus explicaciones. */
+.md-typeset .ddl-table { color: #0f6878; }
+.md-typeset .ddl-field { color: #155bb5; }
+.md-typeset .ddl-type { color: #237038; }
+.md-typeset .ddl-default { color: #a4460a; }
+.md-typeset .ddl-constraint { color: #8539a5; }
+[data-md-color-scheme="slate"] .md-typeset .ddl-table { color: #6dd9df; }
+[data-md-color-scheme="slate"] .md-typeset .ddl-field { color: #83b8ff; }
+[data-md-color-scheme="slate"] .md-typeset .ddl-type { color: #8fdb9d; }
+[data-md-color-scheme="slate"] .md-typeset .ddl-default { color: #ffc078; }
+[data-md-color-scheme="slate"] .md-typeset .ddl-constraint { color: #d9a1f3; }
+
+/* Opciones de las sentencias: categoría común para toda la sintaxis DDL. */
+.md-typeset .ddl-option { color: #a33153; }
+[data-md-color-scheme="slate"] .md-typeset .ddl-option { color: #ffa7bb; }
+
+/* Dos definiciones equivalentes de una tabla, comparadas en paralelo. */
+.md-typeset .ddl-compare-wrap { overflow-x: auto; margin: 1rem 0; }
+.md-typeset .ddl-compare { width: 100%; min-width: 650px; table-layout: fixed; border-collapse: collapse; }
+.md-typeset .ddl-compare th,
+.md-typeset .ddl-compare td { width: 50%; padding: 0.8rem; border: 1px solid var(--md-default-fg-color--lighter); text-align: left; vertical-align: top; }
+.md-typeset .ddl-compare pre { margin: 0; }
+.md-typeset .ddl-compare pre,
+.md-typeset .ddl-compare code { background: transparent; box-shadow: none; white-space: pre-wrap; overflow-wrap: normal; word-break: normal; }
+.md-typeset .ddl-compare code { padding: 0; font-size: 0.68rem; line-height: 1.65; }
